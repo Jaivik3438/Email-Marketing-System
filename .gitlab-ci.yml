@@ -1,0 +1,22 @@
+variables:
+  GIT_STRATEGY: clone
+
+build:
+  stage: build
+  tags: ["dalfcs_gitlab_docker_ci"]
+  image: gradle:alpine
+  script: ./gradlew assemble
+
+deploy-test:
+  stage: deploy
+  tags: ["dalfcs_gitlab_docker_ci"]
+  image: ruby :2.6
+  script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dp
+  - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+  only:
+  - develop
+
+
