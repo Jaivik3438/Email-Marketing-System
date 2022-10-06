@@ -10,7 +10,7 @@ build:
 deploy-test:
   stage: deploy
   tags: ["dalfcs_gitlab_docker_ci"]
-  image: ruby :2.6
+  image: ruby:2.6
   script:
   - apt-get update -qy
   - apt-get install -y ruby-dev
