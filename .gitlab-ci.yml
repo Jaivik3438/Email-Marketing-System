@@ -7,6 +7,12 @@ build:
   image: gradle:alpine
   script: ./gradlew assemble
 
+test:
+  stage: test
+  tags: ["dalfcs_gitlab_docker_ci"]
+  image: gradle:alpine
+  script: ./gradlew check
+
 deploy-test:
   stage: deploy
   tags: ["dalfcs_gitlab_docker_ci"]
@@ -16,6 +22,7 @@ deploy-test:
   - apt-get install -y ruby-dev
   - gem install dpl
   - dpl --provider=heroku --app=$HEROKU_TESTAPP_NAME --api-key=$HEROKU_API_KEY
+  - ./gradlew bootRun
   only:
   - develop
 
