@@ -16,20 +16,12 @@ public class AccessController {
     @GetMapping("/access")
     public String index()  {
         Connection dbConn=null;
-        String url="jdbc:mysql://localhost:3306/ems?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false";
 
-        String password="rootroot";
-        String userName="root";
         try {
-            dbConn =MySqlPersistenceConnection.getConnection(url,userName,password);
+            dbConn =MySqlPersistenceConnection.getInstance().getConnection();
 
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-
         }
 
 

@@ -6,25 +6,38 @@ import java.sql.SQLException;
 
 public class MySqlPersistenceConnection {
     private static Connection conn;
+    private static MySqlPersistenceConnection instance;
 
-    private MySqlPersistenceConnection(){
+    private String mysqlurl="jdbc:mysql://localhost:3306/ems?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false";
 
+    private String password="rootroot";
+    private String userName="root";
+
+    private MySqlPersistenceConnection() throws SQLException {
+        try {
+            connect();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static Connection getConnection(String DbUrl,String userName,String password) throws ClassNotFoundException, SQLException {
-        if (conn!=null){
-            return conn;
+    public void connect() throws SQLException, ClassNotFoundException {
+        System.out.println(mysqlurl);
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        this.conn = DriverManager.getConnection(mysqlurl, userName, password);
+    }
+
+    public static MySqlPersistenceConnection getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new MySqlPersistenceConnection();
+            return instance;
+        } else if (instance.getConnection().isClosed()) {
+            instance = new MySqlPersistenceConnection();
         }
+        return instance;
+    }
 
-        synchronized (conn){
-            if (conn==null){
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection(DbUrl, userName,password);
-            }
-            return conn;
-
-        }
-
-
+    public Connection getConnection() {
+        return conn;
     }
 }
