@@ -1,6 +1,7 @@
 package com.ems.authentication.persistence;
 
 import com.ems.authentication.Exception.DatabaseNotFound;
+import com.ems.authentication.Exception.UserAlreadyRegisteredException;
 import com.ems.authentication.model.User;
 
 import java.sql.Connection;
@@ -38,4 +39,30 @@ public class UserDB implements IUserPersistence{
         }
         return user;
     }
+
+    public boolean isUserRegistered(String email) throws SQLException{
+        if(connection!=null){
+            String sql="select user_id from user where email= ?";
+        try {
+            String userId = null;
+            PreparedStatement stmt=connection.prepareStatement(sql);
+            stmt.setString(1, email);
+            
+            ResultSet rs = stmt.executeQuery();
+           
+            while (rs.next()){
+                userId = rs.getString("user_id");   
+            }
+
+            if(userId.length() > 0){
+                throw new UserAlreadyRegisteredException();
+            }
+
+        } catch(UserAlreadyRegisteredException exception){
+            return true;
+        } 
+        }
+        return false;
+    }
+
 }
