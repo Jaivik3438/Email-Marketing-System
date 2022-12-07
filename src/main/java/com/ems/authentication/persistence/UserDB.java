@@ -1,6 +1,6 @@
 package com.ems.authentication.persistence;
 
-import com.ems.authentication.Exception.DatabaseNotFound;
+import com.ems.authentication.exception.DatabaseNotFound;
 import com.ems.authentication.model.User;
 
 import java.sql.Connection;

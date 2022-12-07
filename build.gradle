@@ -39,9 +39,12 @@ task fatJar(type: Jar) {
 }
 dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'mysql:mysql-connector-java:5.1.6'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation('io.jsonwebtoken:jjwt:0.9.1')
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
 	//testImplementation 'org.springframework.security:spring-security-test'
 }
 
