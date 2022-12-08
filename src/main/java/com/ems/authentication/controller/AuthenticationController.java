@@ -39,8 +39,8 @@ public class AuthenticationController {
             String password=((String[])parameters.get("password"))[0];
             Connection conn= null;
             conn = MySqlPersistenceConnection.getInstance().getConnection();
-            IAuthenticate authenticate=new Authenticate(new UserDB(conn),new MD5());
-            State loginState=authenticate.login(email,password);
+            IAuthenticate authenticate=new Authenticate();
+            State loginState=authenticate.login(email,password,new UserDB(conn),new MD5());
             mv.setViewName(loginState.redirectUrl);
             mv.addObject("message",(String)loginState.message);
             HttpSession session1 =request.getSession();
@@ -57,22 +57,15 @@ public class AuthenticationController {
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
 
-
-
         try {
-
             Connection conn= null;
             conn = MySqlPersistenceConnection.getInstance().getConnection();
-            IAuthenticate authenticate=new Authenticate(new UserDB(conn),new MD5());
+            IAuthenticate authenticate=new Authenticate();
             authenticate.logout(request.getSession());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
-        return "logoutSuccesfull";
+        return "logoutSuccessful";
     }
 }
