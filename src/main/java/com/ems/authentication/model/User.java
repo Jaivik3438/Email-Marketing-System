@@ -11,15 +11,12 @@ public class User {
     public String role;
     public String company;
 
-User(HttpServletRequest request){
- this.email= (String)request.getAttribute("email");
- this.password= (String)request.getAttribute("password");
-}
+
 public User(){
 
 }
     public User loadUser(IUserPersistence persistence) throws Exception{
-    persistence.loadUser(this);
-     return this;
+    User user= persistence.loadUser(this);
+     return user;
     }
 }
