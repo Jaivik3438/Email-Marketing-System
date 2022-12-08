@@ -1,8 +1,8 @@
 package com.ems.companyDetails.persistence;
 
-import com.ems.authentication.model.User;
-import com.ems.companyDetails.model.companyDetails;
+import com.ems.companyDetails.model.CompanyDetails;
 
 public interface ICompanyDetailsPersistence {
-    public companyDetails loadcompanyDetails(companyDetails company) throws Exception;
+    public CompanyDetails loadcompanyDetails(CompanyDetails company) throws Exception;
+    public int saveCompanyDetails(CompanyDetails saveCompany) throws Exception ;
 }

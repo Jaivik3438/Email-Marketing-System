@@ -40,6 +40,7 @@ task fatJar(type: Jar) {
 dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//testImplementation 'org.springframework.security:spring-security-test'
