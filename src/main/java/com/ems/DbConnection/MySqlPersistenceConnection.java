@@ -8,10 +8,10 @@ public class MySqlPersistenceConnection {
     private static Connection conn;
     private static MySqlPersistenceConnection instance;
 
-    private String mysqlurl="jdbc:mysql://localhost:3306/ems?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false";
+    private String mysqlurl="jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_8_DEVINT?useSSL=false";
 
-    private String password="rootroot";
-    private String userName="root";
+    private String password="wn3SKymKCd";
+    private String userName="CSCI5308_8_DEVINT_USER";
 
     private MySqlPersistenceConnection() throws SQLException {
         try {
@@ -28,8 +28,10 @@ public class MySqlPersistenceConnection {
     }
 
     public static MySqlPersistenceConnection getInstance() throws SQLException {
-        if (instance == null) {
+
+        if (null == instance) {
             instance = new MySqlPersistenceConnection();
+            System.out.println(instance);
             return instance;
         } else if (instance.getConnection().isClosed()) {
             instance = new MySqlPersistenceConnection();

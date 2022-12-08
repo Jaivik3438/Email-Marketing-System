@@ -1,4 +1,4 @@
-package com.ems.authentication.Exception;
+package com.ems.authentication.exception;
 
 public class DatabaseNotFound extends Exception{
     public DatabaseNotFound(){

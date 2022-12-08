@@ -1,6 +1,6 @@
 package com.ems.authentication.persistence;
 
-import com.ems.authentication.Exception.DatabaseNotFound;
+import com.ems.authentication.exception.DatabaseNotFound;
 import com.ems.authentication.model.User;
 
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class UserDB implements IUserPersistence{
 
     public Connection connection;
-    UserDB(Connection conn){
+    public UserDB(Connection conn){
         this.connection=conn;
     }
 
