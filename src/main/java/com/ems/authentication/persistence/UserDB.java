@@ -1,6 +1,10 @@
 package com.ems.authentication.persistence;
 
+<<<<<<< .merge_file_7a1isb
 import com.ems.authentication.Exception.DatabaseNotFound;
+=======
+import com.ems.authentication.exception.DatabaseNotFound;
+>>>>>>> .merge_file_ILsqOe
 import com.ems.authentication.model.User;
 
 import java.sql.Connection;
@@ -11,7 +15,11 @@ import java.sql.SQLException;
 public class UserDB implements IUserPersistence{
 
     public Connection connection;
+<<<<<<< .merge_file_7a1isb
     UserDB(Connection conn){
+=======
+    public UserDB(Connection conn){
+>>>>>>> .merge_file_ILsqOe
         this.connection=conn;
     }
 
