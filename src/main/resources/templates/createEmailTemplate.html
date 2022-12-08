@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Email Template : EMS</title>
+</head>
+<body>
+  <form method="post" th:action="@{/api/email-template}">
+      <div>
+          Name:
+          <input type="text" name="name" id="name">
+      </div>
+      <div>
+          Subject:
+          <input type="text" name="subject" id="subject">
+      </div>
+      <div>
+          Description:
+          <input type="text" name="description" id="description">
+      </div>
+      <div>
+          Landing Page Link:
+          <input type="text" name="landingPageLink" id="landingPageLink">
+      </div>
+      <button type="submit">Create</button>
+  </form>
+</body>
+</html>

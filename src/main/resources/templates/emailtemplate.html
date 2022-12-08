@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Email template | EMS</title>
+    <link rel="stylesheet" href="styles/emailtemplate.css">
+</head>
+<body>
+    <div class="templates">
+        <div class="header">
+            <h1 class="main-title">Email Template</h1>
+            <a href="/create-email-template" class="button">Create Template</a>
+        </div>
+        <div th:each="template: ${emailTemplates} " class="email-template">
+            <div>
+                <span class="title" th:text="${template.templateName}"/>
+            </div>
+            <div>
+                <span class="label">Subject: </span><span class="subject" th:text="${template.templateSubject}"/>
+            </div>
+            <div>
+               <span class="description" th:text="${template.templateDescription}"/>
+            </div>
+            <a class="email-template__link" th:href="${template.landingPageLink}">Explore Now</a>
+        </div>
+    </div>
+</body>
+</html>
