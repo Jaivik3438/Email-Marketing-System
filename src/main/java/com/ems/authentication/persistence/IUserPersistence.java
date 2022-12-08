@@ -1,6 +1,6 @@
 package com.ems.authentication.persistence;
 
-import com.ems.authentication.Exception.UserAlreadyRegisteredException;
+import com.ems.authentication.exception.UserAlreadyRegisteredException;
 import com.ems.authentication.model.User;
 
 import java.sql.Connection;

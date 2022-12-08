@@ -26,10 +26,6 @@ public class User {
         this.password = generatePasswordHash(password);
     }
 
-    public User loadUser(IUserPersistence persistence) throws Exception {
-        persistence.loadUser(this);
-        return new User();
-    }
 
     public boolean isUserRegistered(String email) {
         // implement logic to call method from UserDB using IUserPersistence.
@@ -83,9 +79,10 @@ public class User {
         } catch (NoSuchAlgorithmException exception) {
             return "Error: Password Hashing " + exception.getMessage();
         }
-        public User loadUser(IUserPersistence persistence) throws Exception{
-            User user= persistence.loadUser(this);
-            return user;
     }
-        
+
+    public User loadUser(IUserPersistence persistence) throws Exception {
+        User user = persistence.loadUser(this);
+        return user;
+    }
 }

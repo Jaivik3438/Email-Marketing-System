@@ -1,6 +1,9 @@
 package com.ems.authentication.persistence;
 
 import com.ems.authentication.exception.DatabaseNotFound;
+import com.ems.authentication.exception.UserAlreadyRegisteredException;
+import com.ems.authentication.model.Company;
+import com.ems.authentication.model.Role;
 import com.ems.authentication.model.User;
 
 import java.sql.Connection;
@@ -33,8 +36,13 @@ public class UserDB implements IUserPersistence {
                 resultUser.userId=rs.getString("user_id");
                 resultUser.email=rs.getString("email");
                 resultUser.password=rs.getString("password");
-                resultUser.role=rs.getString("role_name");
-                resultUser.company=rs.getString("company_name");
+                Role role=new Role();
+                role.name=rs.getString("role_name");
+                resultUser.role=role;
+                Company company = new Company();
+                company.name=rs.getString("company_name");
+                company.companyId=rs.getString("company_Id");
+                resultUser.company=company;
                 return resultUser;
             }
         } catch (SQLException e) {
