@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class UserDB implements IUserPersistence{
 
     public Connection connection;
-    UserDB(Connection conn){
+    public UserDB(Connection conn){
         this.connection=conn;
     }
 
