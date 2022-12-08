@@ -1,7 +1,6 @@
 package com.ems.authentication.persistence;
 
-import com.ems.authentication.Exception.DatabaseNotFound;
-import com.ems.authentication.Exception.UserAlreadyRegisteredException;
+import com.ems.authentication.exception.DatabaseNotFound;
 import com.ems.authentication.model.User;
 
 import java.sql.Connection;
@@ -14,33 +13,35 @@ import java.util.Date;
 public class UserDB implements IUserPersistence {
 
     public Connection connection;
-
-    UserDB(Connection conn) {
-        this.connection = conn;
+    public UserDB(Connection conn){
+        this.connection=conn;
     }
 
     public User loadUser(User user) throws Exception {
         if (connection == null) {
             throw new DatabaseNotFound();
         }
-        String sql = "select * from user,role,companydetails where user.roleId=role.roleId and user.company_id=company_details.company_id and  email= ?";
+        String sql="select * from user,role,company_details where user.role_Id=role.role_Id and user.company_id=company_details.company_id and  email= ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, user.email);
 
             ResultSet rs = stmt.executeQuery();
-            User resultUser = new User();
-            while (rs.next()) {
-                resultUser.userId = rs.getString("user_id");
-                resultUser.email = rs.getString("email");
-                resultUser.password = rs.getString("password");
-                resultUser.role.roleId = rs.getString("role");
-                resultUser.company.companyId = rs.getString("company_name");
+
+            while (rs.next()){
+                User resultUser=new User();
+                resultUser.userId=rs.getString("user_id");
+                resultUser.email=rs.getString("email");
+                resultUser.password=rs.getString("password");
+                resultUser.role=rs.getString("role_name");
+                resultUser.company=rs.getString("company_name");
+                return resultUser;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
-        return user;
+        return null;
     }
 
     public boolean isUserRegistered(String email) throws SQLException {

@@ -8,6 +8,8 @@ import java.util.UUID;
 
 import com.ems.authentication.persistence.IUserPersistence;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class User {
     public String userId;
     public String email;
@@ -81,6 +83,9 @@ public class User {
         } catch (NoSuchAlgorithmException exception) {
             return "Error: Password Hashing " + exception.getMessage();
         }
-
+        public User loadUser(IUserPersistence persistence) throws Exception{
+            User user= persistence.loadUser(this);
+            return user;
     }
+        
 }
