@@ -5,7 +5,17 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MD5 implements IHash {
+    private static MD5 instance;
+    private MD5(){
 
+    }
+    public static MD5 getInstance(){
+        if (instance==null){
+            instance=new MD5();
+
+        }
+        return instance;
+    }
     @Override
     public String hash(String plainString) throws NoSuchAlgorithmException {
         //code referred  from https://stackoverflow.com/questions/415953/how-can-i-generate-an-md5-hash-in-java

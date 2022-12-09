@@ -46,7 +46,7 @@ public class AuthenticationController {
             Connection conn= null;
             conn = MySqlPersistenceConnection.getInstance().getConnection();
             IAuthenticate authenticate=new Authenticate();
-            State loginState=authenticate.login(email,password,new UserDB(conn),new MD5());
+            State loginState=authenticate.login(email,password,new UserDB(conn),MD5.getInstance());
             mv.setViewName(loginState.redirectUrl);
             mv.addObject("message",(String)loginState.message);
             HttpSession session1 =request.getSession();
