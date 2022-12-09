@@ -47,4 +47,9 @@ public class EmailTemplateUIController {
     public String emailTemplateForm(Model model) {
         return "createEmailTemplate";
     }
+
+    @GetMapping("/create-email-template-error")
+    public String createEmailTemplateError() {
+        return "createEmailTemplateError";
+    }
 }

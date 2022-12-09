@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Email Template : EMS</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/email-form.css">
 </head>
 <body>
-  <form method="post" th:action="@{/api/email-template}">
-      <div>
-          Name:
-          <input type="text" name="name" id="name">
+  <form class="email-template-form" method="post" action="api/email-template">
+      <h2 class="form-title">Create Email Template</h2>
+      <div class="input-group">
+          <span class="label">Template Name</span>
+          <input required class="input-field" type="text" name="name" />
       </div>
-      <div>
-          Subject:
-          <input type="text" name="subject" id="subject">
+      <div class="input-group">
+          <span class="label">Template Subject</span>
+          <input required class="input-field" type="text" name="subject" />
       </div>
-      <div>
-          Description:
-          <input type="text" name="description" id="description">
+      <div class="input-group">
+          <span class="label">Description</span>
+          <textarea required class="input-field" rows="5" name="description" ></textarea>
       </div>
-      <div>
-          Landing Page Link:
-          <input type="text" name="landingPageLink" id="landingPageLink">
+      <div class="input-group">
+          <span class="label">Landing Page Link</span>
+          <input class="input-field" type="text" name="landingPageLink" />
       </div>
-      <button type="submit">Create</button>
+      <button class="button button--form" type="submit">Create Now</button>
   </form>
 </body>
 </html>
