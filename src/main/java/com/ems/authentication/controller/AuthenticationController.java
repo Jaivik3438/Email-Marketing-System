@@ -10,7 +10,7 @@ import com.ems.authentication.persistence.UserDB;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,8 +21,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ems.authentication.dto.RegisterUserDto;
+import com.ems.authentication.model.User;
+
 @Controller()
-@RequestMapping(value = "/authentication")
+@RequestMapping("/authentication")
 public class AuthenticationController {
     @RequestMapping(value = "/index")
     public String index(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
@@ -30,6 +35,7 @@ public class AuthenticationController {
         return "login";
     }
     @RequestMapping(value = "/login")
+
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
         ModelAndView mv = new ModelAndView();
 
@@ -39,8 +45,8 @@ public class AuthenticationController {
             String password=((String[])parameters.get("password"))[0];
             Connection conn= null;
             conn = MySqlPersistenceConnection.getInstance().getConnection();
-            IAuthenticate authenticate=new Authenticate(new UserDB(conn),new MD5());
-            State loginState=authenticate.login(email,password);
+            IAuthenticate authenticate=new Authenticate();
+            State loginState=authenticate.login(email,password,new UserDB(conn),MD5.getInstance());
             mv.setViewName(loginState.redirectUrl);
             mv.addObject("message",(String)loginState.message);
             HttpSession session1 =request.getSession();
@@ -50,29 +56,40 @@ public class AuthenticationController {
         }
 
 
-
-
         return mv;
     }
     @RequestMapping(value = "/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
 
-
+    public String logout(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
 
         try {
-
-            Connection conn= null;
+            Connection conn = null;
             conn = MySqlPersistenceConnection.getInstance().getConnection();
-            IAuthenticate authenticate=new Authenticate(new UserDB(conn),new MD5());
+            IAuthenticate authenticate = new Authenticate();
             authenticate.logout(request.getSession());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "logoutSuccessful";
+    }
 
+    @PostMapping("/register")
+    @ResponseBody
+    public String register(@RequestBody RegisterUserDto registerUserDto) {
+        String email = registerUserDto.email;
+        String password = registerUserDto.password;
 
+        // Validate the input credentials by the user.
+        if (email.isEmpty() || password.isEmpty()) {
+            return "Invalid Credentials";
+        }
+        // validate is user already exists or not
 
+        // Register User
+        User newRegisteredUser = new User(email, password);
 
-        return "logoutSuccesfull";
+        return newRegisteredUser.toString();
+
     }
 }
