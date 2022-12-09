@@ -2,7 +2,9 @@ package com.ems.companyDetails.persistence;
 
 import com.ems.companyDetails.model.CompanyDetails;
 
+import java.util.List;
+
 public interface ICompanyDetailsPersistence {
-    public CompanyDetails loadcompanyDetails(CompanyDetails company) throws Exception;
+    public List<CompanyDetails> loadcompanyDetails(CompanyDetails company) throws Exception;
     public int saveCompanyDetails(CompanyDetails saveCompany) throws Exception ;
 }

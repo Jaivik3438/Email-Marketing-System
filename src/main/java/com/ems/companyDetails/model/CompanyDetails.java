@@ -2,6 +2,9 @@ package com.ems.companyDetails.model;
 
 import com.ems.companyDetails.persistence.ICompanyDetailsPersistence;
 
+import java.util.List;
+import java.util.UUID;
+
 public class CompanyDetails {
     public String company_id;
     public String company_name;
@@ -11,9 +14,7 @@ public class CompanyDetails {
     public String facebook_link;
     public String instagram_link;
     public String twitter_url;
-    public String getCompany_id() {
-        return company_id;
-    }
+
 
     @Override
     public String toString() {
@@ -30,9 +31,11 @@ public class CompanyDetails {
     }
 
     public CompanyDetails(){
-
+        this.company_id = generateId();
     }
-    public CompanyDetails(String company_name, String website_link, String company_email, String owner_name, String facebook_link, String instagram_link, String twitter_url) {
+    public CompanyDetails(String company_name, String website_link, String company_email, String owner_name, String facebook_link, String instagram_link, String twitter_url)
+    {
+        setCompany_id(generateId());
         setCompany_name(company_name);
         setWebsite_link(website_link);
         setCompany_email(company_email);
@@ -41,7 +44,12 @@ public class CompanyDetails {
         setInstagram_link(instagram_link);
         setTwitter_url(twitter_url);
     }
-
+    private String generateId() {
+        return "C-" + UUID.randomUUID();
+    }
+    public String getCompany_id() {
+        return this.company_id;
+    }
     public void setCompany_id(String company_id) {
         this.company_id = company_id;
     }
@@ -116,7 +124,8 @@ public class CompanyDetails {
         }
     }
 
-    public CompanyDetails loadCompanyDetails (ICompanyDetailsPersistence persistence) throws java.lang.Exception {
+    public List<CompanyDetails> loadCompanyDetails (ICompanyDetailsPersistence persistence) throws java.lang.Exception {
+        //System.out.println(persistence.loadcompanyDetails(this));
         return persistence.loadcompanyDetails(this);
     }
     public int saveCompanyDetails (ICompanyDetailsPersistence persistence) throws Exception{

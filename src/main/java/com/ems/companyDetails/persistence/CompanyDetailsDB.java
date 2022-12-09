@@ -4,6 +4,8 @@ import com.ems.companyDetails.Exception.DatabaseNotFound;
 import com.ems.companyDetails.model.CompanyDetails;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompanyDetailsDB implements ICompanyDetailsPersistence{
     public Connection connection;
@@ -13,34 +15,39 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence{
         this.connection = conn;
     }
     @Override
-    public CompanyDetails loadcompanyDetails(CompanyDetails company) throws Exception {
+    public List<CompanyDetails> loadcompanyDetails(CompanyDetails company) throws Exception {
         if (connection == null){
             throw new DatabaseNotFound();
         }
         String sql = "select * from company_details";
-        CompanyDetails resultCompany = null;
+        List<CompanyDetails> resultCompany = new ArrayList<>();
+
         try
         {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            resultCompany = new CompanyDetails();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
             {
-                resultCompany.company_id = rs.getString("company_id");
-                resultCompany.company_name = rs.getString("company_name");
-                resultCompany.website_link = rs.getString("website_link");
-                resultCompany.company_email = rs.getString("company_email");
-                resultCompany.owner_name = rs.getString("owner_name");
-                resultCompany.facebook_link = rs.getString("facebook_link");
-                resultCompany.instagram_link = rs.getString("instagram_link");
-                resultCompany.twitter_url = rs.getString("twitter_url");
+                CompanyDetails companydetails = new CompanyDetails();
+                companydetails.company_id = rs.getString("company_id");
+                companydetails.company_name = rs.getString("company_name");
+                companydetails.website_link = rs.getString("website_link");
+                companydetails.company_email = rs.getString("company_email");
+                companydetails.owner_name = rs.getString("owner_name");
+                companydetails.facebook_link = rs.getString("facebook_link");
+                companydetails.instagram_link = rs.getString("instagram_link");
+                companydetails.twitter_url = rs.getString("twitter_link");
+                System.out.println(companydetails);
+                resultCompany.add(companydetails);
 
             }
 
+
         }
+
         catch (SQLException e)
         {
-            return null;
+                e.printStackTrace();
         }
         return resultCompany;
     }
