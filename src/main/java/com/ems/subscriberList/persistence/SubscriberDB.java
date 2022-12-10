@@ -76,4 +76,67 @@ public class SubscriberDB implements ISubscriberPersistence{
             return -1;
         }
     }
+
+    @Override
+    public int saveSubcriberAndUserSegmentID(Subscriber saveSubscriberwithUserSegmentID, String UserSegmentId) throws Exception {
+        try
+        {
+            Statement statement = connection.createStatement();
+            String saveSubscriberIdwithUserSegmentId = "INSERT INTO user_segment_has_subscriber VALUES (" +
+                    "\"" + saveSubscriberwithUserSegmentID.getSub_id() + "\", " +
+                    "\"" +UserSegmentId + "\")";
+            int numOfRowsInserted = statement.executeUpdate(saveSubscriberIdwithUserSegmentId);
+            return numOfRowsInserted;
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return -1;
+        }
+
+    }
+
+    @Override
+    public List<Subscriber> getSubscriberByCampaignId(String campaignId) throws Exception {
+        if(connection == null)
+        {
+            throw  new DatabaseNotFound();
+        }
+        String sql = "select subscriber_list.* from campaign,user_segment_has_subscriber,subscriber_list where campaign.user_segment_id = user_segment_has_subscriber.user_segment_id\n" +
+                "and user_segment_has_subscriber.sub_id = subscriber_list.sub_id and campaign_id =\""+campaignId +"\"";
+        System.out.println(sql);
+        List<Subscriber> totalSubscriberForCampaign = new ArrayList<>();
+        try
+        {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next())
+            {
+                Subscriber subscriberList = new Subscriber();
+                subscriberList.sub_id = rs.getString("sub_id");
+                subscriberList.sub_email = rs.getString("sub_email");
+                subscriberList.sub_first_name = rs.getString("sub_first_name");
+                subscriberList.sub_last_name = rs.getString("sub_last_name");
+                subscriberList.sub_location = rs.getString("sub_location");
+                subscriberList.subscription_date = rs.getString("subscription_date");
+                subscriberList.sub_status = rs.getString("sub_status");
+
+                totalSubscriberForCampaign.add(subscriberList);
+                System.out.println(totalSubscriberForCampaign);
+
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return totalSubscriberForCampaign;
+
+
+    }
+
+    @Override
+    public List<Subscriber> getSubscriberByCompanyId(String companyId) throws Exception {
+        return null;
+    }
 }
