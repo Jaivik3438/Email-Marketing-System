@@ -5,7 +5,7 @@ import com.ems.campaign.persistent.ICampaignPersistent;
 import java.util.Date;
 import java.util.UUID;
 
-public class Campaign extends Subject {
+public abstract class Campaign {
     private String campaignId;
     private String campaignName;
     private String campaignStatus;
@@ -14,6 +14,7 @@ public class Campaign extends Subject {
 
     public Campaign() {
         this.campaignId = generateId();
+        this.analytics = new CampaignAnalytics();
     }
 
     public Campaign(String campaignName, Date campaignStartTime) {
@@ -31,7 +32,7 @@ public class Campaign extends Subject {
         this.campaignStartTime = campaignStartTime;
     }
 
-    public int createCampaign(ICampaignPersistent campaignPersistent, String templateId, String userSegmentId) {
+    public int createNewCampaign(ICampaignPersistent campaignPersistent, String templateId, String userSegmentId) {
         return campaignPersistent.save(this, templateId, userSegmentId);
     }
 
