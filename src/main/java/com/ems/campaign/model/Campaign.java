@@ -11,6 +11,7 @@ public abstract class Campaign {
     private String campaignStatus;
     private Date campaignStartTime;
     private CampaignAnalytics analytics;
+    private String userSegmentId;
 
     public Campaign() {
         this.campaignId = generateId();
@@ -78,5 +79,13 @@ public abstract class Campaign {
 
     public void setAnalytics(CampaignAnalytics analytics) {
         this.analytics = analytics;
+    }
+
+    public String getUserSegmentId() {
+        return userSegmentId;
+    }
+
+    public void setUserSegmentId(String userSegmentId) {
+        this.userSegmentId = userSegmentId;
     }
 }

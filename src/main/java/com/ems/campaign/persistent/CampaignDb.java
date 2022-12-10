@@ -21,6 +21,7 @@ public class CampaignDb implements ICampaignPersistent {
     private final String CONVERSION_RATE = "conversion_rate";
     private final String UNSUBSCRIBE_RATE = "unsubscribe_rate";
     private final String CTR_RATE = "ctr_rate";
+    private final String USER_SEGMENT_ID = "user_segment_id";
 
     public CampaignDb(Connection connection) {
         this.connection = connection;
@@ -68,6 +69,7 @@ public class CampaignDb implements ICampaignPersistent {
                 String conversionRate = result.getString(CONVERSION_RATE);
                 String unsubscribeRate = result.getString(UNSUBSCRIBE_RATE);
                 String ctrRate = result.getString(CTR_RATE);
+                String userSegmentId = result.getString(USER_SEGMENT_ID);
 
                 campaign = campaignFactory.createCampaign();
                 campaign.setCampaignId(campaignId);
@@ -77,6 +79,7 @@ public class CampaignDb implements ICampaignPersistent {
                 campaign.getAnalytics().setConversionRate(Double.parseDouble(conversionRate));
                 campaign.getAnalytics().setUnsubscribeRate(Double.parseDouble(unsubscribeRate));
                 campaign.getAnalytics().setClickThroughRate(Double.parseDouble(ctrRate));
+                campaign.setUserSegmentId(userSegmentId);
 
                 campaigns.add(campaign);
             }
@@ -102,6 +105,7 @@ public class CampaignDb implements ICampaignPersistent {
                 campaign.getAnalytics().setConversionRate(Double.parseDouble(result.getString(CONVERSION_RATE)));
                 campaign.getAnalytics().setUnsubscribeRate(Double.parseDouble(result.getString(UNSUBSCRIBE_RATE)));
                 campaign.getAnalytics().setClickThroughRate(Double.parseDouble(result.getString(CTR_RATE)));
+                campaign.setUserSegmentId(result.getString(USER_SEGMENT_ID));
             }
             return campaign;
         } catch (Exception e) {
