@@ -9,7 +9,9 @@ public class EmailDetailsPersistence implements IEmailDetailsPersistence{
     }
 
     @Override
-    public boolean setEmailDetails() {
+    public boolean setEmailDetails(EmailDetails emailDetails) {
         return false;
     }
+
+
 }
