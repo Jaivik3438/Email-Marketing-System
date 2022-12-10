@@ -3,8 +3,6 @@ package com.ems.email_template.controller;
 import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.email_template.model.EmailTemplate;
 import com.ems.email_template.model.EmailTemplateFactory;
-import com.ems.email_template.model.SimpleEmailTemplate;
-import com.ems.email_template.model.Template;
 import com.ems.email_template.model.template_fetcher.EmailTemplateFetcherFactory;
 import com.ems.email_template.model.template_fetcher.ITemplateFetcher;
 import com.ems.email_template.model.template_fetcher.ITemplateFetcherFactory;
@@ -18,11 +16,7 @@ import com.ems.email_template.model.template_state.TemplateState;
 import com.ems.email_template.persistent.EmailTemplateDb;
 import com.ems.email_template.persistent.ITemplatePersistent;
 import com.ems.response_generator.ResponseGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -101,7 +95,7 @@ public class EmailTemplateController {
     }
 
     @PutMapping("/email-template/{id}")
-    public JsonNode updateEmailTemplate(@PathVariable String id, @RequestBody JsonNode body, HttpServletRequest request) {
+    public void updateEmailTemplate(@PathVariable String id, HttpServletRequest request, HttpServletResponse httpServletResponse) throws IOException {
         ITemplateManipulatorFactory manipulatorFactory = new EmailTemplateManipulatorFactory();
         ITemplateManipulator templateManipulator = manipulatorFactory.createTemplateManipulator(emailPersistent);
 
@@ -116,9 +110,10 @@ public class EmailTemplateController {
         templateToUpdate.setLandingPageLink(landingPageLink);
 
         TemplateState state = templateManipulator.updateTemplate(id, templateToUpdate);
-        ResponseGenerator<JsonNode> responseGenerator = state.getResponse();
-        responseGenerator.setDataLabel("rows_updated");
-        return responseGenerator.sendResponse();
+        int data = (Integer) state.getData();
+        if (data > 0) {
+            httpServletResponse.sendRedirect("/email-template");
+        }
     }
 
     @DeleteMapping("/email-template/{id}")
