@@ -44,9 +44,6 @@ public class CompanyDetailsController {
 
             CompanyDetails addCompanyinformation = new CompanyDetails(companyName, website_link,company_email, owner_name, facebook_link, instagram_link, twitter_url);
             int responseCode = addCompanyinformation.saveCompanyDetails( new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection()));
-//            CompanyDetailsDB dbObj = new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection());
-//            int responseCode = dbObj.saveCompanyDetails(addCompanyinformation);
-
             if(responseCode == -1){
                 return "Error in inserting company details";
             } else {
