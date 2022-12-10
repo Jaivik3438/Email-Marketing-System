@@ -7,6 +7,12 @@ build:
   image: gradle:alpine
   script: ./gradlew assemble
 
+test:
+  stage: test
+  tags: ["dalfcs_gitlab_docker_ci"]
+  image: gradle:alpine
+  script: ./gradlew check
+
 
 
 

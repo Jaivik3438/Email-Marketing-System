@@ -4,17 +4,50 @@ plugins {
 	id 'java'
 }
 
-group = 'com.ems'
+group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
 }
+jar{
+	manifest {
+		attributes(
+				'Main-Class':'com.ems.RunApp'
+		)
+	}
+}
 
+configurations {
+	runtime
+}
+
+task fatJar(type: Jar) {
+	manifest.from jar.manifest
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	} {
+		exclude "META-INF/*.SF"
+		exclude "META-INF/*.DSA"
+		exclude "META-INF/*.RSA"
+		exclude "META-INF/*.txt"
+		exclude "META-INF/*.json"
+	}
+	with jar
+}
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web:2.7.4'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.4'
+	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'mysql:mysql-connector-java:8.0.30'
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation('io.jsonwebtoken:jjwt:0.9.1')
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
+	//testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {
