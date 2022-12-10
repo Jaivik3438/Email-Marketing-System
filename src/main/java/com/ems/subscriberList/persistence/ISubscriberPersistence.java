@@ -7,5 +7,9 @@ import java.util.List;
 public interface ISubscriberPersistence {
     public List<Subscriber> loadSubscriber(Subscriber subscriber) throws Exception;
     public int saveSubscriber(Subscriber saveSubscriber) throws Exception;
+    public int saveSubcriberAndUserSegmentID(Subscriber saveSubscriberwithUserSegmentID, String UserSegmentId) throws Exception;
+    public List<Subscriber> getSubscriberByCampaignId(String campaignId) throws Exception;
+    public List<Subscriber> getSubscriberByCompanyId(String companyId) throws Exception;
+
 
 }

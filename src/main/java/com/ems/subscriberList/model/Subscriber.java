@@ -14,6 +14,7 @@ public class Subscriber {
     public String subscription_date;
     public String sub_status;
 
+
     public Subscriber()
     {
 
@@ -107,5 +108,9 @@ public class Subscriber {
 
     public int saveSubscriber (ISubscriberPersistence persistence) throws Exception {
         return persistence.saveSubscriber(this);
+    }
+
+    public int saveSubcriberAndUserSegmentID(ISubscriberPersistence persistence,String UserSegmentId) throws Exception{
+        return persistence.saveSubcriberAndUserSegmentID(this, UserSegmentId);
     }
 }
