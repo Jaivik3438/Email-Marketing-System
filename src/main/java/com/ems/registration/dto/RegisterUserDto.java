@@ -1,7 +1,6 @@
-package com.ems.authentication.dto;
+package com.ems.registration.dto;
 
 public class RegisterUserDto {
     public String email;
     public String password;
-    public String company;
 }

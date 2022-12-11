@@ -19,7 +19,6 @@ public class Authenticate implements IAuthenticate{
         user.email=email;
         try {
             user.password = hashingAlgorithm.hash(password);
-            System.out.println(user.password);
             User returnedUser = user.loadUser(userPersistence);
         if (returnedUser.password.equalsIgnoreCase(user.password)){
             return new SuccessfulLoggedInState(returnedUser).handle();

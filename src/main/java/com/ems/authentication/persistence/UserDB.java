@@ -1,10 +1,11 @@
 package com.ems.authentication.persistence;
 
 import com.ems.authentication.exception.DatabaseNotFound;
-import com.ems.authentication.exception.UserAlreadyRegisteredException;
+import com.ems.registration.exception.UserAlreadyRegisteredException;
 import com.ems.authentication.model.Company;
 import com.ems.authentication.model.Role;
 import com.ems.authentication.model.User;
+import com.ems.registration.model.UserSegment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,10 +40,6 @@ public class UserDB implements IUserPersistence {
                 Role role=new Role();
                 role.name=rs.getString("role_name");
                 resultUser.role=role;
-                Company company = new Company();
-                company.name=rs.getString("company_name");
-                company.companyId=rs.getString("company_Id");
-                resultUser.company=company;
                 return resultUser;
             }
         } catch (SQLException e) {
@@ -77,10 +74,10 @@ public class UserDB implements IUserPersistence {
         return false;
     }
 
-    public User registerUser(User user) {
+    public boolean registerUser(User user) {
 
         if (connection != null) {
-            String registerUserQuery = "INSERT INTO user(user_id, created_date, email, password, role_id, company_id) values(?,?,?,?,?,?)";
+            String registerUserQuery = "INSERT INTO user(user_id, created_date, email, password, role_id) values(?,?,?,?,?)";
 
             try {
                 PreparedStatement registerUserStatement = connection.prepareStatement(registerUserQuery);
@@ -90,29 +87,67 @@ public class UserDB implements IUserPersistence {
                 registerUserStatement.setTimestamp(2, currentTimeStamp);
                 registerUserStatement.setString(3, user.email);
                 registerUserStatement.setString(4, user.password);
-                registerUserStatement.setString(5, user.role.roleId);
-                registerUserStatement.setString(6, user.company.companyId);
+                registerUserStatement.setInt(5, 1);
 
-                ResultSet resultSet = registerUserStatement.executeQuery();
+                int userRegistrationStatus = registerUserStatement.executeUpdate();
 
-                User newRegisteredUser = new User();
-                while (resultSet.next()) {
-                    newRegisteredUser.userId = resultSet.getString("user_id");
-                    newRegisteredUser.email = resultSet.getString("email");
-                    newRegisteredUser.password = resultSet.getString("password");
-                    newRegisteredUser.role.roleId = resultSet.getString("role");
-                    newRegisteredUser.company.companyId = resultSet.getString("company_name");
+                if(userRegistrationStatus != -1){
+                    return createUserSegment(user.userId);
                 }
 
-                return newRegisteredUser;
-
             } catch (SQLException exception) {
-                return null;
+                System.out.println("Exception: Class: UserDB method: register" + exception.getMessage());
+                printSQLException(exception);
+                return false;
             }
 
         }
+        return false;
+    }
 
-        return null;
+    public boolean createUserSegment(String userId){
+        if(connection != null){
+            String registerUserQuery = "INSERT INTO user_segment(user_segment_id, application_name, api_key, user_id) values(?,?,?,?)";
+
+            try {
+                PreparedStatement createUserSegmentStatement = connection.prepareStatement(registerUserQuery);
+                UserSegment newUserSegment = new UserSegment(userId);
+                createUserSegmentStatement.setString(1, newUserSegment.userSegmentId);
+                createUserSegmentStatement.setString(2, newUserSegment.applicationName);
+                createUserSegmentStatement.setString(3, newUserSegment.apiKey);
+                createUserSegmentStatement.setString(4, newUserSegment.userId);
+
+                int userRegistrationStatus = createUserSegmentStatement.executeUpdate();
+
+                if(userRegistrationStatus == -1){
+                    return false;
+                } else {
+                    return true;
+                }
+
+            } catch (SQLException exception) {
+                System.out.println("Exception: Class: UserDB method: register" + exception.getMessage());
+                printSQLException(exception);
+                return false;
+            }
+        }
+           return false;
+    }
+
+    public static void printSQLException(SQLException ex) {
+        for (Throwable e: ex) {
+            if (e instanceof SQLException) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+            }
+        }
     }
 
 }
