@@ -32,7 +32,9 @@ public abstract class EmailTemplate extends Template {
     }
 
     public void setTemplateSubject(String templateSubject) {
-        this.templateSubject = templateSubject;
+        if (templateSubject != null) {
+            this.templateSubject = templateSubject;
+        }
     }
 
     public String getTemplateDescription() {
@@ -40,7 +42,9 @@ public abstract class EmailTemplate extends Template {
     }
 
     public void setTemplateDescription(String templateDescription) {
-        this.templateDescription = templateDescription;
+        if (templateDescription != null) {
+            this.templateDescription = templateDescription;
+        }
     }
 
     public String getLandingPageLink() {
@@ -48,6 +52,8 @@ public abstract class EmailTemplate extends Template {
     }
 
     public void setLandingPageLink(String landingPageLink) {
-        this.landingPageLink = landingPageLink;
+        if (landingPageLink != null) {
+            this.landingPageLink = landingPageLink;
+        }
     }
 }
