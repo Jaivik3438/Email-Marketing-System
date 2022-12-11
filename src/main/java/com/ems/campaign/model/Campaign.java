@@ -1,6 +1,7 @@
 package com.ems.campaign.model;
 
 import com.ems.campaign.persistent.ICampaignPersistent;
+import com.ems.email_template.model.EmailTemplate;
 
 import java.util.Date;
 import java.util.UUID;
@@ -12,6 +13,7 @@ public abstract class Campaign {
     private Date campaignStartTime;
     private CampaignAnalytics analytics;
     private String userSegmentId;
+    private EmailTemplate emailTemplate;
 
     public Campaign() {
         this.campaignId = generateId();
@@ -87,5 +89,13 @@ public abstract class Campaign {
 
     public void setUserSegmentId(String userSegmentId) {
         this.userSegmentId = userSegmentId;
+    }
+
+    public EmailTemplate getEmailTemplate() {
+        return emailTemplate;
+    }
+
+    public void setEmailTemplate(EmailTemplate emailTemplate) {
+        this.emailTemplate = emailTemplate;
     }
 }
