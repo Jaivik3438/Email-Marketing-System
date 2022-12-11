@@ -17,11 +17,20 @@ body {
     box-shadow: 3px 10px 16px -5px rgba(55, 84, 170, 0.16);
     padding: 1.5rem;
     transform: translate(-50%,-50%);
+    column-gap: 16px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-auto-rows: 1fr;
 }
 
 .form-title {
     margin-bottom: 20px;
     text-align: center;
+    grid-column: 1 / -1;
 }
 
 .input-group {
@@ -45,4 +54,12 @@ body {
     border-radius: 4px;
     color: #151515;
     font-size: 16px;
+}
+
+.button--grid {
+    grid-column: 1/-1;
+    height: min-content;
+    align-items: end;
+    justify-content: end;
+    align-self: end;
 }
