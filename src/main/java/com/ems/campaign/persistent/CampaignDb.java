@@ -2,6 +2,12 @@ package com.ems.campaign.persistent;
 
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignFactory;
+import com.ems.email_template.model.EmailTemplate;
+import com.ems.email_template.model.EmailTemplateFactory;
+import com.ems.email_template.model.ITemplateFactory;
+import com.ems.email_template.model.Template;
+import com.ems.email_template.persistent.EmailTemplateDb;
+import com.ems.email_template.persistent.ITemplatePersistent;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,6 +28,7 @@ public class CampaignDb implements ICampaignPersistent {
     private final String UNSUBSCRIBE_RATE = "unsubscribe_rate";
     private final String CTR_RATE = "ctr_rate";
     private final String USER_SEGMENT_ID = "user_segment_id";
+    private final String TEMPLATE_ID = "template_id";
 
     public CampaignDb(Connection connection) {
         this.connection = connection;
@@ -35,6 +42,7 @@ public class CampaignDb implements ICampaignPersistent {
     @Override
     public int save(Campaign campaign, String templateId, String userSegmentId) {
         try {
+            // TODO: Check if template exists with the given id
             Statement statement = connection.createStatement();
             String insertCampaignQuery = "INSERT INTO campaign VALUES (" +
                     "\"" + campaign.getCampaignId() + "\", " +
@@ -62,6 +70,7 @@ public class CampaignDb implements ICampaignPersistent {
         try {
             ResultSet result = load(selectAllCampaignQuery);
             while (result.next()) {
+
                 String campaignId = result.getString(CAMPAIGN_ID);
                 String campaignName = result.getString(CAMPAIGN_NAME);
                 String campaignStatus = result.getString(CAMPAIGN_STATUS);
@@ -70,6 +79,10 @@ public class CampaignDb implements ICampaignPersistent {
                 String unsubscribeRate = result.getString(UNSUBSCRIBE_RATE);
                 String ctrRate = result.getString(CTR_RATE);
                 String userSegmentId = result.getString(USER_SEGMENT_ID);
+                String templateId = result.getString(TEMPLATE_ID);
+
+                ITemplatePersistent templatePersistent = new EmailTemplateDb(connection);
+                EmailTemplate template = (EmailTemplate) templatePersistent.loadTemplateById(templateId);
 
                 campaign = campaignFactory.createCampaign();
                 campaign.setCampaignId(campaignId);
@@ -80,6 +93,7 @@ public class CampaignDb implements ICampaignPersistent {
                 campaign.getAnalytics().setUnsubscribeRate(Double.parseDouble(unsubscribeRate));
                 campaign.getAnalytics().setClickThroughRate(Double.parseDouble(ctrRate));
                 campaign.setUserSegmentId(userSegmentId);
+                campaign.setEmailTemplate(template);
 
                 campaigns.add(campaign);
             }
@@ -106,6 +120,11 @@ public class CampaignDb implements ICampaignPersistent {
                 campaign.getAnalytics().setUnsubscribeRate(Double.parseDouble(result.getString(UNSUBSCRIBE_RATE)));
                 campaign.getAnalytics().setClickThroughRate(Double.parseDouble(result.getString(CTR_RATE)));
                 campaign.setUserSegmentId(result.getString(USER_SEGMENT_ID));
+
+                ITemplatePersistent templatePersistent = new EmailTemplateDb(connection);
+                EmailTemplate template = (EmailTemplate) templatePersistent.loadTemplateById(result.getString(TEMPLATE_ID));
+
+                campaign.setEmailTemplate(template);
             }
             return campaign;
         } catch (Exception e) {
