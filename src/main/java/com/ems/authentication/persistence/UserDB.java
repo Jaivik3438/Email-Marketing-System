@@ -5,6 +5,7 @@ import com.ems.registration.exception.UserAlreadyRegisteredException;
 import com.ems.authentication.model.Company;
 import com.ems.authentication.model.Role;
 import com.ems.authentication.model.User;
+import com.ems.registration.model.UserSegment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,6 +91,34 @@ public class UserDB implements IUserPersistence {
 
                 int userRegistrationStatus = registerUserStatement.executeUpdate();
 
+                if(userRegistrationStatus != -1){
+                    return createUserSegment(user.userId);
+                }
+
+            } catch (SQLException exception) {
+                System.out.println("Exception: Class: UserDB method: register" + exception.getMessage());
+                printSQLException(exception);
+                return false;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean createUserSegment(String userId){
+        if(connection != null){
+            String registerUserQuery = "INSERT INTO user_segment(user_segment_id, application_name, api_key, user_id) values(?,?,?,?)";
+
+            try {
+                PreparedStatement createUserSegmentStatement = connection.prepareStatement(registerUserQuery);
+                UserSegment newUserSegment = new UserSegment(userId);
+                createUserSegmentStatement.setString(1, newUserSegment.userSegmentId);
+                createUserSegmentStatement.setString(2, newUserSegment.applicationName);
+                createUserSegmentStatement.setString(3, newUserSegment.apiKey);
+                createUserSegmentStatement.setString(4, newUserSegment.userId);
+
+                int userRegistrationStatus = createUserSegmentStatement.executeUpdate();
+
                 if(userRegistrationStatus == -1){
                     return false;
                 } else {
@@ -101,9 +130,8 @@ public class UserDB implements IUserPersistence {
                 printSQLException(exception);
                 return false;
             }
-
         }
-        return false;
+           return false;
     }
 
     public static void printSQLException(SQLException ex) {
