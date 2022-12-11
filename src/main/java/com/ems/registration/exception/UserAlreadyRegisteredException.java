@@ -1,4 +1,4 @@
-package com.ems.authentication.exception;
+package com.ems.registration.exception;
 
 public class UserAlreadyRegisteredException extends Exception {
     public UserAlreadyRegisteredException() {
