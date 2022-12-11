@@ -13,15 +13,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ems.authentication.model.User;
 import com.ems.registration.dto.RegisterUserDto;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 @Controller()
-@RequestMapping("/register")
+@RequestMapping("/api/register")
 public class UserRegistrationController{
 
     @PostMapping("/user")
     @ResponseBody
-    public String register(@RequestBody RegisterUserDto registerUserDto) {
+    public String register(HttpServletRequest request) {
+        RegisterUserDto registerUserDto = new RegisterUserDto();
+        registerUserDto.email = request.getParameter("email");
+        registerUserDto.password = request.getParameter("password");
+
         try{
             IRegisterUser registerUser = new RegisterUser();
             boolean isUserRegistered = registerUser.registerUser(registerUserDto, new UserDB(MySqlPersistenceConnection.getInstance().getConnection()));
