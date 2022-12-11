@@ -20,6 +20,6 @@ public class BulkEmail implements IObserver {
 
     @Override
     public void update(Subject s) {
-        subscribers=subscriberList.getSubscriberByCampaignID(campaign.getCampaignId());
+//        subscribers=subscriberList.getSubscriberByCampaignID(campaign.getCampaignId());
     }
 }

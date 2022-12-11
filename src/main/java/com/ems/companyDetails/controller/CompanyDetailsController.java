@@ -7,11 +7,13 @@ import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.companyDetails.model.CompanyDetails;
 import com.ems.companyDetails.persistence.CompanyDetailsDB;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/companydetails")
+@RequestMapping(value = "/api/company-details")
 public class CompanyDetailsController {
     
     private CompanyDetails companyInformation = new CompanyDetails();
@@ -31,16 +33,16 @@ public class CompanyDetailsController {
     }
 
     @PostMapping("/save")
-    public String createCompanyTemplate (@RequestBody JsonNode body)
+    public String createCompanyTemplate (HttpServletRequest request)
     {
         try{
-            String companyName = body.get("company_name").asText();
-            String website_link = body.get("website_link").asText();
-            String company_email = body.get("company_email").asText();
-            String owner_name = body.get("owner_name").asText();
-            String facebook_link = body.get("facebook_link").asText();
-            String instagram_link = body.get("instagram_link").asText();
-            String twitter_url = body.get("twitter_url").asText();
+            String companyName = request.getParameter("company_name");
+            String website_link = request.getParameter("website_link");
+            String company_email = request.getParameter("company_email");
+            String owner_name = request.getParameter("owner_name");
+            String facebook_link = request.getParameter("facebook_link");
+            String instagram_link = request.getParameter("instagram_link");
+            String twitter_url = request.getParameter("twitter_url");
 
             CompanyDetails addCompanyinformation = new CompanyDetails(companyName, website_link,company_email, owner_name, facebook_link, instagram_link, twitter_url);
             int responseCode = addCompanyinformation.saveCompanyDetails( new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection()));
