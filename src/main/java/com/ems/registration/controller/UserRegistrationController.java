@@ -14,6 +14,8 @@ import com.ems.authentication.model.User;
 import com.ems.registration.dto.RegisterUserDto;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.SQLException;
 
 @Controller()
@@ -22,7 +24,7 @@ public class UserRegistrationController{
 
     @PostMapping("/user")
     @ResponseBody
-    public String register(HttpServletRequest request) {
+    public void register(HttpServletRequest request, HttpServletResponse response) {
         RegisterUserDto registerUserDto = new RegisterUserDto();
         registerUserDto.email = request.getParameter("email");
         registerUserDto.password = request.getParameter("password");
@@ -30,9 +32,12 @@ public class UserRegistrationController{
         try{
             IRegisterUser registerUser = new RegisterUser();
             boolean isUserRegistered = registerUser.registerUser(registerUserDto, new UserDB(MySqlPersistenceConnection.getInstance().getConnection()));
-            return isUserRegistered ? "User registered successfully!" : "Error registering user";
+            String redirectUrl = isUserRegistered ? "/company-details" : "/register";
+            response.sendRedirect(redirectUrl);
         } catch (SQLException exception){
-            return "Exception - class: UserRegistrationController method: register: " + exception.getMessage();
+            exception.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
