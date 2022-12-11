@@ -38,7 +38,7 @@ public class UserRegistrationController{
             if(user != null){
                 session.setAttribute("user", user);
                 System.out.println(session.getAttribute("user"));
-                 redirectUrl = isUserRegistered ? "/company-details" : "/register";
+                 redirectUrl = isUserRegistered ? "/add-company-details" : "/register";
             }
 
             response.sendRedirect(redirectUrl);
