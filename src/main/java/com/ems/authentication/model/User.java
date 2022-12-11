@@ -12,7 +12,7 @@ public class User {
     public Role role;
 
     public User() {
-
+        this.role = new Role();
     }
 
     public User(String email, String password) {
