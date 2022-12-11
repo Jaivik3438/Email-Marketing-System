@@ -15,6 +15,7 @@ import com.ems.registration.dto.RegisterUserDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -24,20 +25,25 @@ public class UserRegistrationController{
 
     @PostMapping("/user")
     @ResponseBody
-    public void register(HttpServletRequest request, HttpServletResponse response) {
+    public void register(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         RegisterUserDto registerUserDto = new RegisterUserDto();
         registerUserDto.email = request.getParameter("email");
         registerUserDto.password = request.getParameter("password");
 
         try{
             IRegisterUser registerUser = new RegisterUser();
+            String redirectUrl = "/register";
             boolean isUserRegistered = registerUser.registerUser(registerUserDto, new UserDB(MySqlPersistenceConnection.getInstance().getConnection()));
-            String redirectUrl = isUserRegistered ? "/company-details" : "/register";
+            User user = new UserDB(MySqlPersistenceConnection.getInstance().getConnection()).getUserByEmail(registerUserDto.email);
+            if(user != null){
+                session.setAttribute("user", user);
+                System.out.println(session.getAttribute("user"));
+                 redirectUrl = isUserRegistered ? "/company-details" : "/register";
+            }
+
             response.sendRedirect(redirectUrl);
-        } catch (SQLException exception){
+        } catch (SQLException | IOException exception){
             exception.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

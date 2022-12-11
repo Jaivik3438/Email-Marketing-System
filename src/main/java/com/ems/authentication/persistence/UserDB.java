@@ -134,6 +134,31 @@ public class UserDB implements IUserPersistence {
            return false;
     }
 
+    public User getUserByEmail(String email){
+        if (connection != null) {
+            String sql = "select * from user where email= ?";
+            try {
+                User user = new User();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                stmt.setString(1, email);
+
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    user.userId = rs.getString("user_id");
+                    user.email = rs.getString("email");
+                    user.role.roleId = String.valueOf(rs.getInt("role_id"));
+                }
+
+                return user;
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                return null;
+            }
+        }
+        return null;
+    }
     public static void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {
