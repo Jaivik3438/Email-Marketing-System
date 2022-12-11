@@ -9,22 +9,15 @@ import com.ems.authentication.buisness.MD5;
 import com.ems.authentication.persistence.UserDB;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.ems.authentication.dto.RegisterUserDto;
-import com.ems.authentication.model.User;
 
 @Controller()
 @RequestMapping("/authentication")
@@ -72,24 +65,5 @@ public class AuthenticationController {
             e.printStackTrace();
         }
         return "logoutSuccessful";
-    }
-
-    @PostMapping("/register")
-    @ResponseBody
-    public String register(@RequestBody RegisterUserDto registerUserDto) {
-        String email = registerUserDto.email;
-        String password = registerUserDto.password;
-
-        // Validate the input credentials by the user.
-        if (email.isEmpty() || password.isEmpty()) {
-            return "Invalid Credentials";
-        }
-        // validate is user already exists or not
-
-        // Register User
-        User newRegisteredUser = new User(email, password);
-
-        return newRegisteredUser.toString();
-
     }
 }
