@@ -41,12 +41,14 @@ dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'mysql:mysql-connector-java:8.0.30'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+	implementation 'com.google.guava:guava:11.0.2'
+	implementation 'commons-io:commons-io:2.11.0'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation('io.jsonwebtoken:jjwt:0.9.1')
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
+	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 	//testImplementation 'org.springframework.security:spring-security-test'
 }
 

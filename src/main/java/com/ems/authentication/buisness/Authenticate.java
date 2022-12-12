@@ -36,14 +36,4 @@ public class Authenticate implements IAuthenticate{
         return session;
     }
 
-    @Override
-    public boolean validateSession(HttpSession session) {
-        if(null==session.getAttribute("isLoggedIn")){
-            return false;
-        }
-        if((boolean)session.getAttribute("isLoggedIn")){
-            return true;
-        }
-        return false;
-    }
 }

@@ -1,4 +1,4 @@
-package com.ems.bulkEmail.model;
+package com.ems.bulkEmail.buisness;
 
 import com.ems.email_template.model.Template;
 
@@ -18,7 +18,7 @@ public class PixelDecorator extends SimpleEmailDecorator{
     }
     private String generatePixel(){
         this.pixelId="p"+ UUID.randomUUID();
-        String pixel="<img src='http://localhost:8080/analytics/'"+this.pixelId+".png  width='1' height='1'>";
+        String pixel="<img src='http://localhost:8080/analytics/pixelid?'"+this.pixelId+".png  width='1' height='1'>";
         return pixel;
     }
 }
