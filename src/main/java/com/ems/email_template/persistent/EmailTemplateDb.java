@@ -1,5 +1,6 @@
 package com.ems.email_template.persistent;
 
+import com.ems.authentication.model.User;
 import com.ems.email_template.model.EmailTemplate;
 import com.ems.email_template.model.EmailTemplateFactory;
 import com.ems.email_template.model.ITemplateFactory;
@@ -21,6 +22,7 @@ public class EmailTemplateDb implements ITemplatePersistent {
     private final String EMAIL_TEMPLATE_SUBJECT = "template_subject";
     private final String EMAIL_TEMPLATE_DESCRIPTION = "template_description";
     private final String LANDING_PAGE_LINK = "landing_page_link";
+    private final String USER_ID = "user_id";
 
     public EmailTemplateDb(Connection connection) {
         this.connection = connection;
@@ -32,7 +34,7 @@ public class EmailTemplateDb implements ITemplatePersistent {
     }
 
     @Override
-    public int save(Template template) {
+    public int save(Template template, String userId) {
         EmailTemplate emailTemplate = (EmailTemplate) template;
         try {
             Statement statement = connection.createStatement();
@@ -41,7 +43,8 @@ public class EmailTemplateDb implements ITemplatePersistent {
                     "\"" + emailTemplate.getTemplateName() + "\", " +
                     "\"" +emailTemplate.getTemplateSubject() + "\", " +
                     "\"" +emailTemplate.getTemplateDescription() + "\", " +
-                    "\"" + emailTemplate.getLandingPageLink() + "\")";
+                    "\"" +emailTemplate.getLandingPageLink() + "\", " +
+                    "\"" + userId + "\")";
             int numOfRowsInserted = statement.executeUpdate(createTemplateQuery);
             return numOfRowsInserted;
         } catch (SQLException e)  {
@@ -107,6 +110,38 @@ public class EmailTemplateDb implements ITemplatePersistent {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Template> loadAllTemplateByUserId(User user) {
+        List<Template> templates = new ArrayList<>();
+        try {
+            String selectAllTemplateByUserIdQuery = "SELECT * FROM email_template WHERE " + USER_ID + " = \"" + user.userId + "\"";
+            System.out.println(selectAllTemplateByUserIdQuery);
+            ResultSet result = load(selectAllTemplateByUserIdQuery);
+            EmailTemplate emailTemplate;
+            while (result.next()) {
+                String templateId = result.getString(EMAIL_TEMPLATE_ID);
+                String templateName = result.getString(EMAIL_TEMPLATE_NAME);
+                String templateSubject = result.getString(EMAIL_TEMPLATE_SUBJECT);
+                String templateDescription = result.getString(EMAIL_TEMPLATE_DESCRIPTION);
+                String landingPageLink = result.getString(LANDING_PAGE_LINK);
+
+                ITemplateFactory templateFactory = new EmailTemplateFactory();
+                emailTemplate = templateFactory.createSimpleEmailTemplate(templateName);
+                emailTemplate.setTemplateId(templateId);
+                emailTemplate.setTemplateName(templateName);
+                emailTemplate.setTemplateSubject(templateSubject);
+                emailTemplate.setTemplateDescription(templateDescription);
+                emailTemplate.setLandingPageLink(landingPageLink);
+                emailTemplate.setUser(user);
+
+                templates.add(emailTemplate);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return templates;
     }
 
     public int update(String templateId, Template updatedTemplate) {

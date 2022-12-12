@@ -52,7 +52,7 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
     public boolean createEmailDetails(EmailDetails emailDetails) {
         try {
             String formatSentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(emailDetails.sentTime);
-            String createEmailQuery = "INSERT INTO `mail`(`mail_id`,`pixel_id`,`ctr_id`,`open_time`,`sub_id`,`campaign_id`)VALUES(?,?,?,?,?,?);";
+            String createEmailQuery = "INSERT INTO `mail`(`mail_id`,`pixel_id`,`ctr_id`,`open_time`,`sub_id`,`campaign_id`) VALUES (?,?,?,?,?,?);";
             PreparedStatement ps =connection.prepareStatement(createEmailQuery);
             ps.setString(1,emailDetails.id);
             ps.setString(2,emailDetails.mail.pixelId);

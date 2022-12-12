@@ -1,5 +1,6 @@
 package com.ems.email_template.model.template_fetcher;
 
+import com.ems.authentication.model.User;
 import com.ems.email_template.model.Template;
 import com.ems.email_template.model.template_state.TemplateFailureState;
 import com.ems.email_template.model.template_state.TemplateNotFoundState;
@@ -33,6 +34,16 @@ public class EmailTemplateFetcher implements ITemplateFetcher {
             return new TemplateNotFoundState("Template Requested doesn't exist. Please check the template id twice.");
         } else {
             return new TemplateSuccessState(emailTemplate);
+        }
+    }
+
+    @Override
+    public TemplateState fetchAllTemplateByUserId(User user) {
+        List<Template> templates = emailPersistent.loadAllTemplateByUserId(user);
+        if (templates == null) {
+            return new TemplateFailureState("Fail to fetch template with the given user");
+        } else {
+            return new TemplateSuccessState(templates);
         }
     }
 }

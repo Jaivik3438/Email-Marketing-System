@@ -17,6 +17,7 @@ public class CampaignEmailScheduler extends Subject {
             public void run() {
                 System.out.println("SEND EMAIL HERE...");
                 setValue("campaignId", campaign.getCampaignId());
+                notifyObservers();
             }
         };
         timer.schedule(timerTask, campaign.getCampaignStartTime());
