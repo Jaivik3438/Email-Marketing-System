@@ -1,11 +1,15 @@
 package com.ems.authentication.persistence;
 
 import com.ems.authentication.model.User;
+import com.ems.userSegment.model.UserSegment;
 
 import java.sql.SQLException;
 
 public interface IUserPersistence {
-    public User loadUser(User user) throws Exception;
-    public boolean isUserRegistered(String email) throws SQLException;
-    public boolean registerUser(User user);
+    User loadUser(User user) throws Exception;
+    boolean isUserRegistered(String email) throws SQLException;
+    boolean registerUser(User user);
+
+    boolean createUserSegment(String userId);
+    User getUserByEmail(String email);
 }

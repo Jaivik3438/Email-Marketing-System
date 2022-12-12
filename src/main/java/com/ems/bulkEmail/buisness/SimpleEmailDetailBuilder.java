@@ -8,7 +8,7 @@ import com.ems.subscriberList.model.Subscriber;
 public class SimpleEmailDetailBuilder extends EmailDetailBuilder{
     @Override
     public EmailDetails buildEmailDetail(Subscriber subscriber) {
-        EmailDetails emailDetails=new EmailDetails();
+        EmailDetails emailDetails=new SimpleEmailDetails();
         emailDetails.generateId();
         emailDetails.subscriber=subscriber;
         return emailDetails;
