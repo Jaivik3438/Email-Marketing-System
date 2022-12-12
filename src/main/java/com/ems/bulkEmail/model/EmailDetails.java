@@ -17,16 +17,18 @@ public class EmailDetails {
     public Date openedTime;
     public String campaignId;
     public String id;
+    public int numberOfTimesOpened;
+    public int numberOfTimesClicked;
 
     public void generateId(){
         this.id= "m-"+UUID.randomUUID().toString();
     }
     public EmailDetails loadEmailDetailsByPixelId(IEmailDetailsPersistence emailDetailsPersistence,String pixelId){
-        return new EmailDetails();
+        return emailDetailsPersistence.loadEmailDetailsByPixelId(pixelId);
     }
 
     public EmailDetails loadEmailDetailsByClickId(IEmailDetailsPersistence emailDetailsPersistence, String clickId){
-        return new EmailDetails();
+        return emailDetailsPersistence.loadEmailDetailsByClickId(clickId);
     }
     public boolean saveEmailDetails(IEmailDetailsPersistence emailDetailsPersistence){
         return emailDetailsPersistence.saveEmailDetails(this);
