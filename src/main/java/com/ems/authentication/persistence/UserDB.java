@@ -2,10 +2,9 @@ package com.ems.authentication.persistence;
 
 import com.ems.authentication.exception.DatabaseNotFound;
 import com.ems.registration.exception.UserAlreadyRegisteredException;
-import com.ems.authentication.model.Company;
 import com.ems.authentication.model.Role;
 import com.ems.authentication.model.User;
-import com.ems.registration.model.UserSegment;
+import com.ems.userSegment.model.UserSegment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -163,6 +162,7 @@ public class UserDB implements IUserPersistence {
         }
         return null;
     }
+
     public static void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {
