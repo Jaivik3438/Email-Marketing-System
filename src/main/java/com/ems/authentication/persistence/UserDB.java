@@ -159,6 +159,32 @@ public class UserDB implements IUserPersistence {
         }
         return null;
     }
+
+    public UserSegment getUserSegmentByUserId(String userId){
+        if (connection != null) {
+            String sql = "select * from user_segment where user_id= ?";
+            try {
+                UserSegment userSegment = new UserSegment(userId);
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                stmt.setString(1, userId);
+
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    userSegment.userSegmentId = rs.getString("user_segment_id");
+                    userSegment.apiKey = rs.getString("api_key");
+                    userSegment.applicationName = rs.getString("application_name");
+                }
+
+                return userSegment;
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                return null;
+            }
+        }
+        return null;
+    }
     public static void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {
