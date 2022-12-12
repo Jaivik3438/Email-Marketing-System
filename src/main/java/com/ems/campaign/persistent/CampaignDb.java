@@ -2,6 +2,7 @@ package com.ems.campaign.persistent;
 
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignFactory;
+import com.ems.campaign.model.ICampaignFactory;
 import com.ems.email_template.model.EmailTemplate;
 import com.ems.email_template.model.EmailTemplateFactory;
 import com.ems.email_template.model.ITemplateFactory;
@@ -159,5 +160,39 @@ public class CampaignDb implements ICampaignPersistent {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public List<Campaign> loadCampaignByUserId(String userId) {
+        List<Campaign> campaigns = new ArrayList<>();
+        ICampaignFactory campaignFactory = new CampaignFactory();
+        Campaign campaign = campaignFactory.createCampaign();
+        try {
+            Statement statement = connection.createStatement();
+            String selectCampaignByUserIdQuery = "SELECT c.* FROM campaign AS c " +
+                    "INNER JOIN user_segment us ON c.user_segment_id = us.user_segment_id " +
+                    "WHERE us.user_id = \"" + userId + "\"";
+            System.out.println(selectCampaignByUserIdQuery);
+            ResultSet result = statement.executeQuery(selectCampaignByUserIdQuery);
+            while (result.next()) {
+                ITemplatePersistent templatePersistent = new EmailTemplateDb(connection);
+                EmailTemplate template = (EmailTemplate) templatePersistent.loadTemplateById(result.getString(TEMPLATE_ID));
+
+                campaign.setCampaignId(result.getString(CAMPAIGN_ID));
+                campaign.setCampaignName(result.getString(CAMPAIGN_NAME));
+                campaign.setCampaignStatus(result.getString(CAMPAIGN_STATUS));
+                campaign.setCampaignStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(result.getString(CAMPAIGN_START_TIME)));
+                campaign.getAnalytics().setConversionRate(result.getDouble(CONVERSION_RATE));
+                campaign.getAnalytics().setUnsubscribeRate(result.getDouble(UNSUBSCRIBE_RATE));
+                campaign.getAnalytics().setClickThroughRate(result.getDouble(CTR_RATE));
+
+                campaign.setEmailTemplate(template);
+                campaigns.add(campaign);
+            }
+            return campaigns;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

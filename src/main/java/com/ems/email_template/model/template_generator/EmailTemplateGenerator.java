@@ -17,9 +17,9 @@ public class EmailTemplateGenerator implements TemplateGenerator {
     }
 
     @Override
-    public TemplateState createNewTemplate(Template template) {
+    public TemplateState createNewTemplate(Template template, String userId) {
         EmailTemplate emailTemplate = (EmailTemplate) template;
-        int numOfRowsInserted = emailPersistent.save(emailTemplate);
+        int numOfRowsInserted = emailPersistent.save(emailTemplate, userId);
         if (numOfRowsInserted > 0) {
             return new TemplateSuccessState(HttpStatus.CREATED, numOfRowsInserted);
         } else {

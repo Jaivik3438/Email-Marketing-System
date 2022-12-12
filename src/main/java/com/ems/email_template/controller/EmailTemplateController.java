@@ -1,6 +1,7 @@
 package com.ems.email_template.controller;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.authentication.model.User;
 import com.ems.email_template.model.EmailTemplate;
 import com.ems.email_template.model.EmailTemplateFactory;
 import com.ems.email_template.model.template_fetcher.EmailTemplateFetcherFactory;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -50,9 +52,10 @@ public class EmailTemplateController {
     }
 
     @RequestMapping(value = "/email-template", method = RequestMethod.POST)
-    public void createEmailTemplate(HttpServletRequest request, HttpServletResponse httpServletResponse) throws IOException {
+    public void createEmailTemplate(HttpServletRequest request, HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
         ITemplateGeneratorFactory generatorFactory = new EmailTemplateGeneratorFactory();
         ModelAndView mv = new ModelAndView();
+        User user = (User) session.getAttribute("user");
 
         List<String> fieldNamesList = new ArrayList<>(Arrays.asList("name", "subject", "description", "landingPageLink"));
         Map<String, String> usersDataMap = extractDataFromJson(fieldNamesList, request);
@@ -63,7 +66,7 @@ public class EmailTemplateController {
         emailTemplate.setLandingPageLink(usersDataMap.get("landingPageLink"));
 
         TemplateGenerator generator = generatorFactory.createTemplateGenerator(emailPersistent);
-        TemplateState state = generator.createNewTemplate(emailTemplate);
+        TemplateState state = generator.createNewTemplate(emailTemplate, user.userId);
         ResponseGenerator<JsonNode> response = state.getResponse();
         response.setDataLabel("rows_inserted");
 
