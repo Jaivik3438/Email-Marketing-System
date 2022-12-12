@@ -3,6 +3,7 @@ package com.ems.bulkEmail.persistence;
 import com.ems.bulkEmail.buisness.EmailDetails;
 import com.ems.bulkEmail.buisness.Mail;
 import com.ems.bulkEmail.buisness.SimpleEmail;
+import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.subscriberList.model.Subscriber;
 
 import java.sql.*;
@@ -16,7 +17,7 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
     }
     @Override
     public EmailDetails loadEmailDetailsByCampaign(String campaignId) {
-        return new EmailDetails();
+        return new SimpleEmailDetails();
     }
 
     @Override
@@ -118,7 +119,7 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
     }
     private EmailDetails setEmilDetailsFromResultSet(ResultSet rs) throws SQLException, ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        EmailDetails  emailDetails=new EmailDetails();
+        EmailDetails  emailDetails=new SimpleEmailDetails();
         emailDetails.id=rs.getString("mail_id");
         emailDetails.campaignId=rs.getString("campaign_id");
         String sentTime=rs.getString("sent_time");
