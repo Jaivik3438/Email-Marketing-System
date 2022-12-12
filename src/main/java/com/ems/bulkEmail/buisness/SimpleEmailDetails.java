@@ -9,8 +9,6 @@ import java.util.UUID;
 public class SimpleEmailDetails extends EmailDetails {
 
 
-
-
     public void generateId(){
         this.id= "m-"+UUID.randomUUID().toString();
     }

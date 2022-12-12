@@ -14,4 +14,6 @@ public abstract class  BulkEmail implements IObserver {
     List<EmailDetails>emailDetailsList;
     SubscriberList subscriberList;
 
+    ISendEmail emailSmtp;
+
 }

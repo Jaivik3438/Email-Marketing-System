@@ -18,10 +18,11 @@ import java.util.List;
 
 public class SimpleBulkEmail extends BulkEmail{
 
-    public SimpleBulkEmail(Campaign campaign, SubscriberList subscriberList){
+    public SimpleBulkEmail(Campaign campaign, SubscriberList subscriberList,ISendEmail emailSmtp ){
         this.campaign=campaign;
         this.subscriberList=subscriberList;
-        emailDetailsList=new ArrayList<>();
+        this.emailSmtp=emailSmtp;
+        this.emailDetailsList=new ArrayList<>();
 
     }
 
@@ -30,7 +31,7 @@ public class SimpleBulkEmail extends BulkEmail{
         emailDetailsList=generateEmailDetailList();
         for(int i=0;i<emailDetailsList.size();i++){
            EmailDetails emailDetail=emailDetailsList.get(i);
-           sendEmail(emailDetail,new Gmail("emsprojectasdc@gmail.com","jtuagavmuwwqzkxt",emailDetail));
+           sendEmail(emailDetail,emailSmtp);
            emailDetail.sentTime= new Date();
             try {
                 emailDetail.createEmailDetails(new EmailDetailsDb(MySqlPersistenceConnection.getInstance().getConnection()));
