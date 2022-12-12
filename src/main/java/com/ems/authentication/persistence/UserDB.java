@@ -25,7 +25,11 @@ public class UserDB implements IUserPersistence {
         if (connection == null) {
             throw new DatabaseNotFound();
         }
-        String sql="select * from user,role,company_details where user.role_Id=role.role_Id and user.company_id=company_details.company_id and  email= ?";
+        String sql="select * from user,role,company_has_users,company_details where" +
+                " user.role_Id=role.role_Id " +
+                "and user.user_id=company_has_users.user_id " +
+                "and company_has_users.company_id=company_details.company_id " +
+                "and  email= ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, user.email);

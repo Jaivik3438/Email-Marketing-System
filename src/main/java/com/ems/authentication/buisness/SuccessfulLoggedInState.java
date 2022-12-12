@@ -10,7 +10,7 @@ public class SuccessfulLoggedInState extends State{
     User user;
     SuccessfulLoggedInState(User user){
         super.message="login successful Welcome to EMS";
-        super.redirectUrl="successfulLogin.html";
+        super.redirectUrl="/company-details";
         this.user=user;
     }
     @Override
