@@ -59,7 +59,9 @@ public class CompanyDetailsController {
             } else {
                 response.sendRedirect("/add-company-details");
             }
-        } catch(Exception exception){
+        }
+        catch(Exception exception)
+        {
 //            return "Exception" + exception.getMessage();
         }
     }
