@@ -11,7 +11,7 @@ public class PixelDecorator extends SimpleEmailDecorator{
 
     @Override
     public void generateBody(Template template) {
-        super.generateBody(template);
+        wrappedMail.generateBody(template);
         String generatedPixel=generatePixel();
         this.body=this.body+generatedPixel;
 

@@ -12,7 +12,7 @@ public class ClickRateDecorator extends SimpleEmailDecorator {
     }
     @Override
     public void generateBody(Template template) {
-        super.generateBody(template);
+        wrappedMail.generateBody(template);
         this.subject= ((EmailTemplate)template).getTemplateSubject();
         String generatedLink=generateLink(template);
 
@@ -23,7 +23,7 @@ public class ClickRateDecorator extends SimpleEmailDecorator {
     }
     private String generateLink(Template template){
         String link=((EmailTemplate)template).getLandingPageLink();
-        String encodedLink=String.valueOf(Base64.getUrlEncoder().encode(link.getBytes()));
+        String encodedLink=new String(Base64.getEncoder().encode(link.getBytes()));
         this.clickId="cl"+UUID.randomUUID();
         String generatedLink="http://localhost:8080/analytics/click?clickid="+this.clickId+"&link="+encodedLink;
         return generatedLink;
