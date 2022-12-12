@@ -1,6 +1,7 @@
 package com.ems.subscriberList.controller;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.authentication.model.User;
 import com.ems.subscriberList.model.SimpleSubscriberList;
 import com.ems.subscriberList.model.Subscriber;
 import com.ems.subscriberList.model.SubscriberList;
@@ -9,6 +10,7 @@ import com.ems.subscriberList.persistence.SubscriberDB;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -67,18 +69,25 @@ public class SubscriberListController {
      }
     }
     @GetMapping("/getsubscribersbycampignid/{id}")
-    public List<Subscriber> getSubscriberByCampaignId(@PathVariable String id)
+    public List<Subscriber> getSubscriberByCampaignId(@PathVariable String campaignId)
     {
         try
         {
             SubscriberDB DatabaseObj = new SubscriberDB(MySqlPersistenceConnection.getInstance().getConnection());
-            return subscriberList.getSubscriberByCampaignID(id,DatabaseObj);
+            return subscriberList.getSubscriberByCampaignID(campaignId,DatabaseObj);
         }
         catch(Exception e)
         {
             e.printStackTrace();
             return null;
         }
+
+    }
+    @GetMapping("/getsubscriberbyuserid")
+    public List<Subscriber> getSubscriberByUserId(HttpSession session) throws Exception{
+        User user = (User) session.getAttribute("user");
+        SubscriberDB DatabaseObj = new SubscriberDB(MySqlPersistenceConnection.getInstance().getConnection());
+        return subscriberList.getSubscriberByUserID(user.userId, DatabaseObj);
 
     }
 
