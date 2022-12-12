@@ -1,4 +1,6 @@
-package com.ems.registration.model;
+package com.ems.userSegment.model;
+
+import com.ems.userSegment.persistence.IUserSegmentPersistent;
 
 import java.util.UUID;
 
@@ -15,5 +17,7 @@ public class UserSegment {
         this.userId = userId;
     }
 
-
+    public UserSegment getUserSegmentByUserId(IUserSegmentPersistent userSegmentPersistent, String userId){
+        return userSegmentPersistent.getUserSegmentByUserId(userId);
+    }
 }
