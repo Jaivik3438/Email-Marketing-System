@@ -1,4 +1,4 @@
-package com.ems.bulkEmail.model;
+package com.ems.bulkEmail.buisness;
 
 public class HtmlFormatter implements IFormatMail{
     @Override

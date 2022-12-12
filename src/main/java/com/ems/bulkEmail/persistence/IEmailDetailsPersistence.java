@@ -1,6 +1,6 @@
 package com.ems.bulkEmail.persistence;
 
-import com.ems.bulkEmail.model.EmailDetails;
+import com.ems.bulkEmail.buisness.EmailDetails;
 
 public interface IEmailDetailsPersistence {
     public EmailDetails loadEmailDetailsByCampaign(String campaignId);

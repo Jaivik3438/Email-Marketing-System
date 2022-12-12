@@ -1,4 +1,4 @@
-package com.ems.bulkEmail.model;
+package com.ems.bulkEmail.buisness;
 
 import com.ems.email_template.model.Template;
 import com.ems.subscriberList.model.Subscriber;

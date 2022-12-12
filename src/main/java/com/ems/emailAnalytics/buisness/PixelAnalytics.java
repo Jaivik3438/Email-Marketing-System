@@ -1,10 +1,9 @@
 package com.ems.emailAnalytics.buisness;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
-import com.ems.bulkEmail.model.EmailDetails;
+import com.ems.bulkEmail.buisness.EmailDetails;
 import com.ems.bulkEmail.persistence.EmailDetailsDb;
 
-import java.sql.SQLException;
 import java.util.Date;
 
 public class PixelAnalytics implements Analytics {

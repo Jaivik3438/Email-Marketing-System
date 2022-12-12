@@ -1,4 +1,4 @@
-package com.ems.bulkEmail.model;
+package com.ems.bulkEmail.buisness;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

@@ -1,13 +1,10 @@
-package com.ems.bulkEmail.model;
-
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
+package com.ems.bulkEmail.buisness;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 

@@ -1,6 +1,5 @@
-package com.ems.bulkEmail.model;
+package com.ems.bulkEmail.buisness;
 
-import com.ems.bulkEmail.persistence.EmailDetailsDb;
 import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
 import com.ems.subscriberList.model.Subscriber;
 

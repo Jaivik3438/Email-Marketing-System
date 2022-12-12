@@ -1,4 +1,4 @@
-package com.ems.bulkEmail.model;
+package com.ems.bulkEmail.buisness;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.persistence.EmailDetailsDb;

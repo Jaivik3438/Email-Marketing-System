@@ -1,14 +1,9 @@
 package com.ems.bulkEmail.persistence;
 
-import com.ems.authentication.exception.DatabaseNotFound;
-import com.ems.authentication.model.Company;
-import com.ems.authentication.model.Role;
-import com.ems.authentication.model.User;
-import com.ems.bulkEmail.model.EmailDetails;
-import com.ems.bulkEmail.model.Mail;
-import com.ems.bulkEmail.model.SimpleEmail;
+import com.ems.bulkEmail.buisness.EmailDetails;
+import com.ems.bulkEmail.buisness.Mail;
+import com.ems.bulkEmail.buisness.SimpleEmail;
 import com.ems.subscriberList.model.Subscriber;
-import org.springframework.format.datetime.DateFormatter;
 
 import java.sql.*;
 import java.text.ParseException;
