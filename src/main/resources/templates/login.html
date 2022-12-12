@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="/styles/form.css">
 </head>
 <body>
-<h1>login</h1>
-<form method="post" action="/authentication/login">
-    email:<input type="text" name="email">
-    password:<input type="password" name="password">
-    <input type="submit">
+<form class="email-template-form" method="post" action="/authentication/login">
+    <h2 class="form-title">Login</h2>
+    <div class="input-group">
+        <span class="label">email</span>
+        <input required class="input-field" type="text" name="email" />
+    </div>
+    <div class="input-group">
+        <span class="label">password</span>
+        <input required class="input-field" type="password" name="password"/>
+    </div>
+    <h4 class="form-title" th:text="${message}"></h4>
+
+    <button class="button button--form" type="submit">login</button>
 </form>
 </body>
 </html>

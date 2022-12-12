@@ -1,15 +1,17 @@
-package com.ems.bulkEmail.model;
+package com.ems.bulkEmail.buisness;
 
 import com.ems.email_template.model.Template;
 
 public abstract class Mail {
-    String pixelId;
-    String clickId;
+    public String pixelId;
+    public String clickId;
 
-    String subject;
-    String body;
+    public String subject;
+    public String body;
 
-
+    public Mail(){
+        body="";
+    }
     public abstract void generateSubject(Template template);
     public abstract void generateBody(Template template);
 

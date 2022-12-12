@@ -6,7 +6,7 @@ public class UnSuccessfulLoginState extends State {
 
     UnSuccessfulLoginState(){
         super.message="login Unsuccessful please try again";
-        super.redirectUrl="unsuccessfulLogin.html";
+        super.redirectUrl="/authentication/index";
     }
 
     @Override
@@ -19,6 +19,7 @@ public class UnSuccessfulLoginState extends State {
 
             session.removeAttribute("isLoggedIn");
             session.removeAttribute("user");
+            session.setAttribute("loginUnsuccessful",true);
         return session;
     }
 }

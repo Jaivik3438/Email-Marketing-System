@@ -23,13 +23,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/authentication")
 public class AuthenticationController {
     @RequestMapping(value = "/index")
-    public String index(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
+      HttpSession session1=request.getSession();
+       Object isRedirect= session1.getAttribute("loginUnsuccessful");
+        ModelAndView mv = new ModelAndView("login");
+       if (isRedirect==null){
+           return mv;
+       }
+       session.removeAttribute("loginUnsuccessful");
+       mv.addObject("message","login Unsuccessful please try again");
+       return mv;
 
-        return "login";
     }
     @RequestMapping(value = "/login")
 
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
+    public void login(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
         ModelAndView mv = new ModelAndView();
 
         try {
@@ -40,30 +48,29 @@ public class AuthenticationController {
             conn = MySqlPersistenceConnection.getInstance().getConnection();
             IAuthenticate authenticate=new Authenticate();
             State loginState=authenticate.login(email,password,new UserDB(conn),MD5.getInstance());
-            mv.setViewName(loginState.redirectUrl);
             mv.addObject("message",(String)loginState.message);
             HttpSession session1 =request.getSession();
             loginState.handleSession(session1);
+            response.sendRedirect(loginState.redirectUrl);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        return mv;
     }
     @RequestMapping(value = "/logout")
 
-    public String logout(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
+    public void logout(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
 
         try {
-            Connection conn = null;
-            conn = MySqlPersistenceConnection.getInstance().getConnection();
             IAuthenticate authenticate = new Authenticate();
             authenticate.logout(request.getSession());
+            response.sendRedirect("/home");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "logoutSuccessful";
+
     }
 }
