@@ -12,10 +12,9 @@ public class Gmail implements ISendEmail{
     Properties props;
     String fromEmail;
     String password;
-    EmailDetails emailDetails;
 
     Authenticator auth;
-    Gmail(String fromEmail,String password){
+    public Gmail(String fromEmail,String password){
         props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
         props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
@@ -42,7 +41,7 @@ public class Gmail implements ISendEmail{
         Session session = Session.getDefaultInstance(props, auth);
         try{
             MimeMessage msg = new MimeMessage(session);
-            msg=setMessage(msg);
+            msg=setMessage(msg,emailDetails);
             Transport.send(msg);
 
         }catch (MessagingException e) {
@@ -53,8 +52,8 @@ public class Gmail implements ISendEmail{
 
         return false;
     }
-    private MimeMessage setMessage(MimeMessage msg) throws Exception{
-        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+    private MimeMessage setMessage(MimeMessage msg,EmailDetails emailDetails) throws Exception{
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
         msg.addHeader("format", "flowed");
         msg.addHeader("Content-Transfer-Encoding", "8bit");
 

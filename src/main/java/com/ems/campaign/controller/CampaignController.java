@@ -1,12 +1,15 @@
 package com.ems.campaign.controller;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.bulkEmail.buisness.*;
 import com.ems.campaign.model.*;
 import com.ems.campaign.persistent.CampaignDb;
 import com.ems.campaign.persistent.ICampaignPersistent;
 import com.ems.response_generator.IResponseGeneratorFactory;
 import com.ems.response_generator.JsonResponseGeneratorFactory;
 import com.ems.response_generator.ResponseGenerator;
+import com.ems.subscriberList.model.SimpleSubscriberList;
+import com.ems.subscriberList.model.SubscriberList;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -59,9 +62,18 @@ public class CampaignController {
         System.out.println(date);
 
         Campaign campaign = campaignFactory.createCampaign(campaignName, date);
+
         CampaignEmailScheduler scheduler = new CampaignEmailScheduler(campaign);
 
         int numOfRowsUpdated = campaign.createNewCampaign(campaignPersistent, templateId, userSegmentId);
+        Campaign c = new CampaignFetcher(campaignPersistent).fetchCampaign(campaign.getCampaignId());
+
+        SubscriberList subscriberList = new SimpleSubscriberList();
+        IBulkEmailFactory bulkEmailFactory = new BulkEmailFactory();
+        ISendEmail emailSMTP = new Gmail("emsprojectasdc@gmail.com","jtuagavmuwwqzkxt");
+        BulkEmail bulkEmail = bulkEmailFactory.CreateBulkEmail(c, subscriberList, emailSMTP);
+
+        scheduler.attach(bulkEmail);
         scheduler.scheduleEmailSender();
 
         try {
