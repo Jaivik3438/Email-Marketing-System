@@ -50,7 +50,7 @@ public class CompanyDetailsController {
             String twitter_url = request.getParameter("twitter_url");
 
             CompanyDetails addCompanyinformation = new CompanyDetails(companyName, website_link,company_email, owner_name, facebook_link, instagram_link, twitter_url);
-            int responseCode = addCompanyinformation.saveCompanyDetails( new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection()));
+            int responseCode = addCompanyinformation.saveCompanyDetails(new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection()));
             User user = (User) session.getAttribute("user");
             session.setAttribute("companyId", addCompanyinformation.company_id);
             int responsefromUser = new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection()).connectUserWithCompany(user.userId, addCompanyinformation.company_id);
