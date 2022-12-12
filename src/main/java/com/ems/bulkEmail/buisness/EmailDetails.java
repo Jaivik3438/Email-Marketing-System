@@ -6,8 +6,7 @@ import com.ems.subscriberList.model.Subscriber;
 import java.util.Date;
 import java.util.UUID;
 
-public class EmailDetails {
-
+public abstract class EmailDetails {
 
 
     public Mail mail;
@@ -19,20 +18,13 @@ public class EmailDetails {
     public int numberOfTimesOpened;
     public int numberOfTimesClicked;
 
-    public void generateId(){
-        this.id= "m-"+UUID.randomUUID().toString();
-    }
-    public EmailDetails loadEmailDetailsByPixelId(IEmailDetailsPersistence emailDetailsPersistence,String pixelId){
-        return emailDetailsPersistence.loadEmailDetailsByPixelId(pixelId);
-    }
+    public abstract void generateId();
 
-    public EmailDetails loadEmailDetailsByClickId(IEmailDetailsPersistence emailDetailsPersistence, String clickId){
-        return emailDetailsPersistence.loadEmailDetailsByClickId(clickId);
-    }
-    public boolean saveEmailDetails(IEmailDetailsPersistence emailDetailsPersistence){
-        return emailDetailsPersistence.saveEmailDetails(this);
-    }
+    public abstract EmailDetails loadEmailDetailsByPixelId(IEmailDetailsPersistence emailDetailsPersistence, String pixelId);
 
+    public abstract EmailDetails loadEmailDetailsByClickId(IEmailDetailsPersistence emailDetailsPersistence, String clickId);
 
+    public abstract boolean saveEmailDetails(IEmailDetailsPersistence emailDetailsPersistence);
 
+    public abstract boolean createEmailDetails(IEmailDetailsPersistence emailDetailsPersistence);
 }

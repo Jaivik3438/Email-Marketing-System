@@ -15,7 +15,7 @@ public class Gmail implements ISendEmail{
     EmailDetails emailDetails;
 
     Authenticator auth;
-    Gmail(String fromEmail,String password,EmailDetails emailDetails){
+    Gmail(String fromEmail,String password){
         props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
         props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
@@ -26,7 +26,6 @@ public class Gmail implements ISendEmail{
 
         this.fromEmail=fromEmail;
         this.password=password;
-        this.emailDetails=emailDetails;
 
 
         auth = new Authenticator() {
