@@ -166,7 +166,7 @@ public class CampaignDb implements ICampaignPersistent {
     public List<Campaign> loadCampaignByUserId(String userId) {
         List<Campaign> campaigns = new ArrayList<>();
         ICampaignFactory campaignFactory = new CampaignFactory();
-        Campaign campaign = campaignFactory.createCampaign();
+        Campaign campaign = null;
         try {
             Statement statement = connection.createStatement();
             String selectCampaignByUserIdQuery = "SELECT c.* FROM campaign AS c " +
@@ -178,6 +178,7 @@ public class CampaignDb implements ICampaignPersistent {
                 ITemplatePersistent templatePersistent = new EmailTemplateDb(connection);
                 EmailTemplate template = (EmailTemplate) templatePersistent.loadTemplateById(result.getString(TEMPLATE_ID));
 
+                campaign = campaignFactory.createCampaign();
                 campaign.setCampaignId(result.getString(CAMPAIGN_ID));
                 campaign.setCampaignName(result.getString(CAMPAIGN_NAME));
                 campaign.setCampaignStatus(result.getString(CAMPAIGN_STATUS));

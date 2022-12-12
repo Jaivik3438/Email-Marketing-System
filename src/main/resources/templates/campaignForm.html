@@ -24,6 +24,12 @@
     </select>
   </div>
 
+  <div class="input-group">
+    <select name="userSegmentId" id="userSegmentId">
+      <option class="input-field" th:each="userSegment: ${userSegment}" th:value="${userSegment.userSegmentId}" th:text="${userSegment.applicationName}"></option>
+    </select>
+  </div>
+
   <button class="button button--form" type="submit">Create Now</button>
 </form>
 
@@ -39,6 +45,7 @@
     const formData = new FormData(form);
     const name = formData.get("name")
     const templateId = formData.get("templateId");
+    const userSegmentId = formData.get("userSegmentId");
 
     console.log(JSON.stringify({
       name,
@@ -54,6 +61,7 @@
         name,
         startTime: timestamp,
         templateId,
+        userSegmentId,
       })
     }).then((res) => res.json()).then(data => console.log(data))
   })

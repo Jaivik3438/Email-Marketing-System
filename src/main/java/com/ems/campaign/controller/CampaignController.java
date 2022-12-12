@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -40,7 +42,7 @@ public class CampaignController {
     }
 
     @RequestMapping(value = "/campaign", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public int createNewCampaign(@RequestBody JsonNode body) {
+    public void createNewCampaign(@RequestBody JsonNode body, HttpServletResponse response) {
         ICampaignFactory campaignFactory = new CampaignFactory();
         String campaignName = body.get("name").asText();
         String campaignStartTime = body.get("startTime").asText();
@@ -62,7 +64,12 @@ public class CampaignController {
         int numOfRowsUpdated = campaign.createNewCampaign(campaignPersistent, templateId, userSegmentId);
         scheduler.scheduleEmailSender();
 
-        return numOfRowsUpdated;
+        try {
+            response.sendRedirect("/campaigns");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        return numOfRowsUpdated;
     }
 
     @GetMapping("/campaign")

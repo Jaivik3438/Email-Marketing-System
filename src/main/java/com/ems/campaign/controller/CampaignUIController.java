@@ -10,6 +10,9 @@ import com.ems.email_template.model.template_fetcher.EmailTemplateFetcher;
 import com.ems.email_template.model.template_fetcher.ITemplateFetcher;
 import com.ems.email_template.persistent.EmailTemplateDb;
 import com.ems.email_template.persistent.ITemplatePersistent;
+import com.ems.userSegment.model.UserSegment;
+import com.ems.userSegment.persistence.IUserSegmentPersistent;
+import com.ems.userSegment.persistence.UserSegmentDB;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,21 @@ import java.util.List;
 @Component()
 @RequestMapping(value = "/")
 public class CampaignUIController {
+    private ICampaignPersistent campaignPersistent;
+
+    public CampaignUIController() {
+        campaignPersistent = new CampaignDb(getConnectionObject());
+    }
+
+    private Connection getConnectionObject() {
+        Connection connection = null;
+        try {
+            connection = MySqlPersistenceConnection.getInstance().getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
 
     private User getLoggedInUser(HttpSession session) {
         return (User) session.getAttribute("user");
@@ -30,15 +48,9 @@ public class CampaignUIController {
 
     @GetMapping("/campaigns")
     public String showCampaignByUserId(Model model, HttpSession session) {
-        Connection connection = null;
-        try {
-            connection = MySqlPersistenceConnection.getInstance().getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         User user = getLoggedInUser(session);
         String userId = user.userId;
-        ICampaignPersistent campaignPersistent = new CampaignDb(connection);
+        ICampaignPersistent campaignPersistent = new CampaignDb(getConnectionObject());
 
         List<Campaign> campaigns = campaignPersistent.loadCampaignByUserId(userId);
         for (Campaign campaign : campaigns) {
@@ -66,7 +78,11 @@ public class CampaignUIController {
             System.out.println(t.getTemplateName());
         }
 
+        IUserSegmentPersistent segmentPersistent = new UserSegmentDB(getConnectionObject());
+        UserSegment userSegment = segmentPersistent.getUserSegmentByUserId(user.userId);
+
         model.addAttribute("templates", templates);
+        model.addAttribute("userSegment", userSegment);
         return "campaignForm";
     }
 }
