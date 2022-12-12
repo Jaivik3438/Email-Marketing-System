@@ -29,8 +29,11 @@ public class CompanyDetailsUIController {
     }
 
     public CompanyDetails getCompanyDetailsByUserId(String userId) throws Exception {
-        CompanyDetailsDB companyDetailsPersistence = new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection());
-        return companyDetailsPersistence.getCompanyByUserId(userId);
+        //CompanyDetailsDB companyDetailsPersistence = new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection());
+        //return companyDetailsPersistence.getCompanyByUserId(userId);
+        CompanyDetailsDB dataBaseObj = new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection());
+        CompanyDetails companyDetailsByUserId = new CompanyDetails();
+       return companyDetailsByUserId.getCompanyDetailsByUserId(userId,dataBaseObj);
     }
 
 }
