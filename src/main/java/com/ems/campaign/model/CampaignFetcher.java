@@ -18,4 +18,8 @@ public class CampaignFetcher {
     public Campaign fetchCampaign(String campaignId) {
         return campaignPersistent.loadCampaign(campaignId);
     }
+
+    public List<Campaign> fetchAllCampaignByUserId(String userId) {
+        return campaignPersistent.loadCampaignByUserId(userId);
+    }
 }

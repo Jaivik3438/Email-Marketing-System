@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Campaigns | EMS</title>
+    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="/styles/emailtemplate.css">
+</head>
+<body>
+<div class="navigation">
+    <span class="logo"><img th:src="@{/assets/logo.svg}" /> EMS</span>
+    <nav>
+        <ul class="nav-links">
+            <li class="nav-link">Email Template</li>
+            <li class="nav-link">Subscriber List</li>
+            <li class="nav-link">Company Details</li>
+        </ul>
+    </nav>
+</div>
+<div class="templates">
+    <div class="header">
+        <h1 class="main-title">Campaigns</h1>
+        <a href="/create-campaign" class="button">Create Campaign</a>
+    </div>
+    <div th:each="campaign: ${campaigns} " class="email-template">
+        <div>
+            <span class="title" th:text="${campaign.campaignName}"/>
+        </div>
+<!--        <div>-->
+<!--            <span class="label">Subject: </span><span class="subject" th:text="${template.templateSubject}"/>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <span class="description" th:text="${template.templateDescription}"/>-->
+<!--        </div>-->
+<!--        <div class="links">-->
+<!--            <a class="email-template__link" target="_blank" th:href="${template.landingPageLink}">Explore Now</a>-->
+<!--            <div class="action-links">-->
+<!--                <form method="get" th:action="@{/update-email-template/{id}(id=${template.templateId})}">-->
+<!--                    <button type="submit" class="link" th:attr="data-template-id=${template.templateId}"><img class="icon" th:src="@{/assets/icon-edit.svg} " /></button>-->
+<!--                </form>-->
+<!--                <button class="link link&#45;&#45;delete" th:attr="data-template-id=${template.templateId}"><img class="icon icon&#45;&#45;delete" th:src="@{/assets/icon-delete.svg}" /></button>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>
+
+<!--<script>-->
+<!--    const deleteButtonList = document.querySelectorAll(".link&#45;&#45;delete");-->
+<!--    deleteButtonList.forEach(deleteButtonEl => {-->
+<!--        deleteButtonEl.addEventListener("click", (e) => {-->
+<!--            const templateId = e.target.dataset.templateId;-->
+
+<!--            fetch(`/api/email-template/${templateId}`, {-->
+<!--                method: "delete"-->
+<!--            })-->
+<!--                .then((res) => res.json())-->
+<!--                .then(data => location.reload())-->
+<!--        })-->
+<!--    })-->
+<!--</script>-->
+
+</body>
+</html>
