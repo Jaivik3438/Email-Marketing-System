@@ -95,6 +95,7 @@ public class EmailTemplateDb implements ITemplatePersistent {
                     emailTemplate.setTemplateSubject(result.getString(EMAIL_TEMPLATE_SUBJECT));
                     emailTemplate.setTemplateDescription(result.getString(EMAIL_TEMPLATE_DESCRIPTION));
                     emailTemplate.setLandingPageLink(result.getString(LANDING_PAGE_LINK));
+                    System.out.println(emailTemplate.getTemplateId());
                 }
                 return emailTemplate;
             } else {

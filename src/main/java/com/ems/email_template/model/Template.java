@@ -29,7 +29,9 @@ public abstract class Template {
     }
 
     public void setTemplateId(String templateId) {
-        this.templateId = templateId;
+        if (templateId != null) {
+            this.templateId = templateId;
+        }
     }
 
     public String getTemplateName() {
@@ -37,6 +39,8 @@ public abstract class Template {
     }
 
     public void setTemplateName(String templateName) {
-        this.templateName = templateName;
+        if (templateName != null) {
+            this.templateName = templateName;
+        }
     }
 }

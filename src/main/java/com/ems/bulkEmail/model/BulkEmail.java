@@ -31,6 +31,7 @@ public class BulkEmail implements IObserver {
 
     @Override
     public void update(Subject s) {
+<<<<<<< HEAD
         emailDetailsList=generateEmailDetailList();
         for(int i=0;i<emailDetailsList.size();i++){
            EmailDetails emailDetail=emailDetailsList.get(i);
@@ -59,5 +60,8 @@ public class BulkEmail implements IObserver {
     private void sendEmail(EmailDetails emailDetail){
         ISendEmail sendEmail= new Gmail("emsprojectasdc@gmail.com","jtuagavmuwwqzkxt",emailDetail);
         sendEmail.sendEmail(emailDetail);
+=======
+//        subscribers=subscriberList.getSubscriberByCampaignID(campaign.getCampaignId());
+>>>>>>> origin/develop
     }
 }

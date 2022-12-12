@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Email Template : EMS</title>
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/form.css">
+</head>
+<body>
+<form th:each="template: ${templateList}" class="email-template-form" th:action="@{/api/email-template/{id}(id=${template.templateId})}" th:method="put"  >
+  <h2 class="form-title">Update Email Template</h2>
+  <div class="input-group">
+    <span class="label">Template Name</span>
+    <input required class="input-field input-field--name" type="text" name="name" th:value="${template.templateName}" />
+  </div>
+  <div class="input-group">
+    <span class="label">Template Subject</span>
+    <input required class="input-field input-field--subject" type="text" name="subject" th:value="${template.templateSubject} "/>
+  </div>
+  <div class="input-group">
+    <span class="label">Description</span>
+    <textarea required class="input-field input-field--description" rows="5" name="description" th:text="${template.templateDescription}"></textarea>
+  </div>
+  <div class="input-group">
+    <span class="label">Landing Page Link</span>
+    <input class="input-field input-field--link" type="text" name="landingPageLink" th:value="${template.landingPageLink}"  />
+  </div>
+  <button class="button button--form" type="submit">Save Changes</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Company Details : EMS</title>
+    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="/styles/form.css">
+</head>
+<body>
+<form class="email-template-form grid" method="post" action="api/company-details/save">
+    <h2 class="form-title">Create Email Template</h2>
+    <div class="input-group">
+        <span class="label">Company Name</span>
+        <input required class="input-field" type="text" name="company_name" />
+    </div>
+    <div class="input-group">
+        <span class="label">Website Link</span>
+        <input required class="input-field" type="text" name="website_link" />
+    </div>
+    <div class="input-group">
+        <span class="label">Company Email</span>
+        <input required class="input-field" rows="5" name="company_email" />
+    </div>
+    <div class="input-group">
+        <span class="label">Owner Name</span>
+        <input class="input-field" type="text" name="owner_name" />
+    </div>
+    <div class="input-group">
+        <span class="label">Facebook Link</span>
+        <input required class="input-field" rows="5" name="facebook_link" />
+    </div>
+    <div class="input-group">
+        <span class="label">Instagram Link</span>
+        <input required class="input-field" rows="5" name="instagram_link" />
+    </div>
+    <div class="input-group">
+        <span class="label">Twitter Link</span>
+        <input required class="input-field" rows="5" name="twitter_url" />
+    </div>
+    <button class="button button--form button--grid" type="submit">Create Now</button>
+</form>
+</body>
+</html>
