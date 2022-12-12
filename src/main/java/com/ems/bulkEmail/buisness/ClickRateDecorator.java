@@ -1,4 +1,4 @@
-package com.ems.bulkEmail.model;
+package com.ems.bulkEmail.buisness;
 
 import com.ems.email_template.model.EmailTemplate;
 import com.ems.email_template.model.Template;
@@ -24,8 +24,8 @@ public class ClickRateDecorator extends SimpleEmailDecorator {
     private String generateLink(Template template){
         String link=((EmailTemplate)template).getLandingPageLink();
         String encodedLink=String.valueOf(Base64.getUrlEncoder().encode(link.getBytes()));
-        this.clickId="c"+UUID.randomUUID();
-        String generatedLink="http://localhost:8080/analytics/click?id="+this.clickId+"&link="+encodedLink;
+        this.clickId="cl"+UUID.randomUUID();
+        String generatedLink="http://localhost:8080/analytics/click?clickid="+this.clickId+"&link="+encodedLink;
         return generatedLink;
 
     }
