@@ -11,7 +11,7 @@ public class SimpleSubscriberList extends SubscriberList{
     }
 
     @Override
-    public List<Subscriber> getSubscriberByCompanyID(String companyId, ISubscriberPersistence subscriber) {
-        return null;
+    public List<Subscriber> getSubscriberByUserID(String userId, ISubscriberPersistence persistence) throws Exception {
+        return persistence.getSubscriberByUserId(userId);
     }
 }

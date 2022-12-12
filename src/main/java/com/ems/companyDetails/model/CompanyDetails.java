@@ -125,10 +125,13 @@ public class CompanyDetails {
     }
 
     public List<CompanyDetails> loadCompanyDetails (ICompanyDetailsPersistence persistence) throws java.lang.Exception {
-        //System.out.println(persistence.loadcompanyDetails(this));
         return persistence.loadcompanyDetails(this);
     }
     public int saveCompanyDetails (ICompanyDetailsPersistence persistence) throws Exception{
         return persistence.saveCompanyDetails(this);
     }
+    public CompanyDetails getCompanyDetailsByUserId(String userId,ICompanyDetailsPersistence persistence) throws Exception{
+        return persistence.getCompanyByUserId(userId);
+    }
+
 }

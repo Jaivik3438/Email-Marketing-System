@@ -16,13 +16,15 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
 
     @Override
     public List<CompanyDetails> loadcompanyDetails(CompanyDetails company) throws Exception {
-        if (connection == null) {
+        if (connection == null)
+        {
             throw new DatabaseNotFound();
         }
         String sql = "select * from company_details";
         List<CompanyDetails> resultCompany = new ArrayList<>();
 
-        try {
+        try
+        {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -41,7 +43,9 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
             }
 
 
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
         return resultCompany;
@@ -49,7 +53,8 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
 
     @Override
     public int saveCompanyDetails(CompanyDetails saveCompany) throws Exception {
-        try {
+        try
+        {
             Statement stmt = connection.createStatement();
             String saveCompanyQuery = "INSERT INTO company_details VALUES (" +
                     "\"" + saveCompany.getCompany_id() + "\", " +
@@ -62,21 +67,26 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
                     "\"" + saveCompany.getTwitter_url() + "\")";
             int numOfRowsInserted = stmt.executeUpdate(saveCompanyQuery);
             return numOfRowsInserted;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             e.printStackTrace();
             return -1;
         }
     }
 
     public int connectUserWithCompany(String userId, String companyId) {
-        try {
+        try
+        {
             Statement stmt = connection.createStatement();
             String saveCompanyQuery = "INSERT INTO company_has_users VALUES (" +
                     "\"" + companyId + "\", " +
                     "\"" + userId + "\")";
             int numOfRowsInserted = stmt.executeUpdate(saveCompanyQuery);
             return numOfRowsInserted;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             e.printStackTrace();
             return -1;
         }
@@ -92,7 +102,8 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
                     "where user_id = \""+ userId +"\"";
             ResultSet rs = stmt.executeQuery(saveCompanyQuery);
             CompanyDetails companyDetails = new CompanyDetails();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 companyDetails.company_id = rs.getString("company_id");
                 companyDetails.company_name = rs.getString("company_name");
                 companyDetails.website_link = rs.getString("website_link");
@@ -103,7 +114,9 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
                 companyDetails.twitter_url = rs.getString("twitter_link");
             }
             return companyDetails;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
         return null;
