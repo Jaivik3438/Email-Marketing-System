@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,8 +21,19 @@ import java.util.Objects;
 @RestController
 @RequestMapping(value = "/api/company-details")
 public class CompanyDetailsController {
-    
+
+
     private CompanyDetails companyInformation = new CompanyDetails();
+
+    public Connection getConnectionObject() {
+        Connection connection = null;
+        try {
+            connection = MySqlPersistenceConnection.getInstance().getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
 
     @GetMapping("/getcompanys")
     public List<CompanyDetails> getCompanyDetails()
@@ -28,7 +41,7 @@ public class CompanyDetailsController {
         try
         {
 
-            return companyInformation.loadCompanyDetails(new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection()));
+            return companyInformation.loadCompanyDetails(new CompanyDetailsDB(getConnectionObject()));
         }
         catch (Exception e)
         {
@@ -50,10 +63,10 @@ public class CompanyDetailsController {
             String twitter_url = request.getParameter("twitter_url");
 
             CompanyDetails addCompanyinformation = new CompanyDetails(companyName, website_link,company_email, owner_name, facebook_link, instagram_link, twitter_url);
-            int responseCode = addCompanyinformation.saveCompanyDetails(new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection()));
+            int responseCode = addCompanyinformation.saveCompanyDetails(new CompanyDetailsDB(getConnectionObject()));
             User user = (User) session.getAttribute("user");
             session.setAttribute("companyId", addCompanyinformation.company_id);
-            int responsefromUser = new CompanyDetailsDB(MySqlPersistenceConnection.getInstance().getConnection()).connectUserWithCompany(user.userId, addCompanyinformation.company_id);
+            int responsefromUser = new CompanyDetailsDB(getConnectionObject()).connectUserWithCompany(user.userId, addCompanyinformation.company_id);
             if(responsefromUser != -1){
                 response.sendRedirect("/company-details");
             } else {
@@ -62,7 +75,7 @@ public class CompanyDetailsController {
         }
         catch(Exception exception)
         {
-//            return "Exception" + exception.getMessage();
+             System.out.println("Exception" + exception.getMessage());
         }
     }
 
