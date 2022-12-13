@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Company Analytics | EMS</title>
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/emailtemplate.css">
+  <link rel="stylesheet" href="/styles/campaignAnalytics.css">
+</head>
+<body>
+  <div class="templates">
+    <div class="header">
+      <h1 class="main-title">Campaign Analytics</h1>  
+    </div>  
+    </div>
+    <div th:each="campaignAnalytics: ${campaignAnalytics}">
+      <div>
+        <span class="label">Subscribers Count:</span>
+        <span class="title" th:text="${campaignAnalytics.getSubscribersCount()}"/>
+    </div>  
+      <div>
+          <span class="label">Conversion Rate:</span>
+          <span class="title" th:text="${campaignAnalytics.getConversionRate()}"/>
+      </div>    
+      <div>
+        <span class="label">Unsubscribe Rate:</span>
+        <span class="title" th:text="${campaignAnalytics.getUnsubscribeRate()}"/>
+      </div> 
+      <span class="label">Subscribers List:</span>
+      <div th:each="subscriber: ${campaignAnalytics.subscriberList} " class="email-template">
+        <div>
+          <span class="title" th:text="${subscriber.sub_email}"/>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

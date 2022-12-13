@@ -9,6 +9,7 @@ import com.ems.subscriberList.model.Subscriber;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CampaignAnalytics {
     private int subscribersCount;
@@ -89,6 +90,7 @@ public class CampaignAnalytics {
                 campaignAnalytics.setEmailClicks(getEmailOpenCountFromEmailDetails(emailDetailsList));
                 campaignAnalytics.setConversionRate(calculateCampaignConversionRate(emailDetailsList));
                 campaignAnalytics.setClickThroughRate(calculateEmailClickThroughRate(emailDetailsList));
+                campaignAnalytics.setUnsubscribeRate(calculateUnsubscribeRate(emailDetailsList));
             }
             return campaignAnalytics;
     }
@@ -128,5 +130,17 @@ public class CampaignAnalytics {
             }
         }
         return (linkClickCount / subscriberCount) * 100;
+    }
+
+    private double calculateUnsubscribeRate(List<EmailDetails> emailDetailsList){
+        int subscriberCount = emailDetailsList.size();
+        int unsubscribersCount = 0;
+
+        for(EmailDetails emailDetail : emailDetailsList){
+            if(!emailDetail.subscriber.sub_status.equals("Active")){
+                unsubscribersCount++;
+            }
+        }
+        return (unsubscribersCount / subscriberCount) * 100;
     }
 }

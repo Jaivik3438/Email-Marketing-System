@@ -1,6 +1,7 @@
 package com.ems.campaign.persistent;
 
 import com.ems.bulkEmail.buisness.EmailDetails;
+import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignFactory;
 import com.ems.campaign.model.ICampaignFactory;
@@ -174,7 +175,7 @@ public class CampaignDb implements ICampaignPersistent {
                 ResultSet rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    EmailDetails emailDetails = new EmailDetails();
+                    EmailDetails emailDetails = new SimpleEmailDetails();
 
                     String subscriberId = rs.getString("sub_id");
                     if(subscriberId != null){
