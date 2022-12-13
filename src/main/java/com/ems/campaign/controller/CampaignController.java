@@ -5,6 +5,8 @@ import com.ems.bulkEmail.buisness.*;
 import com.ems.campaign.model.*;
 import com.ems.campaign.persistent.CampaignDb;
 import com.ems.campaign.persistent.ICampaignPersistent;
+import com.ems.configuration.buisness.Configuration;
+import com.ems.configuration.buisness.ConfigurationFromJSON;
 import com.ems.response_generator.IResponseGeneratorFactory;
 import com.ems.response_generator.JsonResponseGeneratorFactory;
 import com.ems.response_generator.ResponseGenerator;
@@ -34,7 +36,7 @@ public class CampaignController {
         campaignPersistent = new CampaignDb(getConnectionObject());
     }
 
-    private Connection getConnectionObject() {
+    private Connection  getConnectionObject() {
         Connection connection = null;
         try {
             connection = MySqlPersistenceConnection.getInstance().getConnection();
@@ -70,7 +72,10 @@ public class CampaignController {
 
         SubscriberList subscriberList = new SimpleSubscriberList();
         IBulkEmailFactory bulkEmailFactory = new BulkEmailFactory();
-        ISendEmail emailSMTP = new Gmail("emsprojectasdc@gmail.com","jtuagavmuwwqzkxt");
+        Configuration config= ConfigurationFromJSON.getInstance();
+        String smtpEmail=config.getConfigurationByKey(config.getEnvironmentFromConfiguration(),"smtpEmail");
+        String smtpPassword=config.getConfigurationByKey(config.getEnvironmentFromConfiguration(),"smtpPassword");
+        ISendEmail emailSMTP = new Gmail(smtpEmail,smtpPassword);
         BulkEmail bulkEmail = bulkEmailFactory.CreateBulkEmail(c, subscriberList, emailSMTP);
 
         scheduler.attach(bulkEmail);

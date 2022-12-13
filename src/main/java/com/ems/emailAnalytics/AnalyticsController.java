@@ -1,5 +1,8 @@
 package com.ems.emailAnalytics;
 
+import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.bulkEmail.buisness.SimpleEmailDetails;
+import com.ems.bulkEmail.persistence.EmailDetailsDb;
 import com.ems.emailAnalytics.buisness.Analytics;
 import com.ems.emailAnalytics.buisness.ClickAnalytics;
 import com.ems.emailAnalytics.buisness.PixelAnalytics;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.Base64;
 
 @Controller()
@@ -31,7 +35,7 @@ public class AnalyticsController {
         try {
 
             Analytics analytics=new PixelAnalytics();
-            analytics.performAnalytics(pixelid);
+            analytics.performAnalytics(pixelid,new SimpleEmailDetails(),new EmailDetailsDb(MySqlPersistenceConnection.getInstance().getConnection()));
             File file= new File("./src/main/resources/static/assets/pixel.png");
             final InputStream in =
                     new DataInputStream(new FileInputStream(file));
@@ -40,13 +44,20 @@ public class AnalyticsController {
             e.printStackTrace();
             return null;
         }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @RequestMapping(value = "/click", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
     public RedirectView getClickUrl(@RequestParam(required = true) String clickid, @RequestParam(required = true) String link, HttpServletRequest request, HttpServletResponse response){
-
-        Analytics analytics=new ClickAnalytics();
-        analytics.performAnalytics(clickid);
         RedirectView redirectView = new RedirectView();
+        Analytics analytics=new ClickAnalytics();
+        try {
+            analytics.performAnalytics(clickid,new SimpleEmailDetails(),new EmailDetailsDb(MySqlPersistenceConnection.getInstance().getConnection()));
+        } catch (SQLException e) {
+             e.printStackTrace();
+        }
+
         String decodedUrl=new String((Base64.getDecoder().decode(link)));
 
         redirectView.setUrl(decodedUrl);

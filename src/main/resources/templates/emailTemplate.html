@@ -8,12 +8,14 @@
 </head>
 <body>
     <div class="navigation">
-        <span class="logo"><img th:src="@{/assets/logo.svg}" /> EMS</span>
+        <span class="logo"><a href="/company-details"><img th:src="@{/assets/logo.svg}" alt="EMS logo" />EMS</a></span>
         <nav>
             <ul class="nav-links">
-                <li class="nav-link">Email Template</li>
-                <li class="nav-link">Subscriber List</li>
-                <li class="nav-link">Company Details</li>
+                <li class="nav-link"><a href="/company-details">Company Details</a></li>
+                <li class="nav-link"><a href="/subscriber-list">Subscriber List</a></li>
+                <li class="nav-link"><a href="/email-template">Email Template</a></li>
+                <li class="nav-link"><a href="/campaigns">Campaign</a></li>
+                <li class="nav-link logout__link"><a href="/authentication/logout">Logout</a></li>
             </ul>
         </nav>
     </div>
@@ -22,18 +24,18 @@
             <h1 class="main-title">Email Template</h1>
             <a href="/create-email-template" class="button">Create Template</a>
         </div>
-        <div th:each="template: ${emailTemplates} " class="email-template">
+        <div th:each="template: ${emailTemplates} " class="card">
             <div>
-                <span class="title" th:text="${template.templateName}"/>
+                <span class="card__title" th:text="${template.templateName}"/>
             </div>
             <div>
-                <span class="label">Subject: </span><span class="subject" th:text="${template.templateSubject}"/>
+                <span class="card__label">Subject: </span><span class="card__subtitle" th:text="${template.templateSubject}"/>
             </div>
             <div>
-               <span class="description" th:text="${template.templateDescription}"/>
+               <span class="card__description" th:text="${template.templateDescription}"/>
             </div>
-            <div class="links">
-                <a class="email-template__link" target="_blank" th:href="${template.landingPageLink}">Explore Now</a>
+            <div class="card__links">
+                <a class="btn__secondary" target="_blank" th:href="${template.landingPageLink}">Explore Now</a>
                 <div class="action-links">
                     <form method="get" th:action="@{/update-email-template/{id}(id=${template.templateId})}">
                         <button type="submit" class="link" th:attr="data-template-id=${template.templateId}"><img class="icon" th:src="@{/assets/icon-edit.svg} " /></button>

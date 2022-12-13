@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="/styles/form.css">
 </head>
 <body>
+<div class="navigation">
+  <span class="logo"><a href="/company-details"><img th:src="@{/assets/logo.svg}" alt="EMS logo" />EMS</a></span>
+  <nav>
+    <ul class="nav-links">
+      <li class="nav-link"><a href="/company-details">Company Details</a></li>
+      <li class="nav-link"><a href="/subscriber-list">Subscriber List</a></li>
+      <li class="nav-link"><a href="/email-template">Email Template</a></li>
+      <li class="nav-link"><a href="/campaigns">Campaign</a></li>
+      <li class="nav-link"><a href="/authentication/logout">Logout</a></li>
+    </ul>
+  </nav>
+</div>
 <form class="email-template-form" >
   <h2 class="form-title">Create Campaign</h2>
   <div class="input-group">
