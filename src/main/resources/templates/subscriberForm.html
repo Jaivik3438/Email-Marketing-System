@@ -41,10 +41,19 @@
     <span class="label">Subscription Date</span>
     <input required class="input-field" rows="5" name="subscription_date" />
   </div>
-  <div class="input-group">
-    <span class="label">User-Segment id</span>
-    <input required class="input-field" rows="5" name="user_segment_id" />
-  </div>
+<!--    <div class="input-group">-->
+<!--      <span class="label">Campaign Start Time</span>-->
+<!--      <input required class="input-field input-field&#45;&#45;datetime" type="datetime-local" name="subscription_date" />-->
+<!--    </div>-->
+    <div class="input-group">
+      <select name="user_segment_id" id="userSegmentId">
+        <option class="input-field"  th:each="userSegment: ${userSegment}" th:value="${userSegment.userSegmentId}" th:text="${userSegment.applicationName}"></option>
+      </select>
+    </div>
+<!--  <div class="input-group">-->
+<!--    <span class="label">User-Segment id</span>-->
+<!--    <input required class="input-field" rows="5" name="user_segment_id" />-->
+<!--  </div>-->
   <button class="button button--form button--grid" type="submit">Add Now</button>
 </form>
 </body>
