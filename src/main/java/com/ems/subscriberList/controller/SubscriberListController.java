@@ -45,7 +45,6 @@ public class SubscriberListController {
          String Subscriber_lastname = request.getParameter("sub_last_name");
          String Subscriber_location =request.getParameter("sub_location");
          String Subscriber_date = request.getParameter("subscription_date");
-         //String Subsciber_status = body.get("sub_status").asText();
          String Subscriber_userSegmentId =request.getParameter("user_segment_id");
 
          SubscriberDB DatabaseObj = new SubscriberDB(MySqlPersistenceConnection.getInstance().getConnection());
