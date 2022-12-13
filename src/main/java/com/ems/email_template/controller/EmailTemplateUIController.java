@@ -1,8 +1,17 @@
 package com.ems.email_template.controller;
 
+import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.authentication.model.User;
 import com.ems.email_template.model.EmailTemplate;
 import com.ems.email_template.model.SimpleEmailTemplate;
 import com.ems.email_template.model.Template;
+import com.ems.email_template.model.template_fetcher.EmailTemplateFetcher;
+import com.ems.email_template.model.template_fetcher.EmailTemplateFetcherFactory;
+import com.ems.email_template.model.template_fetcher.ITemplateFetcher;
+import com.ems.email_template.model.template_fetcher.ITemplateFetcherFactory;
+import com.ems.email_template.model.template_state.TemplateState;
+import com.ems.email_template.persistent.EmailTemplateDb;
+import com.ems.email_template.persistent.ITemplatePersistent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,26 +33,14 @@ import java.util.List;
 public class EmailTemplateUIController {
 
     @GetMapping("/email-template")
-    public String emailTemplateList(Model model, HttpSession session) {
-        System.out.println(session.getAttribute("user").toString());
-        EmailTemplateController controller = new EmailTemplateController();
-        String jsonString = controller.getAllEmailTemplate().toString();
-        ArrayNode templates;
-        List<Template> templatesList = new ArrayList<>();
-        try {
-            templates = (ArrayNode) new ObjectMapper().readTree(jsonString).get("data");
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public String emailTemplateList(Model model, HttpSession session) throws SQLException {
+        ITemplatePersistent templatePersistent = new EmailTemplateDb(MySqlPersistenceConnection.getInstance().getConnection());
+        ITemplateFetcherFactory  fetcherFactory = new EmailTemplateFetcherFactory();
+        ITemplateFetcher fetcher = fetcherFactory.createTemplateFetcher(templatePersistent);
 
-        for (JsonNode template: templates) {
-            String id = template.get("templateId").asText();
-            String name = template.get("templateName").asText();
-            String subject = template.get("templateSubject").asText();
-            String description = template.get("templateDescription").asText();
-            String landingPageLink = template.get("landingPageLink").asText();
-            templatesList.add(new SimpleEmailTemplate(id, name, subject, description, landingPageLink));
-        }
+        User user = (User) session.getAttribute("user");
+        TemplateState state = fetcher.fetchAllTemplateByUserId(user);
+        List<Template> templatesList = (List<Template>) state.getData();
 
         model.addAttribute("something", "dynamic value");
         model.addAttribute("emailTemplates", templatesList);
@@ -50,7 +48,7 @@ public class EmailTemplateUIController {
     }
 
     @GetMapping("/create-email-template")
-    public String emailTemplateForm(Model model) {
+    public String emailTemplateForm() {
         return "emailTemplateForm";
     }
 
