@@ -1,5 +1,8 @@
 package com.ems.DbConnection;
 
+import com.ems.configuration.buisness.Configuration;
+import com.ems.configuration.buisness.ConfigurationFromJSON;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,13 +11,19 @@ public class MySqlPersistenceConnection {
     private static Connection conn;
     private static MySqlPersistenceConnection instance;
 
-    private String mysqlurl="jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_8_DEVINT?useSSL=false";
+    private String mysqlUrl;
 
-    private String password="wn3SKymKCd";
-    private String userName="CSCI5308_8_DEVINT_USER";
+    private String password;
+    private String userName;
 
     private MySqlPersistenceConnection() throws SQLException {
         try {
+            Configuration config=ConfigurationFromJSON.getInstance();
+            String env=config.getEnvironmentFromConfiguration();
+            mysqlUrl= config.getConfigurationByKey(env,"mysqlUrl");
+            password= config.getConfigurationByKey(env,"dbPassword");
+            userName= config.getConfigurationByKey(env,"userName");
+
             connect();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -24,7 +33,7 @@ public class MySqlPersistenceConnection {
     public void connect() throws SQLException, ClassNotFoundException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        this.conn = DriverManager.getConnection(mysqlurl, userName, password);
+        this.conn = DriverManager.getConnection(mysqlUrl, userName, password);
     }
 
     public static MySqlPersistenceConnection getInstance() throws SQLException {
