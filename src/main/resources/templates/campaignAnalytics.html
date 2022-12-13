@@ -36,14 +36,14 @@
       <div th:each="campaignAnalytics: ${campaignAnalytics}" class="card">
         <div>
           <span class="card__label">Conversion Rate</span>
-          <span class="card__title" th:text="${campaignAnalytics.getConversionRate()}"/>
+          <span class="card__title" th:text="${campaignAnalytics.getConversionRate()} +' %'"/>
         </div>
       </div>
 
       <div th:each="campaignAnalytics: ${campaignAnalytics}" class="card">
         <div>
           <span class="card__label">Unsubscribe Rate</span>
-          <span class="card__title" th:text="${campaignAnalytics.getUnsubscribeRate()}"/>
+          <span class="card__title" th:text="${campaignAnalytics.getUnsubscribeRate()} + ' %'"/>
         </div>
       </div>
     </div>
