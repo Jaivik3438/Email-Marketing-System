@@ -7,13 +7,11 @@ import com.ems.campaign.persistent.ICampaignPersistent;
 import com.ems.subscriberList.model.Subscriber;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CampaignAnalytics {
     private int subscribersCount;
-    private List<Subscriber> subscriberList;
+    private List<EmailDetails> emailDetailsList;
     private int emailClicks;
     private Double conversionRate;
     private Double unsubscribeRate;
@@ -35,7 +33,6 @@ public class CampaignAnalytics {
     public String toString() {
         return "CampaignAnalytics{" +
                 "subscribersCount=" + subscribersCount +
-                ", subscriberList=" + subscriberList +
                 ", emailClicks=" + emailClicks +
                 ", conversionRate=" + conversionRate +
                 ", unsubscribeRate=" + unsubscribeRate +
@@ -69,11 +66,14 @@ public class CampaignAnalytics {
 
     public int getSubscribersCount() { return subscribersCount; }
 
+    public List<EmailDetails> getEmailDetailsList() {
+        return emailDetailsList;
+    }
+
+    public void setEmailDetailsList(List<EmailDetails> emailDetailsList) {
+        this.emailDetailsList = emailDetailsList;
+    }
     public void setSubscribersCount(int subscribersCount) { this.subscribersCount = subscribersCount; }
-
-    public List<Subscriber> getSubscriberList() { return subscriberList; }
-
-    public void setSubscriberList(List<Subscriber> subscriberList) { this.subscriberList = subscriberList; }
 
     public int getEmailClicks() { return emailClicks; }
 
@@ -85,8 +85,8 @@ public class CampaignAnalytics {
             List<Subscriber> subscriberList = getSubscribersListFromEmailDetails(emailDetailsList);
 
             if(subscriberList.size() > 0){
-                campaignAnalytics.setSubscriberList(subscriberList);
                 campaignAnalytics.setSubscribersCount(subscriberList.size());
+                campaignAnalytics.setEmailDetailsList(emailDetailsList);
                 campaignAnalytics.setEmailClicks(getEmailOpenCountFromEmailDetails(emailDetailsList));
                 campaignAnalytics.setConversionRate(calculateCampaignConversionRate(emailDetailsList));
                 campaignAnalytics.setClickThroughRate(calculateEmailClickThroughRate(emailDetailsList));
@@ -117,7 +117,6 @@ public class CampaignAnalytics {
                 count++;
             }
         }
-
         return count;
     }
 

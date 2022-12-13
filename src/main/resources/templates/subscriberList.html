@@ -5,6 +5,7 @@
   <title>Subscriber List| EMS</title>
   <link rel="stylesheet" href="/styles/index.css">
   <link rel="stylesheet" href="/styles/emailtemplate.css">
+  <link rel="stylesheet" href="/styles/subscriberList.css">
 </head>
 <body>
 <div class="navigation">
@@ -24,28 +25,48 @@
     <h1 class="main-title">Subscriber List</h1>
       <a href="/add-subscriber" class="button">Create Subscriber</a>
   </div>
-  <div th:each="subscriber: ${subscribers} " class="card">
-    <div>
-      <span class="card__label">Subscriber's First Name </span>
-      <span class="card__subtitle" th:text="${subscriber.sub_first_name}"/>
+
+  <div class="subscriber-table">
+    <div class="card card__subscriber-list">
+      <div>
+        <span class="card__label"><b>First Name</b></span>
+      </div>
+      <div>
+        <span class="card__label"><b>Last Name</b></span>
+      </div>
+      <div>
+        <span class="card__label"><b>Email</b></span>
+      </div>
+      <div>
+        <span class="card__label"><b>Location</b></span>
+      </div>
+      <div>
+        <span class="card__label"><b>Date</b></span>
+      </div>
     </div>
-    <div>
-      <span class="card__label">Subscriber's Last Name </span>
-      <span class="card__subtitle" th:text="${subscriber.sub_last_name}"/>
-    </div>
-    <div>
-      <span class="card__label">Subscriber's Email-id </span>
-      <span class="card__subtitle" th:text="${subscriber.sub_email}"/>
-    </div>
-    <div>
-      <span class="card__label">Subscriber's Location </span>
-      <span class="card__subtitle" th:text="${subscriber.sub_location}"/>
-    </div>
-    <div>
-      <span class="card__label">Subscription Date </span>
-      <span class="card__subtitle" th:text="${subscriber.subscription_date}"/>
+
+
+    <div class="card card__subscriber-list" th:each="subscriber: ${subscribers} ">
+      <div>
+        <span class="card__label" th:text="${subscriber.sub_first_name}"/>
+      </div>
+      <div>
+        <span class="card__label" th:text="${subscriber.sub_last_name}"/>
+      </div>
+      <div>
+        <span class="card__label" th:text="${subscriber.sub_email}"/>
+      </div>
+      <div>
+        <span class="card__label" th:text="${subscriber.sub_location}"/>
+      </div>
+      <div>
+        <span class="card__label" th:text="${subscriber.subscription_date}"/>
+      </div>
     </div>
   </div>
+
+
+
 </div>
 </body>
 </html>
