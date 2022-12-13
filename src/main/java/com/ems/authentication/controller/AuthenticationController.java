@@ -66,7 +66,7 @@ public class AuthenticationController {
         try {
             IAuthenticate authenticate = new Authenticate();
             authenticate.logout(request.getSession());
-            response.sendRedirect("/home");
+            response.sendRedirect("/");
 
         } catch (Exception e) {
             e.printStackTrace();

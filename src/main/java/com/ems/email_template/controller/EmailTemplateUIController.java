@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,8 @@ import java.util.List;
 public class EmailTemplateUIController {
 
     @GetMapping("/email-template")
-    public String emailTemplateList(Model model) {
+    public String emailTemplateList(Model model, HttpSession session) {
+        System.out.println(session.getAttribute("user").toString());
         EmailTemplateController controller = new EmailTemplateController();
         String jsonString = controller.getAllEmailTemplate().toString();
         ArrayNode templates;
