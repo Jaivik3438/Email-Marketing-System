@@ -1,6 +1,19 @@
 package com.ems.campaign.model;
 
+import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.bulkEmail.buisness.EmailDetails;
+import com.ems.campaign.persistent.CampaignDb;
+import com.ems.campaign.persistent.ICampaignPersistent;
+import com.ems.subscriberList.model.Subscriber;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CampaignAnalytics {
+    private int subscribersCount;
+    private List<Subscriber> subscriberList;
+    private int emailClicks;
     private Double conversionRate;
     private Double unsubscribeRate;
     private Double clickThroughRate;
@@ -15,6 +28,18 @@ public class CampaignAnalytics {
         this.conversionRate = conversionRate;
         this.unsubscribeRate = unsubscribeRate;
         this.clickThroughRate = clickThroughRate;
+    }
+
+    @Override
+    public String toString() {
+        return "CampaignAnalytics{" +
+                "subscribersCount=" + subscribersCount +
+                ", subscriberList=" + subscriberList +
+                ", emailClicks=" + emailClicks +
+                ", conversionRate=" + conversionRate +
+                ", unsubscribeRate=" + unsubscribeRate +
+                ", clickThroughRate=" + clickThroughRate +
+                '}';
     }
 
     public Double getConversionRate() {
@@ -39,5 +64,69 @@ public class CampaignAnalytics {
 
     public void setClickThroughRate(Double clickThroughRate) {
         this.clickThroughRate = clickThroughRate;
+    }
+
+    public int getSubscribersCount() { return subscribersCount; }
+
+    public void setSubscribersCount(int subscribersCount) { this.subscribersCount = subscribersCount; }
+
+    public List<Subscriber> getSubscriberList() { return subscriberList; }
+
+    public void setSubscriberList(List<Subscriber> subscriberList) { this.subscriberList = subscriberList; }
+
+    public int getEmailClicks() { return emailClicks; }
+
+    public void setEmailClicks(int emailClicks) { this.emailClicks = emailClicks; }
+
+    public CampaignAnalytics getCampaignAnalytics(ICampaignPersistent campaignPersistent ,String campaignId){
+            CampaignAnalytics campaignAnalytics = new CampaignAnalytics();
+            List<EmailDetails> emailDetailsList = campaignPersistent.getAllEmailDetailsOfCampaign(campaignId);
+            List<Subscriber> subscriberList = getSubscribersListFromEmailDetails(emailDetailsList);
+
+            if(subscriberList.size() > 0){
+                campaignAnalytics.setSubscriberList(subscriberList);
+                campaignAnalytics.setSubscribersCount(subscriberList.size());
+                campaignAnalytics.setEmailClicks(getEmailOpenCountFromEmailDetails(emailDetailsList));
+                campaignAnalytics.setConversionRate(calculateCampaignConversionRate(emailDetailsList));
+                campaignAnalytics.setClickThroughRate(calculateEmailClickThroughRate(emailDetailsList));
+            }
+            return campaignAnalytics;
+    }
+
+    private List<Subscriber> getSubscribersListFromEmailDetails(List<EmailDetails> emailDetailsList){
+        List<Subscriber> subscriberList = new ArrayList<>();
+        for(EmailDetails emailDetail: emailDetailsList){
+            subscriberList.add(emailDetail.subscriber);
+        }
+        return subscriberList;
+    }
+
+    private double calculateCampaignConversionRate(List<EmailDetails> emailDetailsList){
+        int emailOpenCount = getEmailOpenCountFromEmailDetails(emailDetailsList);
+        int totalSubscribers = emailDetailsList.size();
+
+        return (emailOpenCount / totalSubscribers) * 100;
+    }
+
+    private int getEmailOpenCountFromEmailDetails(List<EmailDetails> emailDetailsList){
+        int count = 0;
+        for(EmailDetails emailDetail : emailDetailsList){
+            if(emailDetail.numberOfTimesOpened > 0){
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    private double calculateEmailClickThroughRate(List<EmailDetails> emailDetailsList){
+        int subscriberCount = emailDetailsList.size();
+        int linkClickCount = 0;
+        for(EmailDetails emailDetail : emailDetailsList){
+            if(emailDetail.numberOfTimesClicked > 0){
+                linkClickCount++;
+            }
+        }
+        return (linkClickCount / subscriberCount) * 100;
     }
 }
