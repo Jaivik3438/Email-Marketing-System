@@ -13,12 +13,12 @@ public class PixelDecorator extends SimpleEmailDecorator{
     public void generateBody(Template template) {
         wrappedMail.generateBody(template);
         String generatedPixel=generatePixel();
-        this.body=this.body+generatedPixel;
-
+        this.body=wrappedMail.body+generatedPixel;
+        this.clickId=wrappedMail.clickId;
     }
     private String generatePixel(){
-        this.pixelId="p"+ UUID.randomUUID();
-        String pixel="<img src='http://localhost:8080/analytics/pixelid?'"+this.pixelId+".png  width='1' height='1'>";
+        this.pixelId="p-"+ UUID.randomUUID();
+        String pixel="<img src='http://localhost:8080/analytics/pixel?pixelid="+this.pixelId+"'  width='1' height='1'>";
         return pixel;
     }
 }
