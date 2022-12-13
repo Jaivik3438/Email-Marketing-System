@@ -49,6 +49,7 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
 	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+	implementation 'org.json:json:20220924'
 	//testImplementation 'org.springframework.security:spring-security-test'
 }
 
