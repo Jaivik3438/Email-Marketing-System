@@ -33,7 +33,7 @@ public class Subscriber {
                 '}';
     }
 
-    public Subscriber(String sub_email, String sub_first_name, String sub_last_name, String sub_location, String subscription_date, String sub_status ){
+    public Subscriber(String sub_email, String sub_first_name, String sub_last_name, String sub_location, String subscription_date ){
         setSub_id(generateId());
         setSub_email(sub_email);
         setSub_first_name(sub_first_name);
@@ -99,7 +99,7 @@ public class Subscriber {
     }
 
     public void setSub_status(String sub_status) {
-        this.sub_status = sub_status;
+        this.sub_status = "Active";
     }
 
     public List<Subscriber> loadSubscriber (ISubscriberPersistence persistence) throws Exception {

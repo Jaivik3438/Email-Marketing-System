@@ -10,6 +10,8 @@ import com.ems.subscriberList.persistence.SubscriberDB;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -34,30 +36,31 @@ public class SubscriberListController {
         }
     }
     @PostMapping("/savesubscriber")
-    public String createSubscriberList(@RequestBody JsonNode body)
+    public String createSubscriberList( HttpServletRequest request,  HttpServletResponse response)
     {
      try
      {
-         String Subscriber_email = body.get("sub_email").asText();
-         String Subscriber_firstname = body.get("sub_first_name").asText();
-         String Subscriber_lastname = body.get("sub_last_name").asText();
-         String Subscriber_location = body.get("sub_location").asText();
-         String Subscriber_date = body.get("subscription_date").asText();
-         String Subsciber_status = body.get("sub_status").asText();
-         String Subscriber_userSegmentId = body.get("user_segment_id").asText();
+         String Subscriber_email = request.getParameter("sub_email");
+         String Subscriber_firstname = request.getParameter("sub_first_name");
+         String Subscriber_lastname = request.getParameter("sub_last_name");
+         String Subscriber_location =request.getParameter("sub_location");
+         String Subscriber_date = request.getParameter("subscription_date");
+         //String Subsciber_status = body.get("sub_status").asText();
+         String Subscriber_userSegmentId =request.getParameter("user_segment_id");
 
          SubscriberDB DatabaseObj = new SubscriberDB(MySqlPersistenceConnection.getInstance().getConnection());
-         Subscriber addSubscriber = new Subscriber(Subscriber_email,Subscriber_firstname,Subscriber_lastname,Subscriber_location,Subscriber_date,Subsciber_status);
+         Subscriber addSubscriber = new Subscriber(Subscriber_email,Subscriber_firstname,Subscriber_lastname,Subscriber_location,Subscriber_date);
          int responseCode = addSubscriber.saveSubscriber(DatabaseObj);
-         if(responseCode == -1)
-         {
-             return "Error in inserting Subscriber details";
-         }
          int responseCodeforSubscriberidwithUserSegment =addSubscriber.saveSubcriberAndUserSegmentID(DatabaseObj,Subscriber_userSegmentId);
-         if(responseCodeforSubscriberidwithUserSegment == -1)
+         if(responseCode != -1)
          {
-             return "Error in Subscriber and userSegment details";
+             response.sendRedirect("/subscriber-list");
          }
+         else
+         {
+             response.sendRedirect("/add-subscriber");
+         }
+
          return "Success: " + addSubscriber.toString();
 
 

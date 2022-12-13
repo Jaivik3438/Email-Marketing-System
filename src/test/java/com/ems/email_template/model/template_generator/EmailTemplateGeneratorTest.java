@@ -25,7 +25,7 @@ public class EmailTemplateGeneratorTest {
     public void createNewTemplateSuccessTest() {
         TemplateGenerator templateGenerator = fetcherFactory.createTemplateGenerator(emailPersistent);
         Template template = new SimpleEmailTemplate("4", "Black Friday Sale Template", "ALl products 50% sales", "Description will go here", "https://www.hnm.com/black-friday");
-        TemplateState actualState = templateGenerator.createNewTemplate(template);
+        TemplateState actualState = templateGenerator.createNewTemplate(template, "1");
         int actualNumOfRowsInserted = (Integer) actualState.getData();
 
         assertEquals(HttpStatus.CREATED, actualState.getStatus());
@@ -36,7 +36,7 @@ public class EmailTemplateGeneratorTest {
     public void createNewTemplateFailureTest() {
         TemplateGenerator templateGenerator = fetcherFactory.createTemplateGenerator(emailPersistent);
         Template template = new SimpleEmailTemplate("1", "Black Friday Sale Template", "ALl products 50% sales", "Description will go here", "https://www.hnm.com/black-friday");
-        TemplateState actualState = templateGenerator.createNewTemplate(template);
+        TemplateState actualState = templateGenerator.createNewTemplate(template, "1");
 
         assertEquals(HttpStatus.BAD_REQUEST, actualState.getStatus());
     }

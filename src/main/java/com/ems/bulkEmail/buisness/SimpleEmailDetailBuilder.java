@@ -8,7 +8,7 @@ import com.ems.subscriberList.model.Subscriber;
 public class SimpleEmailDetailBuilder extends EmailDetailBuilder{
     @Override
     public EmailDetails buildEmailDetail(Subscriber subscriber) {
-        EmailDetails emailDetails=new EmailDetails();
+        EmailDetails emailDetails=new SimpleEmailDetails();
         emailDetails.generateId();
         emailDetails.subscriber=subscriber;
         return emailDetails;
@@ -17,11 +17,14 @@ public class SimpleEmailDetailBuilder extends EmailDetailBuilder{
     @Override
     public Mail buildEmail(Template template, IFormatMail emailformatter) {
         Mail mail = new SimpleEmail();
-        Mail emailWithPixelAnalytics=new PixelDecorator(mail);
-        Mail emailWithClickRateAnalytics=new ClickRateDecorator(emailWithPixelAnalytics);
-        emailWithClickRateAnalytics.generateSubject(template);
-        emailWithClickRateAnalytics.generateBody(template);
-        emailWithClickRateAnalytics.body=new HtmlFormatter().formatMail(emailWithClickRateAnalytics.body);
-        return emailWithClickRateAnalytics;
+
+        Mail emailWithClickRateAnalytics=new ClickRateDecorator(mail);
+        Mail emailWithPixelAnalytics=new PixelDecorator(emailWithClickRateAnalytics);
+
+        emailWithPixelAnalytics.generateSubject(template);
+        emailWithPixelAnalytics.generateBody(template);
+        emailWithPixelAnalytics.clickId=emailWithClickRateAnalytics.clickId;;
+        emailWithPixelAnalytics.body=new HtmlFormatter().formatMail(emailWithPixelAnalytics.body);
+        return emailWithPixelAnalytics;
     }
 }

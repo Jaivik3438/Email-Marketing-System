@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscriber List| EMS</title>
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/emailtemplate.css">
+</head>
+<body>
+<div class="navigation">
+  <span class="logo"><img th:src="@{/assets/logo.svg}" /> EMS</span>
+  <nav>
+    <ul class="nav-links">
+      <li class="nav-link">Email Template</li>
+      <li class="nav-link">Subscriber List</li>
+      <li class="nav-link">Company Details</li>
+    </ul>
+  </nav>
+</div>
+<div class="templates">
+  <div class="header">
+    <h1 class="main-title">Subscriber List</h1>
+
+  </div>
+  <div th:each="subscriber: ${subscribers} " class="email-template">
+    <div>
+      <span class="label">Subscriber's First Name </span>
+      <span class="subject" th:text="${subscriber.sub_first_name}"/>
+    </div>
+    <div>
+      <span class="label">Subscriber's Last Name </span>
+      <span class="subject" th:text="${subscriber.sub_last_name}"/>
+    </div>
+    <div>
+      <span class="label">Subscriber's Email-id </span>
+      <span class="subject" th:text="${subscriber.sub_email}"/>
+    </div>
+    <div>
+      <span class="label">Subscriber's Location </span>
+      <span class="subject" th:text="${subscriber.sub_location}"/>
+    </div>
+    <div>
+      <span class="label">Subscription Date </span>
+      <span class="subject" th:text="${subscriber.subscription_date}"/>
+    </div>
+<!--    <div>-->
+<!--      <span class="label">Subscription Status </span>-->
+<!--      <span class="subject" th:text="${subscriber.sub_status}"/>-->
+<!--    </div>-->
+<!--    <div class="links">-->
+<!--      <a class="email-template__link" target="_blank" th:href="${template.landingPageLink}">Explore Now</a>-->
+<!--      <div class="action-links">-->
+<!--        <form method="get" th:action="@{/update-email-template/{id}(id=${template.templateId})}">-->
+<!--          <button type="submit" class="link" th:attr="data-template-id=${template.templateId}"><img class="icon" th:src="@{/assets/icon-edit.svg} " /></button>-->
+<!--        </form>-->
+<!--        <button class="link link&#45;&#45;delete" th:attr="data-template-id=${template.templateId}"><img class="icon icon&#45;&#45;delete" th:src="@{/assets/icon-delete.svg}" /></button>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+</div>
+
+<!--<script>-->
+<!--        const deleteButtonList = document.querySelectorAll(".link&#45;&#45;delete");-->
+<!--        deleteButtonList.forEach(deleteButtonEl => {-->
+<!--            deleteButtonEl.addEventListener("click", (e) => {-->
+<!--                const templateId = e.target.dataset.templateId;-->
+
+<!--                fetch(`/api/email-template/${templateId}`, {-->
+<!--                    method: "delete"-->
+<!--                })-->
+<!--                .then((res) => res.json())-->
+<!--                .then(data => location.reload())-->
+<!--            })-->
+<!--        })-->
+<!--    </script>-->
+</body>
+</html>

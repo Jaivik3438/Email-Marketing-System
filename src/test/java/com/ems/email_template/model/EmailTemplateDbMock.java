@@ -1,5 +1,6 @@
 package com.ems.email_template.model;
 
+import com.ems.authentication.model.User;
 import com.ems.email_template.persistent.ITemplatePersistent;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class EmailTemplateDbMock implements ITemplatePersistent {
     }
 
     @Override
-    public int save(Template template) {
+    public int save(Template template, String userId) {
         Template templateInDB = findTemplateById(template.getTemplateId());
         if (templateInDB == null) {
             return 1;
@@ -43,6 +44,11 @@ public class EmailTemplateDbMock implements ITemplatePersistent {
     @Override
     public Template loadTemplateById(String templateId) {
         return findTemplateById(templateId);
+    }
+
+    @Override
+    public List<Template> loadAllTemplateByUserId(User user) {
+        return null;
     }
 
     @Override
