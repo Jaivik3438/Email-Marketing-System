@@ -8,70 +8,44 @@
 </head>
 <body>
 <div class="navigation">
-  <span class="logo"><img th:src="@{/assets/logo.svg}" /> EMS</span>
+  <span class="logo"><a href="/company-details"><img th:src="@{/assets/logo.svg}" alt="EMS logo" />EMS</a></span>
   <nav>
     <ul class="nav-links">
-      <li class="nav-link">Email Template</li>
-      <li class="nav-link">Subscriber List</li>
-      <li class="nav-link">Company Details</li>
+      <li class="nav-link"><a href="/company-details">Company Details</a></li>
+      <li class="nav-link"><a href="/subscriber-list">Subscriber List</a></li>
+      <li class="nav-link"><a href="/email-template">Email Template</a></li>
+      <li class="nav-link"><a href="/campaigns">Campaign</a></li>
+      <li class="nav-link logout__link"><a href="/authentication/logout">Logout</a></li>
     </ul>
   </nav>
 </div>
 <div class="templates">
   <div class="header">
     <h1 class="main-title">Subscriber List</h1>
-
+      <a href="/add-subscriber" class="button">Create Subscriber</a>
   </div>
-  <div th:each="subscriber: ${subscribers} " class="email-template">
+  <div th:each="subscriber: ${subscribers} " class="card">
     <div>
-      <span class="label">Subscriber's First Name </span>
-      <span class="subject" th:text="${subscriber.sub_first_name}"/>
+      <span class="card__label">Subscriber's First Name </span>
+      <span class="card__subtitle" th:text="${subscriber.sub_first_name}"/>
     </div>
     <div>
-      <span class="label">Subscriber's Last Name </span>
-      <span class="subject" th:text="${subscriber.sub_last_name}"/>
+      <span class="card__label">Subscriber's Last Name </span>
+      <span class="card__subtitle" th:text="${subscriber.sub_last_name}"/>
     </div>
     <div>
-      <span class="label">Subscriber's Email-id </span>
-      <span class="subject" th:text="${subscriber.sub_email}"/>
+      <span class="card__label">Subscriber's Email-id </span>
+      <span class="card__subtitle" th:text="${subscriber.sub_email}"/>
     </div>
     <div>
-      <span class="label">Subscriber's Location </span>
-      <span class="subject" th:text="${subscriber.sub_location}"/>
+      <span class="card__label">Subscriber's Location </span>
+      <span class="card__subtitle" th:text="${subscriber.sub_location}"/>
     </div>
     <div>
-      <span class="label">Subscription Date </span>
-      <span class="subject" th:text="${subscriber.subscription_date}"/>
+      <span class="card__label">Subscription Date </span>
+      <span class="card__subtitle" th:text="${subscriber.subscription_date}"/>
     </div>
-<!--    <div>-->
-<!--      <span class="label">Subscription Status </span>-->
-<!--      <span class="subject" th:text="${subscriber.sub_status}"/>-->
-<!--    </div>-->
-<!--    <div class="links">-->
-<!--      <a class="email-template__link" target="_blank" th:href="${template.landingPageLink}">Explore Now</a>-->
-<!--      <div class="action-links">-->
-<!--        <form method="get" th:action="@{/update-email-template/{id}(id=${template.templateId})}">-->
-<!--          <button type="submit" class="link" th:attr="data-template-id=${template.templateId}"><img class="icon" th:src="@{/assets/icon-edit.svg} " /></button>-->
-<!--        </form>-->
-<!--        <button class="link link&#45;&#45;delete" th:attr="data-template-id=${template.templateId}"><img class="icon icon&#45;&#45;delete" th:src="@{/assets/icon-delete.svg}" /></button>-->
-<!--      </div>-->
-<!--    </div>-->
   </div>
 </div>
-
-<!--<script>-->
-<!--        const deleteButtonList = document.querySelectorAll(".link&#45;&#45;delete");-->
-<!--        deleteButtonList.forEach(deleteButtonEl => {-->
-<!--            deleteButtonEl.addEventListener("click", (e) => {-->
-<!--                const templateId = e.target.dataset.templateId;-->
-
-<!--                fetch(`/api/email-template/${templateId}`, {-->
-<!--                    method: "delete"-->
-<!--                })-->
-<!--                .then((res) => res.json())-->
-<!--                .then(data => location.reload())-->
-<!--            })-->
-<!--        })-->
-<!--    </script>-->
 </body>
 </html>
