@@ -60,7 +60,7 @@ public class SubscriberListController {
              String Subscriber_firstname = request.getParameter("sub_first_name");
              String Subscriber_lastname = request.getParameter("sub_last_name");
              String Subscriber_location =request.getParameter("sub_location");
-             String Subscriber_date = request.getParameter("subscription_date");
+             String Subscriber_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
              String Subscriber_userSegmentId =request.getParameter("user_segment_id");
 
              SubscriberDB DatabaseObj = new SubscriberDB(getConnectionObject());
