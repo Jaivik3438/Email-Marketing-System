@@ -31,12 +31,14 @@
   </div>
 
   <div class="input-group">
+    <span class="label">Select Email Template</span>
     <select name="templateId" id="templateId">
       <option class="input-field" th:each="template: ${templates}" th:value="${template.getTemplateId()}" th:text="${template.getTemplateName()}"></option>
     </select>
   </div>
 
   <div class="input-group">
+    <span class="label">Select User Segment</span>
     <select name="userSegmentId" id="userSegmentId">
       <option class="input-field" th:each="userSegment: ${userSegment}" th:value="${userSegment.userSegmentId}" th:text="${userSegment.applicationName}"></option>
     </select>
