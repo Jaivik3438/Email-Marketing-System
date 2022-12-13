@@ -26,21 +26,31 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
             Statement statement = connection.createStatement();
             String formatSentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(emailDetails.sentTime);
             String formatOpenTime;
+            String updateEmailQuery="";
             if (null==emailDetails.openedTime){
-                formatOpenTime="";
+                updateEmailQuery = "UPDATE  mail SET" +
+                        "`pixel_id` = '"+ emailDetails.mail.pixelId+ "'," +
+                        "`ctr_id` = '"+ emailDetails.mail.clickId+ "'," +
+                        "`sent_time`= '"+ formatSentTime + "'," +
+                        "`number_of_times_clicked`= '"+ emailDetails.numberOfTimesClicked + "'," +
+                        "`number_of_times_opened`= '"+ emailDetails.numberOfTimesOpened + "'," +
+                        "`sub_id` = '"+ emailDetails.subscriber.sub_id+ "'," +
+                        "`campaign_id`= '"+ emailDetails.campaignId+ "'" +
+                        "WHERE `mail_id`= '"+ emailDetails.id+ "';";
+
             }else{
                 formatOpenTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(emailDetails.openedTime);
+                updateEmailQuery = "UPDATE  mail SET" +
+                        "`pixel_id` = '"+ emailDetails.mail.pixelId+ "'," +
+                        "`ctr_id` = '"+ emailDetails.mail.clickId+ "'," +
+                        "`sent_time`= '"+ formatSentTime + "'," +
+                        "`open_time`= '"+ formatOpenTime + "'," +
+                        "`number_of_times_clicked`= '"+ emailDetails.numberOfTimesClicked + "'," +
+                        "`number_of_times_opened`= '"+ emailDetails.numberOfTimesOpened + "'," +
+                        "`sub_id` = '"+ emailDetails.subscriber.sub_id+ "'," +
+                        "`campaign_id`= '"+ emailDetails.campaignId+ "'" +
+                        "WHERE `mail_id`= '"+ emailDetails.id+ "';";
             }
-            String updateEmailQuery = "UPDATE  mail SET" +
-                    "`pixel_id` = '"+ emailDetails.mail.pixelId+ "'," +
-                    "`ctr_id` = '"+ emailDetails.mail.clickId+ "'," +
-                    "`sent_time`= '"+ formatSentTime + "'," +
-                    "`open_time`= '"+ formatOpenTime + "'," +
-                    "`number_of_times_clicked`= '"+ emailDetails.numberOfTimesClicked + "'," +
-                    "`number_of_times_opened`= '"+ emailDetails.numberOfTimesOpened + "'," +
-                    "`sub_id` = '"+ emailDetails.subscriber.sub_id+ "'," +
-                    "`campaign_id`= '"+ emailDetails.campaignId+ "'" +
-                    "WHERE `mail_id`= '"+ emailDetails.id+ "';";
             return statement.executeUpdate(updateEmailQuery)>0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,16 +61,18 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
     @Override
     public boolean createEmailDetails(EmailDetails emailDetails) {
         try {
+
             String formatSentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(emailDetails.sentTime);
-            String createEmailQuery = "INSERT INTO `mail`(`mail_id`,`pixel_id`,`ctr_id`,`open_time`,`sub_id`,`campaign_id`) VALUES (?,?,?,?,?,?);";
-            PreparedStatement ps =connection.prepareStatement(createEmailQuery);
-            ps.setString(1,emailDetails.id);
-            ps.setString(2,emailDetails.mail.pixelId);
-            ps.setString(3,emailDetails.mail.clickId);
-            ps.setString(4,formatSentTime);
-            ps.setString(5,emailDetails.subscriber.getSub_id());
-            ps.setString(6,emailDetails.campaignId);
-            return ps.executeUpdate(createEmailQuery)>0;
+            String createEmailQuery = "INSERT INTO `mail`(`mail_id`,`pixel_id`,`ctr_id`,`sent_time`,`sub_id`,`campaign_id`) VALUES (" +
+            "\"" + emailDetails.id + "\", " +
+                    "\"" + emailDetails.mail.pixelId+ "\", " +
+                    "\"" + emailDetails.mail.clickId + "\", " +
+                    "\"" + formatSentTime + "\", " +
+                    "\"" + emailDetails.subscriber.getSub_id()+ "\", " +
+                    "\"" + emailDetails.campaignId + "\")";
+            Statement stmt =connection.createStatement();
+
+            return stmt.executeUpdate(createEmailQuery)>0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -70,12 +82,10 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
     @Override
     public EmailDetails loadEmailDetailsByPixelId(String pixelId) {
 
-        String sql="select * from mail,subscriber_list where mail.sub_id=subscriber_list.sub_id and mail.pixel_id=?";
+        String sql="select * from mail,subscriber_list where mail.sub_id=subscriber_list.sub_id and mail.pixel_id="+"\"" + pixelId+ "\"";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, pixelId);
-
-            ResultSet rs = stmt.executeQuery();
+            Statement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             while (rs.next()){
@@ -95,14 +105,10 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
 
     @Override
     public EmailDetails loadEmailDetailsByClickId(String clickId) {
-        String sql="select * from mail,subscriber_list where mail.sub_id=subscriber_list.sub_id and mail.ctr_id=?";
+        String sql="select * from mail,subscriber_list where mail.sub_id=subscriber_list.sub_id and mail.ctr_id="+"\"" + clickId+ "\"";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, clickId);
-
-            ResultSet rs = stmt.executeQuery();
-
-
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()){
                 EmailDetails  emailDetails=setEmilDetailsFromResultSet(rs);
 
@@ -141,7 +147,7 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
         mail.clickId=rs.getString("ctr_id");
         emailDetails.mail=mail;
 
-        if (openedTime==""){
+        if (openedTime==null){
             emailDetails.openedTime=null;
         }else{
             emailDetails.openedTime=simpleDateFormat.parse(openedTime);
