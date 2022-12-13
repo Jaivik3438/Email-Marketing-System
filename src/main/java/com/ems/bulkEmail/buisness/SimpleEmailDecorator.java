@@ -9,6 +9,7 @@ public abstract class SimpleEmailDecorator extends Mail {
     }
     public  void generateSubject(Template template){
         wrappedMail.generateSubject(template);
+
     }
     public  void generateBody(Template template){
         wrappedMail.generateBody(template);
