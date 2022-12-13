@@ -16,7 +16,7 @@ public class SimpleEmailDetailsTest {
     @BeforeAll
     public static void init() {
         emailDetails = new SimpleEmailDetails();
-        IEmailDetailsPersistence emailDetailsPersistence = new EmailDetailDbMock();
+        emailDetailsPersistence = new EmailDetailDbMock();
 
     }
     @Test
