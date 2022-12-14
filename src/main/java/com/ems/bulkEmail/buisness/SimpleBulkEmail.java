@@ -1,17 +1,13 @@
 package com.ems.bulkEmail.buisness;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
-import com.ems.bulkEmail.persistence.EmailDetailsDb;
+
 import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
 import com.ems.campaign.model.Campaign;
-import com.ems.campaign.model.IObserver;
 import com.ems.campaign.model.Subject;
 import com.ems.subscriberList.model.Subscriber;
 import com.ems.subscriberList.model.SubscriberList;
 import com.ems.subscriberList.persistence.ISubscriberPersistence;
-import com.ems.subscriberList.persistence.SubscriberDB;
 
-import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Date;

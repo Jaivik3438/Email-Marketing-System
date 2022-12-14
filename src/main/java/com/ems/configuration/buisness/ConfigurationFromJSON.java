@@ -1,10 +1,8 @@
 package com.ems.configuration.buisness;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -50,11 +48,10 @@ public class ConfigurationFromJSON extends Configuration {
             configMap.put("test",getEnvConfigurationJson("test",configurationJSon));
             configMap.put("dev",getEnvConfigurationJson("dev",configurationJSon));
             configs=configMap;
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
     }
     private  static Map<String,Object> getEnvConfigurationJson(String env,JSONObject configurationJSon){
         JSONObject configurationJSonObject= (JSONObject) configurationJSon.get(env);

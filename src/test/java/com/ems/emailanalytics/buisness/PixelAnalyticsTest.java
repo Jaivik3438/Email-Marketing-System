@@ -1,4 +1,4 @@
-package com.ems.emailAnalytics.buisness;
+package com.ems.emailanalytics.buisness;
 
 import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.bulkEmail.persistence.EmailDetailDbMock;

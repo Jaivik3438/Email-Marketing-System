@@ -1,7 +1,6 @@
 package com.ems.authentication.persistence;
 
 import com.ems.authentication.model.User;
-import com.ems.userSegment.model.UserSegment;
 
 import java.sql.SQLException;
 
