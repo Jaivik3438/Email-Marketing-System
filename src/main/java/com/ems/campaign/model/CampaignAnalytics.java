@@ -2,6 +2,7 @@ package com.ems.campaign.model;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.EmailDetails;
+import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
 import com.ems.campaign.persistent.CampaignDb;
 import com.ems.campaign.persistent.ICampaignPersistent;
 import com.ems.subscriberList.model.Subscriber;
@@ -79,9 +80,9 @@ public class CampaignAnalytics {
 
     public void setEmailClicks(int emailClicks) { this.emailClicks = emailClicks; }
 
-    public CampaignAnalytics getCampaignAnalytics(ICampaignPersistent campaignPersistent ,String campaignId){
+    public CampaignAnalytics getCampaignAnalytics(IEmailDetailsPersistence emailDetailsPersistence , String campaignId){
             CampaignAnalytics campaignAnalytics = new CampaignAnalytics();
-            List<EmailDetails> emailDetailsList = campaignPersistent.getAllEmailDetailsOfCampaign(campaignId);
+            List<EmailDetails> emailDetailsList = emailDetailsPersistence.getAllEmailDetailsOfCampaign(campaignId);
             List<Subscriber> subscriberList = getSubscribersListFromEmailDetails(emailDetailsList);
 
             if(subscriberList.size() > 0){

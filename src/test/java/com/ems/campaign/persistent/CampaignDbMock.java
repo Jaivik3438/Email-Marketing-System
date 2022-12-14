@@ -69,9 +69,4 @@ public class CampaignDbMock implements ICampaignPersistent {
         return 0;
     }
 
-    @Override
-    public List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId) {
-        return null;
-    }
-
 }
