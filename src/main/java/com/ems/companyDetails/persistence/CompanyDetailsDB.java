@@ -37,11 +37,9 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
                 companydetails.facebook_link = rs.getString("facebook_link");
                 companydetails.instagram_link = rs.getString("instagram_link");
                 companydetails.twitter_url = rs.getString("twitter_link");
-                System.out.println(companydetails);
                 resultCompany.add(companydetails);
 
             }
-
 
         }
         catch (SQLException e)
@@ -74,7 +72,6 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
             return -1;
         }
     }
-
     public int connectUserWithCompany(String userId, String companyId) {
         try
         {

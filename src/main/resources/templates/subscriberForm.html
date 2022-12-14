@@ -37,21 +37,12 @@
     <span class="label">Subscriber Location</span>
     <input class="input-field" type="text" name="sub_location" />
   </div>
-<<<<<<< HEAD
     <div class="input-group">
       <span class="label">User Segment</span>
       <select name="user_segment_id" id="userSegmentId">
         <option class="input-field"  th:each="userSegment: ${userSegment}" th:value="${userSegment.userSegmentId}" th:text="${userSegment.applicationName}"></option>
       </select>
     </div>
-=======
-  <div class="input-group">
-    <span class="label">User Segment</span>
-    <select name="user_segment_id" id="userSegmentId">
-      <option class="input-field"  th:each="userSegment: ${userSegment}" th:value="${userSegment.userSegmentId}" th:text="${userSegment.applicationName}"></option>
-    </select>
-  </div>
->>>>>>> origin/develop
   <button class="button button--form button--grid" type="submit">Add Now</button>
 </form>
 </body>

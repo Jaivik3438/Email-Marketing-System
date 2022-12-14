@@ -23,7 +23,6 @@ import java.util.List;
 
 @Controller
 public class SubscriberListUIController {
-
     @GetMapping("/add-subscriber")
     public String addSubscriberList(Model model, HttpSession session) throws SQLException {
         User user = (User) session.getAttribute("user");
