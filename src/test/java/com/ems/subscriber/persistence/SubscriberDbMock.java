@@ -95,4 +95,9 @@ public class SubscriberDbMock implements ISubscriberPersistence {
         return null;
 
     }
+
+    @Override
+    public Subscriber getSubscriberBySubscriberId(String subscriberId) {
+        return null;
+    }
 }
