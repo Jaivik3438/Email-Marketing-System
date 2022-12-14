@@ -1,4 +1,4 @@
-package com.ems.emailAnalytics;
+package com.ems.emailAnalytics.controller;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.SimpleEmailDetails;

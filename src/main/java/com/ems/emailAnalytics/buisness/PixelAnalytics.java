@@ -11,16 +11,17 @@ import java.util.Date;
 public class PixelAnalytics implements Analytics {
 
     @Override
-    public void performAnalytics(String pixelId, EmailDetails emailDetails, IEmailDetailsPersistence emailDetailsPersistence) {
+    public boolean performAnalytics(String pixelId, EmailDetails emailDetails, IEmailDetailsPersistence emailDetailsPersistence) {
 
         EmailDetails fetchedEmailDetail;
-        try {
-            fetchedEmailDetail=emailDetails.loadEmailDetailsByPixelId(emailDetailsPersistence,pixelId);
-            fetchedEmailDetail.openedTime=new Date();
-            fetchedEmailDetail.numberOfTimesOpened=fetchedEmailDetail.numberOfTimesOpened+1;
-            fetchedEmailDetail.saveEmailDetails(emailDetailsPersistence);
-        } catch (Exception e) {
-            e.printStackTrace();
+        fetchedEmailDetail=emailDetails.loadEmailDetailsByPixelId(emailDetailsPersistence,pixelId);
+        if (fetchedEmailDetail==null){
+            return false;
         }
+        fetchedEmailDetail.openedTime=new Date();
+        fetchedEmailDetail.numberOfTimesOpened=fetchedEmailDetail.numberOfTimesOpened+1;
+        boolean result =fetchedEmailDetail.saveEmailDetails(emailDetailsPersistence);
+        return true;
+
     }
 }
