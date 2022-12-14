@@ -6,5 +6,5 @@ import com.ems.authentication.persistence.UserDB;
 import com.ems.registration.dto.RegisterUserDto;
 
 public interface IRegisterUser {
-    public boolean registerUser(RegisterUserDto registerUserDto, UserDB userDB);
+    public boolean registerUser(RegisterUserDto registerUserDto, IUserPersistence userDB);
 }

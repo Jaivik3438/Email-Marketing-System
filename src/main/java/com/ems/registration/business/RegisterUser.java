@@ -10,7 +10,7 @@ import java.sql.Connection;
 
 public class RegisterUser implements IRegisterUser{
     @Override
-    public boolean registerUser(RegisterUserDto registerUserDto, UserDB userDB) {
+    public boolean registerUser(RegisterUserDto registerUserDto, IUserPersistence userDB) {
         String email = registerUserDto.email;
         String password = registerUserDto.password;
 
