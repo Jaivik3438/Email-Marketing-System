@@ -12,7 +12,6 @@ public class SimpleEmail extends Mail{
 
     @Override
     public void generateBody(Template template) {
-
         body=body+"<p>"+ ((EmailTemplate)template).getTemplateDescription()+"<p>";
     }
 

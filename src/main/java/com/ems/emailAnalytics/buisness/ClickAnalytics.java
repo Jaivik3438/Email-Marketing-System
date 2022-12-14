@@ -10,13 +10,14 @@ import java.sql.SQLException;
 
 public class ClickAnalytics implements Analytics{
     @Override
-    public void performAnalytics(String clickId, EmailDetails emailDetails, IEmailDetailsPersistence emailDetailsPersistence)  {
-        try {
+    public boolean performAnalytics(String clickId, EmailDetails emailDetails, IEmailDetailsPersistence emailDetailsPersistence)  {
+
             EmailDetails fetchedEmailDetail=emailDetails.loadEmailDetailsByClickId(emailDetailsPersistence,clickId);
+            if(fetchedEmailDetail==null){
+                return false;
+            }
             fetchedEmailDetail.numberOfTimesClicked=fetchedEmailDetail.numberOfTimesClicked+1;
-            fetchedEmailDetail.saveEmailDetails(new EmailDetailsDb(MySqlPersistenceConnection.getInstance().getConnection()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            boolean  result=fetchedEmailDetail.saveEmailDetails(emailDetailsPersistence);
+            return result;
     }
 }

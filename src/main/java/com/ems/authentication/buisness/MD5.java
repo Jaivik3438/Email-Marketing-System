@@ -12,7 +12,6 @@ public class MD5 implements IHash {
     public static MD5 getInstance(){
         if (instance==null){
             instance=new MD5();
-
         }
         return instance;
     }

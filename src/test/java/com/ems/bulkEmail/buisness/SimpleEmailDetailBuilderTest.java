@@ -1,5 +1,7 @@
 package com.ems.bulkEmail.buisness;
 
+import com.ems.email_template.model.SimpleEmailTemplate;
+import com.ems.email_template.model.Template;
 import com.ems.subscriberList.model.Subscriber;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,11 +34,26 @@ public class SimpleEmailDetailBuilderTest {
     }
 
     @Test
-    public void BuildMailTest(){
-        Subscriber subscriber = new Subscriber();
-        subscriber.sub_id="S-0442977d-e64d-448a-8005-eac45d134496";
-        EmailDetails emailDetails= emailDetailBuilder.buildEmailDetail(subscriber);
-        assertEquals(emailDetails.subscriber.sub_id,subscriber.sub_id);
+    public void BuildMailTestSubject(){
+        SimpleEmailTemplate template = new SimpleEmailTemplate();
+        template.setTemplateId("123");
+        template.setTemplateName("test Template");
+        template.setTemplateSubject("test subject");
+        template.setLandingPageLink("www.google.com");
+        Mail mail= emailDetailBuilder.buildEmail(template,new HtmlFormatter());
+        assertEquals(mail.subject,template.getTemplateSubject());
+    }
+
+    @Test
+    public void BuildMailDecoratorAnalyticsTest(){
+        SimpleEmailTemplate template = new SimpleEmailTemplate();
+        template.setTemplateId("123");
+        template.setTemplateName("test Template");
+        template.setTemplateSubject("test subject");
+        template.setLandingPageLink("www.google.com");
+        Mail mail= emailDetailBuilder.buildEmail(template,new HtmlFormatter());
+        assertNotNull(mail.clickId);
+        assertNotNull(mail.pixelId);
 
     }
 }

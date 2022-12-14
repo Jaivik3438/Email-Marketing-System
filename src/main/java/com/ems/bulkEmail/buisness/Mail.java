@@ -5,7 +5,6 @@ import com.ems.email_template.model.Template;
 public abstract class Mail {
     public String pixelId;
     public String clickId;
-
     public String subject;
     public String body;
 
