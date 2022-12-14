@@ -4,21 +4,18 @@ import com.ems.companyDetails.Exception.DatabaseNotFound;
 import com.ems.subscriberList.model.Subscriber;
 import com.mysql.cj.protocol.Resultset;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class SubscriberDB implements ISubscriberPersistence{
+
     public Connection connection;
     public SubscriberDB(Connection conn)
     {
         this.connection = conn;
     }
-
     @Override
     public List<Subscriber> loadSubscriber(Subscriber subscriber) throws Exception {
         if(connection == null)
@@ -168,5 +165,35 @@ public class SubscriberDB implements ISubscriberPersistence{
             e.printStackTrace();
         }
         return totalSubscriberForCompany;
+    }
+
+    @Override
+    public Subscriber getSubscriberBySubscriberId(String subscriberId) {
+        if (connection != null) {
+            String sql = "select * from subscriber_list where sub_id= \"" + subscriberId + "\"";
+            try {
+                Subscriber subscriber = new Subscriber();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    subscriber.sub_id = rs.getString("sub_id");
+                    subscriber.sub_first_name = rs.getString("sub_first_name");
+                    subscriber.sub_last_name = rs.getString("sub_last_name");
+                    subscriber.sub_location = rs.getString("sub_location");
+                    subscriber.sub_email = rs.getString("sub_email");
+                    subscriber.subscription_date = rs.getString("subscription_date");
+                    subscriber.sub_status = rs.getString("sub_status");
+                }
+
+                return subscriber;
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                return null;
+            }
+        }
+        return null;
     }
 }

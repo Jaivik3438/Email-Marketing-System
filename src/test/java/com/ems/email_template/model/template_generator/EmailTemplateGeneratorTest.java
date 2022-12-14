@@ -1,6 +1,6 @@
 package com.ems.email_template.model.template_generator;
 
-import com.ems.email_template.model.EmailTemplateDbMock;
+import com.ems.email_template.persistent.EmailTemplateDbMock;
 import com.ems.email_template.model.SimpleEmailTemplate;
 import com.ems.email_template.model.Template;
 import com.ems.email_template.model.template_state.TemplateState;

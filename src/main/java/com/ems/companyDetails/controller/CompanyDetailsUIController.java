@@ -34,7 +34,6 @@ public class CompanyDetailsUIController {
     public String companyDetails(Model model, HttpSession session) throws Exception {
         User user = (User) session.getAttribute("user");
         String companyId = (String) session.getAttribute("companyId");
-        System.out.println(companyId);
         CompanyDetails companyDetails = getCompanyDetailsByUserId(user.userId);
         model.addAttribute("companyDetails", companyDetails);
         return "companyDetails";
