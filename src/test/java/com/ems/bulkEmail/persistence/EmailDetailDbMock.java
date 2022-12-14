@@ -7,6 +7,7 @@ import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.subscriberList.model.Subscriber;
 
 import java.util.Date;
+import java.util.List;
 
 public class EmailDetailDbMock implements IEmailDetailsPersistence{
 
@@ -87,6 +88,11 @@ public class EmailDetailDbMock implements IEmailDetailsPersistence{
         else if(clickId.equals("xyz")){
             return null;
         }
+        return null;
+    }
+
+    @Override
+    public List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId) {
         return null;
     }
 }

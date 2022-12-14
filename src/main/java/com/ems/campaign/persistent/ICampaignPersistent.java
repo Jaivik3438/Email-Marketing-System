@@ -13,6 +13,4 @@ public interface ICampaignPersistent {
     List<Campaign> loadCampaignByUserId(String userId);
     int update(String campaignId, Campaign campaignToUpdate);
     int delete(String campaignId);
-
-    List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId);
 }
