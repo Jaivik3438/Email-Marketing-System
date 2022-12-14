@@ -1,6 +1,8 @@
 package com.ems.campaign.controller;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.bulkEmail.persistence.EmailDetailsDb;
+import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
 import com.ems.campaign.model.CampaignAnalytics;
 import com.ems.campaign.persistent.CampaignDb;
 import com.ems.campaign.persistent.ICampaignPersistent;
@@ -18,9 +20,8 @@ public class CampaignAnalyticsUIController {
     public String getCampaignAnalytics(Model model, @PathVariable String id){
         String campaignId = id;
         try{
-            ICampaignPersistent campaignPersistent = new CampaignDb(MySqlPersistenceConnection.getInstance().getConnection());
-            CampaignAnalytics campaignAnalytics = new CampaignAnalytics().getCampaignAnalytics(campaignPersistent, campaignId);
-            System.out.println(campaignAnalytics.toString());
+            IEmailDetailsPersistence emailDetailsPersistence = new EmailDetailsDb(MySqlPersistenceConnection.getInstance().getConnection());
+            CampaignAnalytics campaignAnalytics = new CampaignAnalytics().getCampaignAnalytics(emailDetailsPersistence, campaignId);
             model.addAttribute("campaignAnalytics", campaignAnalytics);
             return "campaignAnalytics";
         } catch (SQLException e) {

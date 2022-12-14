@@ -166,46 +166,6 @@ public class CampaignDb implements ICampaignPersistent {
     }
 
     @Override
-    public List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId) {
-        if (connection != null) {
-            String sql = "select * from mail where campaign_id= \"" + campaignId + "\"";
-            try {
-                List<EmailDetails> emailDetailsList = new ArrayList<>();
-                PreparedStatement stmt = connection.prepareStatement(sql);
-
-                ResultSet rs = stmt.executeQuery(sql);
-
-                while (rs.next()) {
-                    EmailDetails emailDetails = new SimpleEmailDetails();
-
-                    String subscriberId = rs.getString("sub_id");
-                    if(subscriberId != null){
-                        Subscriber subscriber =  new Subscriber().getSubscriberBySubscriberId(new SubscriberDB(MySqlPersistenceConnection.getInstance().getConnection()), subscriberId);
-                        if(subscriber != null){
-                            emailDetails.subscriber = subscriber;
-                        }
-                    }
-                    emailDetails.openedTime = rs.getTimestamp("open_time");
-                    emailDetails.sentTime = rs.getTimestamp("sent_time");
-                    emailDetails.numberOfTimesClicked = rs.getInt("number_of_times_clicked");
-                    emailDetails.numberOfTimesOpened = rs.getInt("number_of_times_opened");
-
-                    emailDetailsList.add(emailDetails);
-                }
-
-                return emailDetailsList;
-
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                return null;
-            }
-        }
-        return null;
-    }
-
-
-
-    @Override
     public List<Campaign> loadCampaignByUserId(String userId) {
         List<Campaign> campaigns = new ArrayList<>();
         ICampaignFactory campaignFactory = new CampaignFactory();
