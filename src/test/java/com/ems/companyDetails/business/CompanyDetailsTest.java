@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CompanyDetailsTest {
     private static CompanyDetails companyDetails;
@@ -42,5 +43,10 @@ public class CompanyDetailsTest {
         CompanyDetails expectedCompanyDetails = new CompanyDetails();
         expectedCompanyDetails.company_id = "C-deb64786-c58e-4d70-a5ae-46e4cfcf14ec";
         assertEquals(getCompanyByUserId.company_id,expectedCompanyDetails.company_id);
+    }
+    @Test
+    public void getCompanyDetailsByUserIdFailTest() throws Exception {
+        CompanyDetails companyDetailsByUserId = companyDetails.getCompanyDetailsByUserId("xyz",companyDetailsPersistence);
+        assertNull(companyDetailsByUserId);
     }
 }
