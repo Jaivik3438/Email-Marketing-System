@@ -85,7 +85,7 @@ public class CampaignController {
         ISubscriberPersistence subscriberPersistence = new SubscriberDB(getConnectionObject());
 
 
-        BulkEmail bulkEmail = bulkEmailFactory.CreateBulkEmail(c, subscriberList, emailSMTP,emailDetailsPersistence,subscriberPersistence);
+        BulkEmail bulkEmail = bulkEmailFactory.createBulkEmail(c, subscriberList, emailSMTP,emailDetailsPersistence,subscriberPersistence);
 
         scheduler.attach(bulkEmail);
         scheduler.scheduleEmailSender();

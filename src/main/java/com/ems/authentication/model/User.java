@@ -43,7 +43,6 @@ public class User {
     }
 
     public User loadUser(IUserPersistence persistence) throws Exception {
-        User user = persistence.loadUser(this);
-        return user;
+        return  persistence.loadUser(this);
     }
 }
