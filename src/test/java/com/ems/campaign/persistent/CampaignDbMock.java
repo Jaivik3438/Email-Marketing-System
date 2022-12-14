@@ -84,8 +84,4 @@ public class CampaignDbMock implements ICampaignPersistent {
         return null;
     }
 
-    @Override
-    public Subscriber getSubscriberById(String subscriberId) {
-        return null;
-    }
 }
