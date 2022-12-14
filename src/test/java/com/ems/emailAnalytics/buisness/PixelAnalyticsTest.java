@@ -1,7 +1,5 @@
 package com.ems.emailAnalytics.buisness;
 
-import com.ems.bulkEmail.buisness.EmailDetails;
-import com.ems.bulkEmail.buisness.IEmailDetails;
 import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.bulkEmail.persistence.EmailDetailDbMock;
 import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
@@ -10,16 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ClickAnalyticsTest {
+public class PixelAnalyticsTest {
 
-    private static ClickAnalytics clickAnalytics;
+    private static PixelAnalytics pixelAnalytics;
     private static IEmailDetailsPersistence emailDetailsPersistence;
 
     private static SimpleEmailDetails emailDetails;
 
     @BeforeAll
     public static void init(){
-        clickAnalytics= new ClickAnalytics();
+        pixelAnalytics= new PixelAnalytics();
         emailDetailsPersistence= new EmailDetailDbMock();
         emailDetails=new SimpleEmailDetails();
 
@@ -27,12 +25,12 @@ public class ClickAnalyticsTest {
     }
     @Test
     public void performAnalyticsFailedToGetEmailTest(){
-        boolean result = clickAnalytics.performAnalytics("xyz",emailDetails ,emailDetailsPersistence);
+        boolean result = pixelAnalytics.performAnalytics("xyz",emailDetails ,emailDetailsPersistence);
         assertEquals(false,result);
     }
     @Test
     public void performAnalyticsSuccessTest(){
-        boolean result = clickAnalytics.performAnalytics("cl-0bc3bb0a-82ee-4550-a49f-c7b24bce9389",emailDetails ,emailDetailsPersistence);
+        boolean result = pixelAnalytics.performAnalytics("p-26b52502-93bc-48de-9383-655e97009014",emailDetails ,emailDetailsPersistence);
         assertEquals(true,result);
     }
 }

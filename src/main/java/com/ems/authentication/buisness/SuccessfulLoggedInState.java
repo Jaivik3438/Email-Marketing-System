@@ -21,7 +21,7 @@ public class SuccessfulLoggedInState extends State{
     @Override
     public HttpSession handleSession(HttpSession session) {
 
-        session.setAttribute("isLoggedin",true);
+        session.setAttribute("isLoggedIn",true);
         session.setAttribute("user",user);
 
 

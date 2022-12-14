@@ -4,13 +4,10 @@ import com.ems.DbConnection.MySqlPersistenceConnection;
 import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,7 +59,7 @@ public class ConfigurationFromJSON extends Configuration {
         }
     }
     private  static Map<String,Object> getEnvConfigurationJson(String env,JSONObject configurationJSon){
-        JSONObject configurationJSonObject= (JSONObject) configurationJSon.get("prod");
+        JSONObject configurationJSonObject= (JSONObject) configurationJSon.get(env);
         return configurationJSonObject.toMap();
     }
 }
