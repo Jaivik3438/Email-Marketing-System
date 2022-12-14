@@ -52,7 +52,6 @@ public class SubscriberDB implements ISubscriberPersistence{
         }
         return totalsubscriber;
     }
-
     @Override
     public int saveSubscriber(Subscriber saveSubscriber) throws Exception {
         try
@@ -104,7 +103,6 @@ public class SubscriberDB implements ISubscriberPersistence{
         }
         String sql = "select subscriber_list.* from campaign,user_segment_has_subscriber,subscriber_list where campaign.user_segment_id = user_segment_has_subscriber.user_segment_id\n" +
                 "and user_segment_has_subscriber.sub_id = subscriber_list.sub_id and campaign_id =\""+campaignId +"\"";
-        System.out.println(sql);
         List<Subscriber> totalSubscriberForCampaign = new ArrayList<>();
         try
         {
@@ -122,7 +120,6 @@ public class SubscriberDB implements ISubscriberPersistence{
                 subscriberList.sub_status = rs.getString("sub_status");
 
                 totalSubscriberForCampaign.add(subscriberList);
-                System.out.println(totalSubscriberForCampaign);
 
             }
         }
@@ -146,7 +143,6 @@ public class SubscriberDB implements ISubscriberPersistence{
                 "and user_segment.user_segment_id=user_segment_has_subscriber.user_segment_id\n" +
                 "and user_segment_has_subscriber.sub_id=subscriber_list.sub_id\n" +
                 "and user.user_id=\""+userId +"\"";
-       // System.out.println(sqlquery);
         List<Subscriber> totalSubscriberForCompany = new ArrayList<>();
         try
         {
@@ -164,7 +160,6 @@ public class SubscriberDB implements ISubscriberPersistence{
                 subscriberList.sub_status = rs.getString("sub_status");
 
                 totalSubscriberForCompany.add(subscriberList);
-                System.out.println(totalSubscriberForCompany);
 
             }
         }

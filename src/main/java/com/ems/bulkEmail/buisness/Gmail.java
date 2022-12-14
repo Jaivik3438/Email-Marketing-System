@@ -57,7 +57,7 @@ public class Gmail implements ISendEmail{
         msg.addHeader("format", "flowed");
         msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-        msg.setFrom(new InternetAddress("no_reply@example.com", "NoReply-EMS"));
+        msg.setFrom(new InternetAddress("no_reply@example.com", "Email-Marketing-System"));
 
         msg.setReplyTo(InternetAddress.parse("no_reply@example.com", false));
 

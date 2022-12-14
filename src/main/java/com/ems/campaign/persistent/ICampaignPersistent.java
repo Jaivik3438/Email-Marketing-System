@@ -1,6 +1,8 @@
 package com.ems.campaign.persistent;
 
+import com.ems.bulkEmail.buisness.EmailDetails;
 import com.ems.campaign.model.Campaign;
+import com.ems.subscriberList.model.Subscriber;
 
 import java.util.List;
 
@@ -11,4 +13,8 @@ public interface ICampaignPersistent {
     List<Campaign> loadCampaignByUserId(String userId);
     int update(String campaignId, Campaign campaignToUpdate);
     int delete(String campaignId);
+
+    List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId);
+
+    Subscriber getSubscriberById(String subscriberId);
 }
