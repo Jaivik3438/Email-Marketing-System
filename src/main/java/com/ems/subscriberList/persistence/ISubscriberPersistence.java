@@ -10,6 +10,5 @@ public interface ISubscriberPersistence {
     public int saveSubcriberAndUserSegmentID(Subscriber saveSubscriberwithUserSegmentID, String UserSegmentId) throws Exception;
     public List<Subscriber> getSubscriberByCampaignId(String campaignId) throws Exception;
     public List<Subscriber> getSubscriberByUserId(String userId) throws Exception;
-
-
+    Subscriber getSubscriberBySubscriberId(String subscriberId);
 }
