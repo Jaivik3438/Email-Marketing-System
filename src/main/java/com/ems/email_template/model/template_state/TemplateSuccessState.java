@@ -20,7 +20,6 @@ public class TemplateSuccessState extends TemplateState {
     @Override
     public ResponseGenerator<JsonNode> getResponse() {
         IResponseGeneratorFactory generatorFactory = new JsonResponseGeneratorFactory();
-
         return generatorFactory.createResponseGenerator(status, data);
     }
 }

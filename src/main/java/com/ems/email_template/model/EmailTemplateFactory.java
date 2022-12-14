@@ -12,5 +12,8 @@ public class EmailTemplateFactory implements ITemplateFactory {
         return new SimpleEmailTemplate();
     }
 
-
+    @Override
+    public EmailTemplate createSimpleEmailTemplate(String id, String templateName, String templateSubject, String templateDescription, String landingPageLink) {
+        return new SimpleEmailTemplate(id, templateName, templateSubject, templateDescription, landingPageLink);
+    }
 }
