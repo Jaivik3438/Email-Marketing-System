@@ -16,8 +16,8 @@ import java.util.List;
 
 public class SimpleBulkEmail extends BulkEmail{
 
-    private IEmailDetailsPersistence emailDetailsPersistence;
-    private ISubscriberPersistence subscriberPersistence;
+    private final IEmailDetailsPersistence emailDetailsPersistence;
+    private final  ISubscriberPersistence subscriberPersistence;
     public SimpleBulkEmail(Campaign campaign, SubscriberList subscriberList,ISendEmail emailSmtp,IEmailDetailsPersistence emailDetailsPersistence,ISubscriberPersistence subscriberPersistence ){
         this.campaign=campaign;
         this.subscriberList=subscriberList;
@@ -33,9 +33,10 @@ public class SimpleBulkEmail extends BulkEmail{
         emailDetailsList=generateEmailDetailList();
         for(int i=0;i<emailDetailsList.size();i++){
            EmailDetails emailDetail=emailDetailsList.get(i);
-           sendEmail(emailDetail,emailSmtp);
-           emailDetail.sentTime= new Date();
-           emailDetail.createEmailDetails(emailDetailsPersistence);
+           if (sendEmail(emailDetail,emailSmtp)){
+               emailDetail.sentTime= new Date();
+               emailDetail.createEmailDetails(emailDetailsPersistence);
+           }
         }
     }
     private List<EmailDetails> generateEmailDetailList(){
@@ -49,13 +50,12 @@ public class SimpleBulkEmail extends BulkEmail{
         for (Subscriber subscriber:subscribers){
             EmailDetails emailDetails=emailDetailBuilder.buildEmailDetail(subscriber);
             emailDetails.campaignId=campaign.getCampaignId();
-            Mail mail=emailDetailBuilder.buildEmail(campaign.getEmailTemplate(),new HtmlFormatter());
-            emailDetails.mail=mail;
+            emailDetails.mail= emailDetailBuilder.buildEmail(campaign.getEmailTemplate(),new HtmlFormatter());
             emailList.add(emailDetails);
         }
         return emailList;
     }
-    private void sendEmail(EmailDetails emailDetail,ISendEmail emailSmtp){
-        emailSmtp.sendEmail(emailDetail);
+    private boolean sendEmail(EmailDetails emailDetail,ISendEmail emailSmtp){
+        return emailSmtp.sendEmail(emailDetail);
     }
 }

@@ -48,13 +48,11 @@ public class Gmail implements ISendEmail{
             msg=setMessage(msg,emailDetails);
             Transport.send(msg);
 
-        }catch (MessagingException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         }
 
-        return false;
+        return true ;
     }
     private MimeMessage setMessage(MimeMessage msg,EmailDetails emailDetails) throws Exception{
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
