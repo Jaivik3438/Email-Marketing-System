@@ -40,8 +40,6 @@ public class SimpleBulkEmail extends BulkEmail{
            sendEmail(emailDetail,emailSmtp);
            emailDetail.sentTime= new Date();
            emailDetail.createEmailDetails(emailDetailsPersistence);
-
-
         }
     }
     private List<EmailDetails> generateEmailDetailList(){

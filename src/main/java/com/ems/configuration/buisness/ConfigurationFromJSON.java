@@ -26,12 +26,10 @@ public class ConfigurationFromJSON extends Configuration {
 
     @Override
     public String getConfigurationByKey(String env,String key) {
-
         return (String)configs.get(env).get(key);
     }
 
     public static Configuration getInstance()  {
-
         if (null == instance) {
             instance = new ConfigurationFromJSON();
             return instance;

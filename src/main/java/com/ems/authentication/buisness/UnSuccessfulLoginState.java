@@ -16,7 +16,6 @@ public class UnSuccessfulLoginState extends State {
 
     @Override
     public HttpSession handleSession(HttpSession session) {
-
             session.removeAttribute("isLoggedIn");
             session.removeAttribute("user");
             session.setAttribute("loginUnsuccessful",true);

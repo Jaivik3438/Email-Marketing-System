@@ -39,7 +39,6 @@ public class AuthenticationController {
 
     public void login(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
         ModelAndView mv = new ModelAndView();
-
         try {
             Map parameters=request.getParameterMap();
             String email=((String[])parameters.get("email"))[0];
@@ -52,7 +51,6 @@ public class AuthenticationController {
             HttpSession session1 =request.getSession();
             loginState.handleSession(session1);
             response.sendRedirect(loginState.redirectUrl);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,7 +60,6 @@ public class AuthenticationController {
     @RequestMapping(value = "/logout")
 
     public void logout(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
-
         try {
             IAuthenticate authenticate = new Authenticate();
             authenticate.logout(request.getSession());

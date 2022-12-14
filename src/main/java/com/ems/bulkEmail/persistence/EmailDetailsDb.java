@@ -16,7 +16,6 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
         this.connection=conn;
     }
 
-
     @Override
     public boolean saveEmailDetails(EmailDetails emailDetails) {
         try {
@@ -58,7 +57,6 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
     @Override
     public boolean createEmailDetails(EmailDetails emailDetails) {
         try {
-
             String formatSentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(emailDetails.sentTime);
             String createEmailQuery = "INSERT INTO `mail`(`mail_id`,`pixel_id`,`ctr_id`,`sent_time`,`sub_id`,`campaign_id`) VALUES (" +
             "\"" + emailDetails.id + "\", " +
@@ -87,7 +85,6 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
 
             while (rs.next()){
                 EmailDetails  emailDetails=setEmilDetailsFromResultSet(rs);
-
                 return emailDetails;
             }
             return  null;
@@ -108,7 +105,6 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()){
                 EmailDetails  emailDetails=setEmilDetailsFromResultSet(rs);
-
                 return emailDetails;
             }
             return  null;
@@ -135,7 +131,6 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
             emailDetails.sentTime=simpleDateFormat.parse(sentTime);
         }
         String openedTime=rs.getString("open_time");
-
         Subscriber  subscriber= new Subscriber();
         subscriber.sub_id=rs.getString("sub_id");
         emailDetails.subscriber=subscriber;
@@ -143,16 +138,11 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
         mail.pixelId=rs.getString("pixel_id");
         mail.clickId=rs.getString("ctr_id");
         emailDetails.mail=mail;
-
         if (openedTime==null){
             emailDetails.openedTime=null;
         }else{
             emailDetails.openedTime=simpleDateFormat.parse(openedTime);
         }
-
         return emailDetails;
-
     }
-
-
 }

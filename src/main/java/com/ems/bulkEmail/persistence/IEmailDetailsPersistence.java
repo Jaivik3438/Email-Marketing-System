@@ -4,7 +4,6 @@ import com.ems.bulkEmail.buisness.EmailDetails;
 
 public interface IEmailDetailsPersistence {
 
-
     public boolean saveEmailDetails(EmailDetails emailDetails);
 
     public boolean createEmailDetails(EmailDetails emailDetails);

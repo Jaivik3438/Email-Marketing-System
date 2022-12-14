@@ -32,9 +32,7 @@ public class UserDB implements IUserPersistence {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, user.email);
-
             ResultSet rs = stmt.executeQuery();
-
             while (rs.next()){
                 User resultUser=new User();
                 resultUser.userId=rs.getString("user_id");

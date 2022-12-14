@@ -1,7 +1,6 @@
 package com.ems.emailAnalytics.buisness;
 
-import com.ems.bulkEmail.buisness.EmailDetails;
-import com.ems.bulkEmail.buisness.IEmailDetails;
+
 import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.bulkEmail.persistence.EmailDetailDbMock;
 import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
