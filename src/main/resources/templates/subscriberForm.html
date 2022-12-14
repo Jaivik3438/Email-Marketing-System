@@ -22,27 +22,36 @@
   <form class="email-template-form grid" method="post" action="/subscriber/savesubscriber">
   <h2 class="form-title">Add Subscriber</h2>
   <div class="input-group">
-    <span class="label">Subscriber Email-id</span>
+    <span class="label">Subscriber Email</span>
     <input required class="input-field" type="text" name="sub_email" />
   </div>
   <div class="input-group">
-    <span class="label">Subscriber FirstName</span>
+    <span class="label">Subscriber First Name</span>
     <input required class="input-field" type="text" name="sub_first_name" />
   </div>
   <div class="input-group">
-    <span class="label">Subscriber LastName</span>
-    <input required class="input-field" rows="5" name="sub_last_name" />
+    <span class="label">Subscriber Last Name</span>
+    <input required class="input-field" name="sub_last_name" />
   </div>
   <div class="input-group">
     <span class="label">Subscriber Location</span>
     <input class="input-field" type="text" name="sub_location" />
   </div>
+<<<<<<< HEAD
     <div class="input-group">
       <span class="label">User Segment</span>
       <select name="user_segment_id" id="userSegmentId">
         <option class="input-field"  th:each="userSegment: ${userSegment}" th:value="${userSegment.userSegmentId}" th:text="${userSegment.applicationName}"></option>
       </select>
     </div>
+=======
+  <div class="input-group">
+    <span class="label">User Segment</span>
+    <select name="user_segment_id" id="userSegmentId">
+      <option class="input-field"  th:each="userSegment: ${userSegment}" th:value="${userSegment.userSegmentId}" th:text="${userSegment.applicationName}"></option>
+    </select>
+  </div>
+>>>>>>> origin/develop
   <button class="button button--form button--grid" type="submit">Add Now</button>
 </form>
 </body>

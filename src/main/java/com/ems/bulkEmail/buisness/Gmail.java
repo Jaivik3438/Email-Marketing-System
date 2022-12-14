@@ -14,6 +14,10 @@ public class Gmail implements ISendEmail{
     String password;
 
     Authenticator auth;
+
+    //code copied from
+    //https://www.digitalocean.com/community/tutorials/javamail-example-send-mail-in-java-smtp
+    //code modification: made object oriented rather than procedural
     public Gmail(String fromEmail,String password){
         props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
@@ -57,7 +61,7 @@ public class Gmail implements ISendEmail{
         msg.addHeader("format", "flowed");
         msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-        msg.setFrom(new InternetAddress("no_reply@example.com", "NoReply-EMS"));
+        msg.setFrom(new InternetAddress("no_reply@example.com", "Email-Marketing-System"));
 
         msg.setReplyTo(InternetAddress.parse("no_reply@example.com", false));
 
