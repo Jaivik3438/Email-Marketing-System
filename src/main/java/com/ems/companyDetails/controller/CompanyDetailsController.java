@@ -25,6 +25,7 @@ public class CompanyDetailsController {
 
     private CompanyDetails companyInformation = new CompanyDetails();
 
+    // this getConnectionObject() method used for creating connection object.
     public Connection getConnectionObject() {
         Connection connection = null;
         try {
@@ -34,7 +35,7 @@ public class CompanyDetailsController {
         }
         return connection;
     }
-
+    //this getmapping will return a List of CompanyDetails stored into database
     @GetMapping("/getcompanys")
     public List<CompanyDetails> getCompanyDetails()
     {
@@ -49,7 +50,7 @@ public class CompanyDetailsController {
             return null;
         }
     }
-
+    // this postmapping is used to store CompanyDetails into database to create company templete.
     @PostMapping("/save")
     public void createCompanyTemplate (HttpServletRequest request, HttpSession session, HttpServletResponse response)
     {

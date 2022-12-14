@@ -72,6 +72,7 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
             return -1;
         }
     }
+
     public int connectUserWithCompany(String userId, String companyId) {
         try
         {

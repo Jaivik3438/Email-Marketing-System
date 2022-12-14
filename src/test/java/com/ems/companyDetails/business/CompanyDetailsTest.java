@@ -4,11 +4,11 @@ import com.ems.companyDetails.model.CompanyDetails;
 import com.ems.companyDetails.persistence.CompanyDetailsDB;
 import com.ems.companyDetails.persistence.CompanyDetailsDbMock;
 import com.ems.companyDetails.persistence.ICompanyDetailsPersistence;
+import com.ems.subscriberList.model.Subscriber;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CompanyDetailsTest {
     private static CompanyDetails companyDetails;
@@ -49,4 +49,125 @@ public class CompanyDetailsTest {
         CompanyDetails companyDetailsByUserId = companyDetails.getCompanyDetailsByUserId("xyz",companyDetailsPersistence);
         assertNull(companyDetailsByUserId);
     }
+    @Test
+    public void getCompanyIdSuccessTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.setCompany_id("C-00b4b0df-6174-4c44-9ce5-a99db082a8c5");
+        String expectedCompanyId = companyDetails.getCompany_id();
+        assertEquals(expectedCompanyId,"C-00b4b0df-6174-4c44-9ce5-a99db082a8c5");
+    }
+    @Test
+    public void SetCompanyIdSuccesTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        String companyid= companyDetails.getCompany_id();
+        companyDetails.setCompany_id("C-00b4b0df-6174-4c44-9ce5-a99db082a8c5");
+        String expectedCompanyId = companyDetails.getCompany_id();
+        assertNotEquals(expectedCompanyId,companyid);
+    }
+    @Test
+    public void getCompanyNameSuccessTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.setCompany_name("TATA");
+        String expectedCompanyName = companyDetails.getCompany_name();
+        assertEquals(expectedCompanyName,"TATA");
+    }
+    @Test
+    public void SetCompanyNameSuccesTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        String companyName= companyDetails.getCompany_name();
+        companyDetails.setCompany_name("TATA Industries");
+        String expectedCompanyName = companyDetails.getCompany_name();
+        assertNotEquals(expectedCompanyName,companyName);
+    }
+    @Test
+    public void getCompanyWebsiteLinkSuccessTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.setWebsite_link("https://www.tcs.com/");
+        String expectedCompanyWebsite = companyDetails.getWebsite_link();
+        assertEquals(expectedCompanyWebsite,"https://www.tcs.com/");
+    }
+    @Test
+    public void SetCompanyWebsiteLinkSuccesTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        String companyWebsite= companyDetails.getWebsite_link();
+        companyDetails.setWebsite_link("https://www.tcs.com/");
+        String expectedCompanyWebsite = companyDetails.getWebsite_link();
+        assertNotEquals(expectedCompanyWebsite,companyWebsite);
+    }
+    @Test
+    public void getCompanyEmailSuccessTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.setCompany_email("Online@TSC.ca.");
+        String expectedCompanyEmail = companyDetails.getCompany_email();
+        assertEquals(expectedCompanyEmail,"Online@TSC.ca.");
+    }
+    @Test
+    public void SetCompanyEmailSuccesTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        String companyEmail= companyDetails.getCompany_email();
+        companyDetails.setCompany_email("Online@TSC.ca.");
+        String expectedCompanyEmail = companyDetails.getCompany_email();
+        assertNotEquals(expectedCompanyEmail,companyEmail);
+    }
+    @Test
+    public void getCompanyOwnerNameSuccessTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.setOwner_name("Mr Ratan Tata");
+        String expectedOwnerName = companyDetails.getOwner_name();
+        assertEquals(expectedOwnerName,"Mr Ratan Tata");
+    }
+    @Test
+    public void SetCompanyOwnerNameSuccesTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        String companyOwnerName= companyDetails.getOwner_name();
+        companyDetails.setOwner_name("Mr Ratan Tata");
+        String expectedOwnerName = companyDetails.getOwner_name();
+        assertNotEquals(expectedOwnerName,companyOwnerName);
+    }
+    @Test
+    public void getCompanyFacbookLinkSuccessTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.setFacebook_link("https://www.facebook.com/tcscouriers/");
+        String expectedFacebookLink = companyDetails.getFacebook_link();
+        assertEquals(expectedFacebookLink,"https://www.facebook.com/tcscouriers/");
+    }
+    @Test
+    public void SetCompanyFacbookLinkSuccesTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        String companyFacbookLink= companyDetails.getFacebook_link();
+        companyDetails.setFacebook_link("https://www.facebook.com/tcscouriers/");
+        String expectedFacbookLink = companyDetails.getFacebook_link();
+        assertNotEquals(expectedFacbookLink,companyFacbookLink);
+    }
+    @Test
+    public void getCompanyInstagramLinkSuccessTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.setInstagram_link("https://www.instagram.com/tcsglobal/?hl=en");
+        String expectedInstagramLink = companyDetails.getInstagram_link();
+        assertEquals(expectedInstagramLink,"https://www.instagram.com/tcsglobal/?hl=en");
+    }
+    @Test
+    public void SetCompanyInstagramLinkSuccesTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        String companyInstagramLink= companyDetails.getInstagram_link();
+        companyDetails.setInstagram_link("https://www.instagram.com/tcsglobal/?hl=en");
+        String expectedInstagramLink = companyDetails.getInstagram_link();
+        assertNotEquals(expectedInstagramLink,companyInstagramLink);
+    }
+    @Test
+    public void getCompanyTwitterLinkSuccessTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.setTwitter_url("https://twitter.com/tcscanada?lang=en");
+        String expectedTwitterLink = companyDetails.getTwitter_url();
+        assertEquals(expectedTwitterLink,"https://twitter.com/tcscanada?lang=en");
+    }
+    @Test
+    public void SetCompanyTwitterLinkSuccesTest(){
+        CompanyDetails companyDetails = new CompanyDetails();
+        String companyTwitterLink= companyDetails.getTwitter_url();
+        companyDetails.setTwitter_url("https://twitter.com/tcscanada?lang=en");
+        String expectedTwitterLink = companyDetails.getTwitter_url();
+        assertNotEquals(expectedTwitterLink,companyTwitterLink);
+    }
+
 }

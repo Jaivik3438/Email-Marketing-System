@@ -123,13 +123,13 @@ public class CompanyDetails {
             this.twitter_url = twitter_url;
         }
     }
-
-    public List<CompanyDetails> loadCompanyDetails (ICompanyDetailsPersistence persistence) throws java.lang.Exception {
+    public List<CompanyDetails> loadCompanyDetails (ICompanyDetailsPersistence persistence) throws Exception {
         return persistence.loadcompanyDetails(this);
     }
     public int saveCompanyDetails (ICompanyDetailsPersistence persistence) throws Exception{
         return persistence.saveCompanyDetails(this);
     }
+    // This method return company details for authenticated user
     public CompanyDetails getCompanyDetailsByUserId(String userId,ICompanyDetailsPersistence persistence) throws Exception{
         return persistence.getCompanyByUserId(userId);
     }
