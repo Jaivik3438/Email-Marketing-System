@@ -5,7 +5,7 @@ import com.ems.email_template.model.Template;
 import java.util.UUID;
 
 public class PixelDecorator extends SimpleEmailDecorator{
-    PixelDecorator(Mail wrappedMail) {
+    public PixelDecorator(Mail wrappedMail) {
         super(wrappedMail);
     }
 

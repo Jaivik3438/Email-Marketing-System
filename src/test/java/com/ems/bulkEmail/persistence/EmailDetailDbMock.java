@@ -9,10 +9,7 @@ import com.ems.subscriberList.model.Subscriber;
 import java.util.Date;
 
 public class EmailDetailDbMock implements IEmailDetailsPersistence{
-    @Override
-    public EmailDetails loadEmailDetailsByCampaign(String campaignId) {
-        return null;
-    }
+
 
     @Override
     public boolean saveEmailDetails(EmailDetails emailDetails) {

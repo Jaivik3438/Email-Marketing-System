@@ -13,18 +13,15 @@ public class SimpleEmailDetailBuilder extends EmailDetailBuilder{
         emailDetails.subscriber=subscriber;
         return emailDetails;
     }
-
     @Override
-    public Mail buildEmail(Template template, IFormatMail emailformatter) {
+    public Mail buildEmail(Template template, IFormatMail emailFormatter) {
         Mail mail = new SimpleEmail();
-
         Mail emailWithClickRateAnalytics=new ClickRateDecorator(mail);
         Mail emailWithPixelAnalytics=new PixelDecorator(emailWithClickRateAnalytics);
-
         emailWithPixelAnalytics.generateSubject(template);
         emailWithPixelAnalytics.generateBody(template);
         emailWithPixelAnalytics.clickId=emailWithClickRateAnalytics.clickId;;
-        emailWithPixelAnalytics.body=new HtmlFormatter().formatMail(emailWithPixelAnalytics.body);
+        emailWithPixelAnalytics.body=emailFormatter.formatMail(emailWithPixelAnalytics.body);
         return emailWithPixelAnalytics;
     }
 }

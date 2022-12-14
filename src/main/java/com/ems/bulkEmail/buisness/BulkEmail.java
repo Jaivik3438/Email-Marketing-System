@@ -10,10 +10,8 @@ import java.util.List;
 public abstract class  BulkEmail implements IObserver {
     Campaign campaign;
     List<Subscriber> subscribers;
-
     List<EmailDetails>emailDetailsList;
     SubscriberList subscriberList;
-
     ISendEmail emailSmtp;
 
 }
