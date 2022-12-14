@@ -39,7 +39,7 @@ public class SimpleEmailDetailBuilderTest {
         template.setTemplateId("123");
         template.setTemplateName("test Template");
         template.setTemplateSubject("test subject");
-
+        template.setLandingPageLink("www.google.com");
         Mail mail= emailDetailBuilder.buildEmail(template,new HtmlFormatter());
         assertEquals(mail.subject,template.getTemplateSubject());
     }
@@ -50,7 +50,7 @@ public class SimpleEmailDetailBuilderTest {
         template.setTemplateId("123");
         template.setTemplateName("test Template");
         template.setTemplateSubject("test subject");
-
+        template.setLandingPageLink("www.google.com");
         Mail mail= emailDetailBuilder.buildEmail(template,new HtmlFormatter());
         assertNotNull(mail.clickId);
         assertNotNull(mail.pixelId);

@@ -22,6 +22,7 @@ public class ClickDecoratorTest {
         template.setTemplateName("test Template");
         template.setTemplateSubject("test subject");
         template.setTemplateDescription("hello");
+        template.setLandingPageLink("www.google.com");
         clickRateDecorator.generateBody(template);
         assertNotNull(clickRateDecorator.clickId);
         assertNotNull(clickRateDecorator.body);
