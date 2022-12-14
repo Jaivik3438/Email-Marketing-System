@@ -15,10 +15,7 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
     public EmailDetailsDb(Connection conn){
         this.connection=conn;
     }
-    @Override
-    public EmailDetails loadEmailDetailsByCampaign(String campaignId) {
-        return new SimpleEmailDetails();
-    }
+
 
     @Override
     public boolean saveEmailDetails(EmailDetails emailDetails) {
