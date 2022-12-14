@@ -42,8 +42,8 @@
 
       <div th:each="campaignAnalytics: ${campaignAnalytics}" class="card">
         <div>
-          <span class="card__label">Unsubscribe Rate</span>
-          <span class="card__title" th:text="${campaignAnalytics.getUnsubscribeRate()} + ' %'"/>
+          <span class="card__label">Click Through Rate</span>
+          <span class="card__title" th:text="${campaignAnalytics.getClickThroughRate()} + ' %'"/>
         </div>
       </div>
     </div>
