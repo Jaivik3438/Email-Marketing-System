@@ -13,13 +13,6 @@ public abstract class EmailTemplate extends Template {
         super(templateName);
     }
 
-    public EmailTemplate(String templateName, String templateSubject, String templateDescription, String landingPageLink) {
-        super(templateName);
-        this.templateSubject = templateSubject;
-        this.templateDescription = templateDescription;
-        this.landingPageLink = landingPageLink;
-    }
-
     public EmailTemplate(String templateId, String templateName, String templateSubject, String templateDescription, String landingPageLink) {
         super(templateId, templateName);
         this.templateSubject = templateSubject;

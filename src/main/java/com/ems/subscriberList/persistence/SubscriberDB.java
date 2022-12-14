@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Stack;
 
 public class SubscriberDB implements ISubscriberPersistence{
+
     public Connection connection;
     public SubscriberDB(Connection conn)
     {
         this.connection = conn;
     }
-
     @Override
     public List<Subscriber> loadSubscriber(Subscriber subscriber) throws Exception {
         if(connection == null)

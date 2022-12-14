@@ -1,6 +1,8 @@
-package com.ems.email_template.model;
+package com.ems.email_template.persistent;
 
 import com.ems.authentication.model.User;
+import com.ems.email_template.model.SimpleEmailTemplate;
+import com.ems.email_template.model.Template;
 import com.ems.email_template.persistent.ITemplatePersistent;
 
 import java.util.ArrayList;

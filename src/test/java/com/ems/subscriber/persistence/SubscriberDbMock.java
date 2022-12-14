@@ -71,6 +71,28 @@ public class SubscriberDbMock implements ISubscriberPersistence {
 
     @Override
     public List<Subscriber> getSubscriberByUserId(String userId) throws Exception {
+        List<Subscriber> totalSubsciber= new ArrayList<>();
+        if(userId.equals("369b91e4-800c-4bd0-b094-13a364fee990"))
+        {
+            Subscriber firstsubscriber = new Subscriber();
+            firstsubscriber.sub_id = "S-da19dc04-7409-4fb3-beb4-93b2508b8d37";
+            firstsubscriber.sub_email = "jaivik.tailor2804@gmail.com";
+            firstsubscriber.sub_first_name ="Jaivik";
+            firstsubscriber.sub_last_name = "Tailor";
+            Subscriber secondsubscriber = new Subscriber();
+            secondsubscriber.sub_id = "S-0d48f727-ea39-4805-a791-9824224a8360";
+            secondsubscriber.sub_email ="jp6126@gmail.com";
+            secondsubscriber.sub_first_name = "Lav 2";
+            secondsubscriber.sub_last_name ="patel";
+            totalSubsciber.add(firstsubscriber);
+            totalSubsciber.add(secondsubscriber);
+
+            return totalSubsciber;
+        }
+        else if (userId.equals("xyz")) {
+            return null;
+        }
         return null;
+
     }
 }

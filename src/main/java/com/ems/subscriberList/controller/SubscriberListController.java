@@ -24,10 +24,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/subscriber")
 public class SubscriberListController {
-
     private Subscriber subscriberDetails = new Subscriber();
     private SimpleSubscriberList subscriberList = new SimpleSubscriberList();
-
     public Connection getConnectionObject() {
         Connection connection = null;
         try {

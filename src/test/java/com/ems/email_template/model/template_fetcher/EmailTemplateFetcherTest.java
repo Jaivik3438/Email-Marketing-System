@@ -1,6 +1,6 @@
 package com.ems.email_template.model.template_fetcher;
 
-import com.ems.email_template.model.EmailTemplateDbMock;
+import com.ems.email_template.persistent.EmailTemplateDbMock;
 import com.ems.email_template.model.Template;
 import com.ems.email_template.model.template_state.TemplateState;
 import com.ems.email_template.persistent.ITemplatePersistent;
@@ -62,4 +62,6 @@ public class EmailTemplateFetcherTest {
 
         assertEquals(HttpStatus.NOT_FOUND, actualState.getStatus());
     }
+
+
 }
