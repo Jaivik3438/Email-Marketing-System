@@ -1,15 +1,12 @@
-package com.ems.emailAnalytics.controller;
+package com.ems.emailanalytics.controller;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.bulkEmail.persistence.EmailDetailsDb;
-import com.ems.emailAnalytics.buisness.Analytics;
-import com.ems.emailAnalytics.buisness.ClickAnalytics;
-import com.ems.emailAnalytics.buisness.PixelAnalytics;
-import com.google.common.io.ByteStreams;
+import com.ems.emailanalytics.buisness.Analytics;
+import com.ems.emailanalytics.buisness.ClickAnalytics;
+import com.ems.emailanalytics.buisness.PixelAnalytics;
 import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 

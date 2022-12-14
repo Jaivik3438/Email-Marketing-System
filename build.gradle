@@ -38,9 +38,9 @@ task fatJar(type: Jar) {
 	with jar
 }
 dependencies {
-	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
 	implementation 'mysql:mysql-connector-java:8.0.30'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	implementation 'com.google.guava:guava:11.0.2'
 	implementation 'commons-io:commons-io:2.11.0'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -50,7 +50,6 @@ dependencies {
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
 	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 	implementation 'org.json:json:20220924'
-	//testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {

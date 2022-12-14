@@ -1,9 +1,6 @@
-package com.ems.emailAnalytics.buisness;
+package com.ems.emailanalytics.buisness;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.EmailDetails;
-import com.ems.bulkEmail.buisness.SimpleEmailDetails;
-import com.ems.bulkEmail.persistence.EmailDetailsDb;
 import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
 
 import java.util.Date;
@@ -20,8 +17,7 @@ public class PixelAnalytics implements Analytics {
         }
         fetchedEmailDetail.openedTime=new Date();
         fetchedEmailDetail.numberOfTimesOpened=fetchedEmailDetail.numberOfTimesOpened+1;
-        boolean result =fetchedEmailDetail.saveEmailDetails(emailDetailsPersistence);
-        return true;
+        return fetchedEmailDetail.saveEmailDetails(emailDetailsPersistence);
 
     }
 }
