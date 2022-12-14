@@ -10,15 +10,13 @@ public class HttpSessionManager implements ISessionManager{
         if(null==session.getAttribute("isLoggedIn")){
             return false;
         }
-        if((boolean)session.getAttribute("isLoggedIn")){
-            return true;
-        }
-        return false;
+        return((boolean)session.getAttribute("isLoggedIn"));
+
     }
 
     @Override
     public User getUserFromSession(HttpSession session) {
-        User user= (User)session.getAttribute("user");
-        return user;
+        return (User)session.getAttribute("user");
+
     }
 }

@@ -18,7 +18,6 @@ public class PixelDecorator extends SimpleEmailDecorator{
     }
     private String generatePixel(){
         this.pixelId="p-"+ UUID.randomUUID();
-        String pixel="<img src='http://localhost:8080/analytics/pixel?pixelid="+this.pixelId+"'  width='1' height='1'>";
-        return pixel;
+        return "<img src='http://localhost:8080/analytics/pixel?pixelid="+this.pixelId+"'  width='1' height='1'>";
     }
 }

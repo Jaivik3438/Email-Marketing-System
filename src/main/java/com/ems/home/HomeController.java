@@ -7,11 +7,11 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
-public class controller {
+public class HomeController {
 
     @RequestMapping("/")
     public String index(HttpSession session){
-        System.out.println(session.getAttribute("isLogged"));
+
         return "index";
     }
 }

@@ -20,7 +20,7 @@ public class SimpleEmailDetailBuilder extends EmailDetailBuilder{
         Mail emailWithPixelAnalytics=new PixelDecorator(emailWithClickRateAnalytics);
         emailWithPixelAnalytics.generateSubject(template);
         emailWithPixelAnalytics.generateBody(template);
-        emailWithPixelAnalytics.clickId=emailWithClickRateAnalytics.clickId;;
+        emailWithPixelAnalytics.clickId=emailWithClickRateAnalytics.clickId;
         emailWithPixelAnalytics.body=emailFormatter.formatMail(emailWithPixelAnalytics.body);
         return emailWithPixelAnalytics;
     }

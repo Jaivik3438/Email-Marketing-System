@@ -1,9 +1,7 @@
 package com.ems.bulkEmail.buisness;
 
 import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
-import com.ems.subscriberList.model.Subscriber;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class SimpleEmailDetails extends EmailDetails {

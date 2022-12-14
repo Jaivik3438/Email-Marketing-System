@@ -23,8 +23,7 @@ public class MD5 implements IHash {
         md.reset();
         md.update(plainString.getBytes());
         byte[] digest= md.digest();
-        String hashedString = DatatypeConverter.printHexBinary(digest).toUpperCase();
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
 
-        return hashedString;
     }
 }

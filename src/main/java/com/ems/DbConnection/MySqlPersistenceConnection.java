@@ -33,7 +33,7 @@ public class MySqlPersistenceConnection {
     public void connect() throws SQLException, ClassNotFoundException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        this.conn = DriverManager.getConnection(mysqlUrl, userName, password);
+        conn = DriverManager.getConnection(mysqlUrl, userName, password);
     }
 
     public static MySqlPersistenceConnection getInstance() throws SQLException {
