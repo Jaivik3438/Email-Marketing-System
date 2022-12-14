@@ -2,6 +2,8 @@ package com.ems.campaign.controller;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.*;
+import com.ems.bulkEmail.persistence.EmailDetailsDb;
+import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
 import com.ems.campaign.model.*;
 import com.ems.campaign.persistent.CampaignDb;
 import com.ems.campaign.persistent.ICampaignPersistent;
@@ -12,6 +14,8 @@ import com.ems.response_generator.JsonResponseGeneratorFactory;
 import com.ems.response_generator.ResponseGenerator;
 import com.ems.subscriberList.model.SimpleSubscriberList;
 import com.ems.subscriberList.model.SubscriberList;
+import com.ems.subscriberList.persistence.ISubscriberPersistence;
+import com.ems.subscriberList.persistence.SubscriberDB;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -76,7 +80,12 @@ public class CampaignController {
         String smtpEmail=config.getConfigurationByKey(config.getEnvironmentFromConfiguration(),"smtpEmail");
         String smtpPassword=config.getConfigurationByKey(config.getEnvironmentFromConfiguration(),"smtpPassword");
         ISendEmail emailSMTP = new Gmail(smtpEmail,smtpPassword);
-        BulkEmail bulkEmail = bulkEmailFactory.CreateBulkEmail(c, subscriberList, emailSMTP);
+
+        IEmailDetailsPersistence emailDetailsPersistence=new EmailDetailsDb(getConnectionObject());
+        ISubscriberPersistence subscriberPersistence = new SubscriberDB(getConnectionObject());
+
+
+        BulkEmail bulkEmail = bulkEmailFactory.CreateBulkEmail(c, subscriberList, emailSMTP,emailDetailsPersistence,subscriberPersistence);
 
         scheduler.attach(bulkEmail);
         scheduler.scheduleEmailSender();
