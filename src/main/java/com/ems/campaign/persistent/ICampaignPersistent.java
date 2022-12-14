@@ -15,6 +15,4 @@ public interface ICampaignPersistent {
     int delete(String campaignId);
 
     List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId);
-
-    Subscriber getSubscriberById(String subscriberId);
 }
