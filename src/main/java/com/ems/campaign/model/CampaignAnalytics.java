@@ -108,7 +108,7 @@ public class CampaignAnalytics {
         int emailOpenCount = getEmailOpenCountFromEmailDetails(emailDetailsList);
         int totalSubscribers = emailDetailsList.size();
 
-        return (emailOpenCount / totalSubscribers) * 100;
+        return ((double) emailOpenCount / totalSubscribers) * 100;
     }
 
     private int getEmailOpenCountFromEmailDetails(List<EmailDetails> emailDetailsList){
@@ -129,7 +129,7 @@ public class CampaignAnalytics {
                 linkClickCount++;
             }
         }
-        return (linkClickCount / subscriberCount) * 100;
+        return ((double) linkClickCount / subscriberCount) * 100;
     }
 
     private double calculateUnsubscribeRate(List<EmailDetails> emailDetailsList){
@@ -141,6 +141,6 @@ public class CampaignAnalytics {
                 unsubscribersCount++;
             }
         }
-        return (unsubscribersCount / subscriberCount) * 100;
+        return ((double)unsubscribersCount / subscriberCount) * 100;
     }
 }
