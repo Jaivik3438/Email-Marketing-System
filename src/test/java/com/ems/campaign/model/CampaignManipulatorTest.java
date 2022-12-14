@@ -12,11 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CampaignManipulatorTest {
     private static CampaignManipulator campaignManipulator;
+    private static CampaignFactory campaignFactory;
 
     @BeforeAll
     public static void init() {
         ICampaignPersistent campaignPersistent = new CampaignDbMock();
         campaignManipulator = new CampaignManipulator(campaignPersistent);
+        campaignFactory = new CampaignFactory();
     }
 
     @Test
@@ -43,5 +45,17 @@ public class CampaignManipulatorTest {
         int numOfRowsUpdated = campaignManipulator.updateCampaign("11", updatedCampaign);
 
         assertEquals(-1, numOfRowsUpdated);
+    }
+
+    @Test
+    public void deleteCampaignSuccessTest() {
+        int numOfRowsDeleted = campaignManipulator.deleteCampaign("1");
+        assertEquals(1, numOfRowsDeleted);
+    }
+
+    @Test
+    public void deleteCampaignNotFoundTest() {
+        int numOfRowsDeleted = campaignManipulator.deleteCampaign("11");
+        assertEquals(-1, numOfRowsDeleted);
     }
 }

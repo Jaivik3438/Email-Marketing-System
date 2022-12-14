@@ -4,6 +4,8 @@ import com.ems.bulkEmail.buisness.EmailDetails;
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignFactory;
 import com.ems.campaign.model.ICampaignFactory;
+import com.ems.campaign.model.SimpleCampaign;
+import com.ems.email_template.model.EmailTemplateFactory;
 import com.ems.subscriberList.model.Subscriber;
 
 import java.text.DateFormat;
@@ -24,12 +26,15 @@ public class CampaignDbMock implements ICampaignPersistent {
             Campaign c1 = campaignFactory.createCampaign("Black Friday Campaign", dateFormatter.parse("2022-12-01 12:50:00"));
             c1.setCampaignId("1");
             c1.setUserSegmentId("11");
+            c1.setEmailTemplate(new EmailTemplateFactory().createSimpleEmailTemplate("1", "Template Name", "Subject", "Description", "https://www.google.com"));
             Campaign c2 = campaignFactory.createCampaign("Summer Sale Campaign", dateFormatter.parse("2022-12-02 11:30:34"));
             c2.setCampaignId("2");
-            c1.setUserSegmentId("22");
+            c2.setUserSegmentId("22");
+            c2.setEmailTemplate(new EmailTemplateFactory().createSimpleEmailTemplate("2", "Tempalte Name", "Subject", "Description", "https://www.google.com"));
             Campaign c3 = campaignFactory.createCampaign("Spring Boot Course Campaign", dateFormatter.parse("2022-09-26 06:34:00"));
             c3.setCampaignId("3");
-            c1.setUserSegmentId("33");
+            c3.setUserSegmentId("33");
+            c3.setEmailTemplate(new EmailTemplateFactory().createSimpleEmailTemplate("3", "Tempalte Name", "Subject", "Description", "https://www.google.com"));
             dbMock.add(c1);
             dbMock.add(c2);
             dbMock.add(c3);
@@ -40,7 +45,14 @@ public class CampaignDbMock implements ICampaignPersistent {
 
     @Override
     public int save(Campaign campaign, String templateId, String userSegmentId) {
-        return 0;
+        for (Campaign c : dbMock) {
+            System.out.println(c.getUserSegmentId());
+            System.out.println(c.getEmailTemplate().getTemplateId());
+            if (c.getUserSegmentId().equals(userSegmentId) && c.getEmailTemplate().getTemplateId().equals(templateId)) {
+                return 1;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -76,7 +88,11 @@ public class CampaignDbMock implements ICampaignPersistent {
 
     @Override
     public int delete(String campaignId) {
-        return 0;
+        Campaign campaign = loadCampaign(campaignId);
+        if (campaign != null) {
+            return 1;
+        }
+        return -1;
     }
 
     @Override
