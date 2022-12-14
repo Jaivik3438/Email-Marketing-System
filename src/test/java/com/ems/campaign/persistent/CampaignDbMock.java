@@ -22,8 +22,14 @@ public class CampaignDbMock implements ICampaignPersistent {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Campaign c1 = campaignFactory.createCampaign("Black Friday Campaign", dateFormatter.parse("2022-12-01 12:50:00"));
+            c1.setCampaignId("1");
+            c1.setUserSegmentId("11");
             Campaign c2 = campaignFactory.createCampaign("Summer Sale Campaign", dateFormatter.parse("2022-12-02 11:30:34"));
+            c2.setCampaignId("2");
+            c1.setUserSegmentId("22");
             Campaign c3 = campaignFactory.createCampaign("Spring Boot Course Campaign", dateFormatter.parse("2022-09-26 06:34:00"));
+            c3.setCampaignId("3");
+            c1.setUserSegmentId("33");
             dbMock.add(c1);
             dbMock.add(c2);
             dbMock.add(c3);
@@ -61,7 +67,11 @@ public class CampaignDbMock implements ICampaignPersistent {
 
     @Override
     public int update(String campaignId, Campaign campaignToUpdate) {
-        return 0;
+        Campaign campaign = loadCampaign(campaignId);
+        if (campaign != null) {
+            return 1;
+        }
+        return -1;
     }
 
     @Override

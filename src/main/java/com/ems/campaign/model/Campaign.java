@@ -31,7 +31,7 @@ public abstract class Campaign {
     public Campaign(String campaignId, String campaignName, Date campaignStartTime) {
         this.campaignId = campaignId;
         this.campaignName = campaignName;
-        this.campaignStatus = campaignStatus;
+        this.campaignStatus = "upcoming";
         this.campaignStartTime = campaignStartTime;
     }
 
