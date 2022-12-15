@@ -9,6 +9,7 @@ public class PixelDecorator extends SimpleEmailDecorator{
         super(wrappedMail);
     }
 
+    //adds wrapped mails body with  pixel and pixel  analytics to the mail
     @Override
     public void generateBody(Template template) {
         wrappedMail.generateBody(template);

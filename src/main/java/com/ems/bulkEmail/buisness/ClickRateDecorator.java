@@ -10,6 +10,8 @@ public class ClickRateDecorator extends SimpleEmailDecorator {
     ClickRateDecorator(Mail wrappedMail) {
         super(wrappedMail);
     }
+
+    //adds wrapped mails body with the link from template and adds click analytics to it
     @Override
     public void generateBody(Template template) {
         wrappedMail.generateBody(template);

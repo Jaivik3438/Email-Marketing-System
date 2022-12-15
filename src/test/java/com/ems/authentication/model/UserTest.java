@@ -1,4 +1,4 @@
-package com.ems.authentication;
+package com.ems.authentication.model;
 
 import com.ems.authentication.buisness.SuccessfulLoggedInState;
 import com.ems.authentication.exception.DatabaseNotFound;
