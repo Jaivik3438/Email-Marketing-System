@@ -73,7 +73,7 @@ public class SubscriberListController {
              {
                  response.sendRedirect("/add-subscriber");
              }
-             return "Success: " + addSubscriber.toString();
+             return "Success";
 
          }
          catch(Exception exception)

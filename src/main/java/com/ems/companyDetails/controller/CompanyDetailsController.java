@@ -21,8 +21,6 @@ import java.util.Objects;
 @RestController
 @RequestMapping(value = "/api/company-details")
 public class CompanyDetailsController {
-
-
     private CompanyDetails companyInformation = new CompanyDetails();
 
     public Connection getConnectionObject() {
@@ -34,7 +32,6 @@ public class CompanyDetailsController {
         }
         return connection;
     }
-
     @GetMapping("/getcompanys")
     public List<CompanyDetails> getCompanyDetails()
     {
@@ -49,7 +46,6 @@ public class CompanyDetailsController {
             return null;
         }
     }
-
     @PostMapping("/save")
     public void createCompanyTemplate (HttpServletRequest request, HttpSession session, HttpServletResponse response)
     {
@@ -75,7 +71,7 @@ public class CompanyDetailsController {
         }
         catch(Exception exception)
         {
-             System.out.println("Exception" + exception.getMessage());
+             exception.printStackTrace();
         }
     }
 

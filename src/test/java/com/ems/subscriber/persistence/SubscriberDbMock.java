@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubscriberDbMock implements ISubscriberPersistence {
-    @Override
-    public List<Subscriber> loadSubscriber(Subscriber subscriber) throws Exception {
-        return null;
-    }
+
 
     @Override
     public int saveSubscriber(Subscriber saveSubscriber) throws Exception {
@@ -98,6 +95,20 @@ public class SubscriberDbMock implements ISubscriberPersistence {
 
     @Override
     public Subscriber getSubscriberBySubscriberId(String subscriberId) {
+        return null;
+    }
+
+    @Override
+    public List<Subscriber> loadSubscriber(Subscriber subscriber) throws Exception {
+        Subscriber subscriber1 = new Subscriber();
+        List<Subscriber> totalSubsciber= new ArrayList<>();
+        if(subscriber1 != null)
+        {
+            return totalSubsciber;
+
+        } else if (subscriber1 == null) {
+            return null;
+        }
         return null;
     }
 }
