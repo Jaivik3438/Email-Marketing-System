@@ -1,7 +1,7 @@
 package com.ems.emailanalytics.buisness;
 
-import com.ems.bulkEmail.buisness.EmailDetails;
-import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
+import com.ems.bulkemail.buisness.EmailDetails;
+import com.ems.bulkemail.persistence.IEmailDetailsPersistence;
 
 import java.util.Date;
 

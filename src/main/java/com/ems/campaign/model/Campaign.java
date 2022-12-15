@@ -1,7 +1,7 @@
 package com.ems.campaign.model;
 
 import com.ems.campaign.persistent.ICampaignPersistent;
-import com.ems.email_template.model.EmailTemplate;
+import com.ems.emailtemplate.model.EmailTemplate;
 
 import java.util.Date;
 import java.util.UUID;

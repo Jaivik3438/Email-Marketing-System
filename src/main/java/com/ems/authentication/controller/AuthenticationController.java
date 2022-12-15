@@ -1,6 +1,6 @@
 package com.ems.authentication.controller;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.dbconnection.MySqlPersistenceConnection;
 import com.ems.authentication.buisness.Authenticate;
 import com.ems.authentication.buisness.IAuthenticate;
 import com.ems.authentication.buisness.State;

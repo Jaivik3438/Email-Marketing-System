@@ -1,8 +1,8 @@
 package com.ems.emailanalytics.buisness;
 
-import com.ems.bulkEmail.buisness.SimpleEmailDetails;
-import com.ems.bulkEmail.persistence.EmailDetailDbMock;
-import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
+import com.ems.bulkemail.buisness.SimpleEmailDetails;
+import com.ems.bulkemail.persistence.EmailDetailDbMock;
+import com.ems.bulkemail.persistence.IEmailDetailsPersistence;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

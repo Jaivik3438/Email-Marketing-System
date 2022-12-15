@@ -3,7 +3,7 @@ package com.ems.campaign.persistent;
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignFactory;
 import com.ems.campaign.model.ICampaignFactory;
-import com.ems.email_template.model.EmailTemplateFactory;
+import com.ems.emailtemplate.model.EmailTemplateFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;

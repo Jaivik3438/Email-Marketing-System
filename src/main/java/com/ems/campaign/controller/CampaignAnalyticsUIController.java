@@ -1,17 +1,14 @@
 package com.ems.campaign.controller;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
-import com.ems.bulkEmail.persistence.EmailDetailsDb;
-import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
+import com.ems.dbconnection.MySqlPersistenceConnection;
+import com.ems.bulkemail.persistence.EmailDetailsDb;
+import com.ems.bulkemail.persistence.IEmailDetailsPersistence;
 import com.ems.campaign.model.CampaignAnalytics;
-import com.ems.campaign.persistent.CampaignDb;
-import com.ems.campaign.persistent.ICampaignPersistent;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 @Controller()

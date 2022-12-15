@@ -1,8 +1,8 @@
 package com.ems.emailanalytics.controller;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
-import com.ems.bulkEmail.buisness.SimpleEmailDetails;
-import com.ems.bulkEmail.persistence.EmailDetailsDb;
+import com.ems.dbconnection.MySqlPersistenceConnection;
+import com.ems.bulkemail.buisness.SimpleEmailDetails;
+import com.ems.bulkemail.persistence.EmailDetailsDb;
 import com.ems.emailanalytics.buisness.Analytics;
 import com.ems.emailanalytics.buisness.ClickAnalytics;
 import com.ems.emailanalytics.buisness.PixelAnalytics;

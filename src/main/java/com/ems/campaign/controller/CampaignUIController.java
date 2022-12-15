@@ -1,18 +1,18 @@
 package com.ems.campaign.controller;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.dbconnection.MySqlPersistenceConnection;
 import com.ems.authentication.model.User;
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.persistent.CampaignDb;
 import com.ems.campaign.persistent.ICampaignPersistent;
-import com.ems.email_template.model.Template;
-import com.ems.email_template.model.template_fetcher.EmailTemplateFetcher;
-import com.ems.email_template.model.template_fetcher.ITemplateFetcher;
-import com.ems.email_template.persistent.EmailTemplateDb;
-import com.ems.email_template.persistent.ITemplatePersistent;
-import com.ems.userSegment.model.UserSegment;
-import com.ems.userSegment.persistence.IUserSegmentPersistent;
-import com.ems.userSegment.persistence.UserSegmentDB;
+import com.ems.emailtemplate.model.Template;
+import com.ems.emailtemplate.model.template_fetcher.EmailTemplateFetcher;
+import com.ems.emailtemplate.model.template_fetcher.ITemplateFetcher;
+import com.ems.emailtemplate.persistent.EmailTemplateDb;
+import com.ems.emailtemplate.persistent.ITemplatePersistent;
+import com.ems.usersegment.model.UserSegment;
+import com.ems.usersegment.persistence.IUserSegmentPersistent;
+import com.ems.usersegment.persistence.UserSegmentDB;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +26,7 @@ import java.util.List;
 @Component()
 @RequestMapping(value = "/")
 public class CampaignUIController {
-    private ICampaignPersistent campaignPersistent;
 
-    public CampaignUIController() {
-        campaignPersistent = new CampaignDb(getConnectionObject());
-    }
 
     private Connection getConnectionObject() {
         Connection connection = null;
@@ -53,9 +49,7 @@ public class CampaignUIController {
         ICampaignPersistent campaignPersistent = new CampaignDb(getConnectionObject());
 
         List<Campaign> campaigns = campaignPersistent.loadCampaignByUserId(userId);
-        for (Campaign campaign : campaigns) {
-            System.out.println(campaign.getCampaignName());
-        }
+
         model.addAttribute("campaigns", campaigns);
         return "campaignList";
     }
@@ -73,14 +67,8 @@ public class CampaignUIController {
 
         User user = getLoggedInUser(session);
         List<Template> templates = (List<Template>) templateFetcher.fetchAllTemplateByUserId(user).getData();
-
-        for (Template t: templates) {
-            System.out.println(t.getTemplateName());
-        }
-
         IUserSegmentPersistent segmentPersistent = new UserSegmentDB(getConnectionObject());
         UserSegment userSegment = segmentPersistent.getUserSegmentByUserId(user.userId);
-
         model.addAttribute("templates", templates);
         model.addAttribute("userSegment", userSegment);
         return "campaignForm";

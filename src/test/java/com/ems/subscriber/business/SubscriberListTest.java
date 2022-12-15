@@ -1,10 +1,10 @@
 package com.ems.subscriber.business;
 
 import com.ems.subscriber.persistence.SubscriberDbMock;
-import com.ems.subscriberList.model.SimpleSubscriberList;
-import com.ems.subscriberList.model.Subscriber;
-import com.ems.subscriberList.model.SubscriberList;
-import com.ems.subscriberList.persistence.ISubscriberPersistence;
+import com.ems.subscriberlist.model.SimpleSubscriberList;
+import com.ems.subscriberlist.model.Subscriber;
+import com.ems.subscriberlist.model.SubscriberList;
+import com.ems.subscriberlist.persistence.ISubscriberPersistence;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

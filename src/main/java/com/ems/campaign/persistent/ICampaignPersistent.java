@@ -1,8 +1,6 @@
 package com.ems.campaign.persistent;
 
-import com.ems.bulkEmail.buisness.EmailDetails;
 import com.ems.campaign.model.Campaign;
-import com.ems.subscriberList.model.Subscriber;
 
 import java.util.List;
 

@@ -1,11 +1,8 @@
 package com.ems.authentication.model;
 
-import com.ems.authentication.buisness.SuccessfulLoggedInState;
 import com.ems.authentication.exception.DatabaseNotFound;
-import com.ems.authentication.model.User;
 import com.ems.authentication.persistence.EmailDbMock;
 import com.ems.authentication.persistence.IUserPersistence;
-import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

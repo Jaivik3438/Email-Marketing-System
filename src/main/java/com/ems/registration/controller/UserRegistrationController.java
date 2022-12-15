@@ -1,12 +1,11 @@
 package com.ems.registration.controller;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
+import com.ems.dbconnection.MySqlPersistenceConnection;
 import com.ems.authentication.persistence.UserDB;
 import com.ems.registration.business.IRegisterUser;
 import com.ems.registration.business.RegisterUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,7 +36,6 @@ public class UserRegistrationController{
             User user = new UserDB(MySqlPersistenceConnection.getInstance().getConnection()).getUserByEmail(registerUserDto.email);
             if(user != null){
                 session.setAttribute("user", user);
-                System.out.println(session.getAttribute("user"));
                  redirectUrl = isUserRegistered ? "/add-company-details" : "/register";
             }
 

@@ -1,13 +1,9 @@
 package com.ems.campaign.model;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
-import com.ems.bulkEmail.buisness.EmailDetails;
-import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
-import com.ems.campaign.persistent.CampaignDb;
-import com.ems.campaign.persistent.ICampaignPersistent;
-import com.ems.subscriberList.model.Subscriber;
+import com.ems.bulkemail.buisness.EmailDetails;
+import com.ems.bulkemail.persistence.IEmailDetailsPersistence;
+import com.ems.subscriberlist.model.Subscriber;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public class CampaignAnalytics {

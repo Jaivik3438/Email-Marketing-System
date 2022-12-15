@@ -1,20 +1,11 @@
 package com.ems.campaign.persistent;
 
-import com.ems.DbConnection.MySqlPersistenceConnection;
-import com.ems.bulkEmail.buisness.EmailDetails;
-import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignFactory;
 import com.ems.campaign.model.ICampaignFactory;
-import com.ems.email_template.model.EmailTemplate;
-import com.ems.email_template.model.EmailTemplateFactory;
-import com.ems.email_template.model.ITemplateFactory;
-import com.ems.email_template.model.Template;
-import com.ems.email_template.persistent.EmailTemplateDb;
-import com.ems.email_template.persistent.ITemplatePersistent;
-import com.ems.subscriberList.model.Subscriber;
-import com.ems.subscriberList.persistence.SubscriberDB;
-import com.ems.userSegment.model.UserSegment;
+import com.ems.emailtemplate.model.EmailTemplate;
+import com.ems.emailtemplate.persistent.EmailTemplateDb;
+import com.ems.emailtemplate.persistent.ITemplatePersistent;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -46,7 +37,6 @@ public class CampaignDb implements ICampaignPersistent {
     @Override
     public int save(Campaign campaign, String templateId, String userSegmentId) {
         try {
-            // TODO: Check if template exists with the given id
             Statement statement = connection.createStatement();
             String insertCampaignQuery = "INSERT INTO campaign VALUES (" +
                     "\"" + campaign.getCampaignId() + "\", " +
@@ -145,7 +135,6 @@ public class CampaignDb implements ICampaignPersistent {
                     CAMPAIGN_NAME + " = \"" + updatedCampaign.getCampaignName() + "\", " +
                     CAMPAIGN_START_TIME + " = \"" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(updatedCampaign.getCampaignStartTime()) + "\" " +
                     "WHERE " + CAMPAIGN_ID + " = \"" + campaignId + "\"";
-            System.out.println(updateCampaignQuery);
             return statement.executeUpdate(updateCampaignQuery);
         } catch (Exception e) {
             e.printStackTrace();
@@ -175,7 +164,6 @@ public class CampaignDb implements ICampaignPersistent {
             String selectCampaignByUserIdQuery = "SELECT c.* FROM campaign AS c " +
                     "INNER JOIN user_segment us ON c.user_segment_id = us.user_segment_id " +
                     "WHERE us.user_id = \"" + userId + "\"";
-            System.out.println(selectCampaignByUserIdQuery);
             ResultSet result = statement.executeQuery(selectCampaignByUserIdQuery);
             while (result.next()) {
                 ITemplatePersistent templatePersistent = new EmailTemplateDb(connection);

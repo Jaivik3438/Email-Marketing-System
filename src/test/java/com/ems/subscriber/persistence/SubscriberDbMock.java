@@ -1,7 +1,7 @@
 package com.ems.subscriber.persistence;
 
-import com.ems.subscriberList.model.Subscriber;
-import com.ems.subscriberList.persistence.ISubscriberPersistence;
+import com.ems.subscriberlist.model.Subscriber;
+import com.ems.subscriberlist.persistence.ISubscriberPersistence;
 
 import java.util.ArrayList;
 import java.util.List;
