@@ -10,8 +10,4 @@ public class SimpleCampaign extends Campaign {
     public SimpleCampaign(String campaignName, Date campaignStartTime) {
         super(campaignName, campaignStartTime);
     }
-
-    public SimpleCampaign(String campaignId, String campaignName, Date campaignStartTime) {
-        super(campaignId, campaignName, campaignStartTime);
-    }
 }

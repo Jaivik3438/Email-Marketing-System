@@ -15,8 +15,8 @@ public class CampaignEmailScheduler extends Subject {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                System.out.println("SEND EMAIL HERE...");
                 setValue("campaignId", campaign.getCampaignId());
+                notifyObservers();
             }
         };
         timer.schedule(timerTask, campaign.getCampaignStartTime());

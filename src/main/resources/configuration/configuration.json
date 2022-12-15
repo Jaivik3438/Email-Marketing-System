@@ -1,0 +1,24 @@
+{
+  "env": "dev",
+  "dev": {
+    "mysqlUrl": "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_8_DEVINT?useSSL=false",
+    "dbPassword": "wn3SKymKCd",
+    "userName": "CSCI5308_8_DEVINT_USER",
+    "smtpEmail": "emsprojectasdc@gmail.com",
+    "smtpPassword": "jtuagavmuwwqzkxt"
+  },
+  "test": {
+    "mysqlUrl": "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_8_TEST?useSSL=false",
+    "dbPassword": "ZstGxemFkp",
+    "userName": "CSCI5308_8_TEST_USER",
+    "smtpEmail": "emsprojectasdc@gmail.com",
+    "smtpPassword": "jtuagavmuwwqzkxt"
+  },
+  "prod": {
+    "mysqlUrl": "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_8_PRODUCTION?useSSL=false",
+    "dbPassword": "t6xD4wAYR7",
+    "userName": "CSCI5308_8_PRODUCTION_USER",
+    "smtpEmail": "emsprojectasdc@gmail.com",
+    "smtpPassword": "jtuagavmuwwqzkxt"
+  }
+}

@@ -2,11 +2,12 @@ package com.ems.campaign.persistent;
 
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignFactory;
+import com.ems.campaign.model.ICampaignFactory;
+import com.ems.emailtemplate.model.EmailTemplate;
+import com.ems.emailtemplate.persistent.EmailTemplateDb;
+import com.ems.emailtemplate.persistent.ITemplatePersistent;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class CampaignDb implements ICampaignPersistent {
     private final String UNSUBSCRIBE_RATE = "unsubscribe_rate";
     private final String CTR_RATE = "ctr_rate";
     private final String USER_SEGMENT_ID = "user_segment_id";
+    private final String TEMPLATE_ID = "template_id";
 
     public CampaignDb(Connection connection) {
         this.connection = connection;
@@ -62,6 +64,7 @@ public class CampaignDb implements ICampaignPersistent {
         try {
             ResultSet result = load(selectAllCampaignQuery);
             while (result.next()) {
+
                 String campaignId = result.getString(CAMPAIGN_ID);
                 String campaignName = result.getString(CAMPAIGN_NAME);
                 String campaignStatus = result.getString(CAMPAIGN_STATUS);
@@ -70,6 +73,10 @@ public class CampaignDb implements ICampaignPersistent {
                 String unsubscribeRate = result.getString(UNSUBSCRIBE_RATE);
                 String ctrRate = result.getString(CTR_RATE);
                 String userSegmentId = result.getString(USER_SEGMENT_ID);
+                String templateId = result.getString(TEMPLATE_ID);
+
+                ITemplatePersistent templatePersistent = new EmailTemplateDb(connection);
+                EmailTemplate template = (EmailTemplate) templatePersistent.loadTemplateById(templateId);
 
                 campaign = campaignFactory.createCampaign();
                 campaign.setCampaignId(campaignId);
@@ -80,6 +87,7 @@ public class CampaignDb implements ICampaignPersistent {
                 campaign.getAnalytics().setUnsubscribeRate(Double.parseDouble(unsubscribeRate));
                 campaign.getAnalytics().setClickThroughRate(Double.parseDouble(ctrRate));
                 campaign.setUserSegmentId(userSegmentId);
+                campaign.setEmailTemplate(template);
 
                 campaigns.add(campaign);
             }
@@ -106,6 +114,11 @@ public class CampaignDb implements ICampaignPersistent {
                 campaign.getAnalytics().setUnsubscribeRate(Double.parseDouble(result.getString(UNSUBSCRIBE_RATE)));
                 campaign.getAnalytics().setClickThroughRate(Double.parseDouble(result.getString(CTR_RATE)));
                 campaign.setUserSegmentId(result.getString(USER_SEGMENT_ID));
+
+                ITemplatePersistent templatePersistent = new EmailTemplateDb(connection);
+                EmailTemplate template = (EmailTemplate) templatePersistent.loadTemplateById(result.getString(TEMPLATE_ID));
+
+                campaign.setEmailTemplate(template);
             }
             return campaign;
         } catch (Exception e) {
@@ -122,7 +135,6 @@ public class CampaignDb implements ICampaignPersistent {
                     CAMPAIGN_NAME + " = \"" + updatedCampaign.getCampaignName() + "\", " +
                     CAMPAIGN_START_TIME + " = \"" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(updatedCampaign.getCampaignStartTime()) + "\" " +
                     "WHERE " + CAMPAIGN_ID + " = \"" + campaignId + "\"";
-            System.out.println(updateCampaignQuery);
             return statement.executeUpdate(updateCampaignQuery);
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,5 +152,39 @@ public class CampaignDb implements ICampaignPersistent {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public List<Campaign> loadCampaignByUserId(String userId) {
+        List<Campaign> campaigns = new ArrayList<>();
+        ICampaignFactory campaignFactory = new CampaignFactory();
+        Campaign campaign = null;
+        try {
+            Statement statement = connection.createStatement();
+            String selectCampaignByUserIdQuery = "SELECT c.* FROM campaign AS c " +
+                    "INNER JOIN user_segment us ON c.user_segment_id = us.user_segment_id " +
+                    "WHERE us.user_id = \"" + userId + "\"";
+            ResultSet result = statement.executeQuery(selectCampaignByUserIdQuery);
+            while (result.next()) {
+                ITemplatePersistent templatePersistent = new EmailTemplateDb(connection);
+                EmailTemplate template = (EmailTemplate) templatePersistent.loadTemplateById(result.getString(TEMPLATE_ID));
+
+                campaign = campaignFactory.createCampaign();
+                campaign.setCampaignId(result.getString(CAMPAIGN_ID));
+                campaign.setCampaignName(result.getString(CAMPAIGN_NAME));
+                campaign.setCampaignStatus(result.getString(CAMPAIGN_STATUS));
+                campaign.setCampaignStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(result.getString(CAMPAIGN_START_TIME)));
+                campaign.getAnalytics().setConversionRate(result.getDouble(CONVERSION_RATE));
+                campaign.getAnalytics().setUnsubscribeRate(result.getDouble(UNSUBSCRIBE_RATE));
+                campaign.getAnalytics().setClickThroughRate(result.getDouble(CTR_RATE));
+
+                campaign.setEmailTemplate(template);
+                campaigns.add(campaign);
+            }
+            return campaigns;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

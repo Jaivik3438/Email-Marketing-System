@@ -10,7 +10,7 @@ public class SuccessfulLoggedInState extends State{
     User user;
     SuccessfulLoggedInState(User user){
         super.message="login successful Welcome to EMS";
-        super.redirectUrl="successfulLogin.html";
+        super.redirectUrl="/company-details";
         this.user=user;
     }
     @Override
@@ -20,11 +20,8 @@ public class SuccessfulLoggedInState extends State{
 
     @Override
     public HttpSession handleSession(HttpSession session) {
-
-        session.setAttribute("isLoggedin",true);
+        session.setAttribute("isLoggedIn",true);
         session.setAttribute("user",user);
-
-
         return session;
     }
 }
