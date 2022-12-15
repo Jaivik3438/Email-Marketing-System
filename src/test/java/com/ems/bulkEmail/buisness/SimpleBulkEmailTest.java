@@ -2,6 +2,7 @@ package com.ems.bulkEmail.buisness;
 
 import com.ems.bulkEmail.persistence.EmailDetailDbMock;
 import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
+import com.ems.bulkEmail.smtp.GmailMock;
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignEmailScheduler;
 import com.ems.campaign.model.SimpleCampaign;
@@ -10,7 +11,6 @@ import com.ems.subscriber.persistence.SubscriberDbMock;
 import com.ems.subscriberList.model.SimpleSubscriberList;
 import com.ems.subscriberList.model.SubscriberList;
 import com.ems.subscriberList.persistence.ISubscriberPersistence;
-import com.ems.subscriberList.persistence.SubscriberDB;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

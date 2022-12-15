@@ -1,4 +1,7 @@
-package com.ems.bulkEmail.buisness;
+package com.ems.bulkEmail.smtp;
+
+import com.ems.bulkEmail.buisness.EmailDetails;
+import com.ems.bulkEmail.buisness.ISendEmail;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -8,7 +11,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Date;
 import java.util.Properties;
 
-public class Gmail implements ISendEmail{
+public class Gmail implements ISendEmail {
     Properties props;
     String fromEmail;
     String password;

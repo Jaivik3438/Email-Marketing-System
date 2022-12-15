@@ -1,4 +1,7 @@
-package com.ems.bulkEmail.buisness;
+package com.ems.bulkEmail.smtp;
+
+import com.ems.bulkEmail.buisness.EmailDetails;
+import com.ems.bulkEmail.buisness.ISendEmail;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
