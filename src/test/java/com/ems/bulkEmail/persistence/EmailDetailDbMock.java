@@ -6,6 +6,7 @@ import com.ems.bulkEmail.buisness.SimpleEmail;
 import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.subscriberList.model.Subscriber;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -93,6 +94,19 @@ public class EmailDetailDbMock implements IEmailDetailsPersistence{
 
     @Override
     public List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId) {
+        if(campaignId.equals("")){
+            return null;
+        }
+
+        if(campaignId.equals("fcd211e1-7fa1-45f7-8aca-0b9cecbf8987")){
+            List<EmailDetails> emailDetailsList = new ArrayList<>();
+            emailDetailsList.add(new SimpleEmailDetails());
+            emailDetailsList.add(new SimpleEmailDetails());
+            emailDetailsList.add(new SimpleEmailDetails());
+
+            return emailDetailsList;
+        }
+
         return null;
     }
 }
