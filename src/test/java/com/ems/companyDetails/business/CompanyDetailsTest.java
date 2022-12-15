@@ -8,6 +8,8 @@ import com.ems.subscriberList.model.Subscriber;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CompanyDetailsTest {
@@ -20,7 +22,14 @@ public class CompanyDetailsTest {
         companyDetails = new CompanyDetails();
         companyDetailsPersistence = new CompanyDetailsDbMock();
     }
-
+    @Test
+    public void initTest()
+    {
+        CompanyDetails companyDetails1 = new CompanyDetails("Tata","https://www.tcs.com/", "Online@TSC.ca.",
+                "Mr Ratan Tata", "https://www.facebook.com/tcscouriers/", "https://www.instagram.com/tcsglobal/?hl=en",
+                "https://twitter.com/tcscanada?lang=en");
+        assertNotNull(companyDetails1);
+    }
     @Test
     public void saveCompanyDetailsSuccessTest() throws Exception {
         CompanyDetails inputCompanyDetails = new CompanyDetails();
@@ -168,6 +177,11 @@ public class CompanyDetailsTest {
         companyDetails.setTwitter_url("https://twitter.com/tcscanada?lang=en");
         String expectedTwitterLink = companyDetails.getTwitter_url();
         assertNotEquals(expectedTwitterLink,companyTwitterLink);
+    }
+    @Test
+    public void loadComapnyDetialsSuccessTest() throws Exception {
+        List<CompanyDetails> companyDetails1 = companyDetails.loadCompanyDetails(companyDetailsPersistence);
+        assertNotNull(companyDetails1);
     }
 
 }

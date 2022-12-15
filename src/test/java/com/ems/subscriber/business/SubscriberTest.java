@@ -6,8 +6,9 @@ import com.ems.subscriberList.persistence.ISubscriberPersistence;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SubscriberTest {
     private static Subscriber subscriberInformation;
@@ -18,6 +19,13 @@ public class SubscriberTest {
         subscriberInformation = new Subscriber();
         subscriberPersistence = new SubscriberDbMock();
     }
+    @Test
+    public void initTest(){
+        Subscriber subscriber = new Subscriber("jaivik.tailor2804@gmail.com","Jaivik",
+                "Tailor","London","2022-08-07 12:10:10");
+        assertNotNull(subscriber);
+    }
+
     @Test
     public void saveSubsciberSuccessTest() throws Exception {
         Subscriber subscriberdetails = new Subscriber();
@@ -158,5 +166,10 @@ public class SubscriberTest {
         subscriber.setSub_status("Active");
         String expectedSubscriptionStatus = subscriber.getSub_status();
         assertNotEquals(expectedSubscriptionStatus,subscriptionStatus);
+    }
+    @Test
+    public void loadSubsciberSuccessTest() throws Exception {
+        List<Subscriber> subscriber = subscriberInformation.loadSubscriber(subscriberPersistence);
+        assertNotNull(subscriber);
     }
 }

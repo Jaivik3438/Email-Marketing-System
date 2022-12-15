@@ -17,20 +17,6 @@ public class Subscriber {
     {
 
     }
-
-    @Override
-    public String toString() {
-        return "Subscriber{" +
-                "sub_id='" + sub_id + '\'' +
-                ", sub_email='" + sub_email + '\'' +
-                ", sub_first_name='" + sub_first_name + '\'' +
-                ", sub_last_name='" + sub_last_name + '\'' +
-                ", sub_location='" + sub_location + '\'' +
-                ", subscription_date='" + subscription_date + '\'' +
-                ", sub_status='" + sub_status + '\'' +
-                '}';
-    }
-
     public Subscriber(String sub_email, String sub_first_name, String sub_last_name, String sub_location, String subscription_date ){
         setSub_id(generateId());
         setSub_email(sub_email);
@@ -42,6 +28,7 @@ public class Subscriber {
     }
 
     private String generateId() {
+
         return "S-" + UUID.randomUUID();
     }
     public String getSub_id() {

@@ -72,7 +72,7 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
             return -1;
         }
     }
-
+        // connectUserWithCompany method connect User
     public int connectUserWithCompany(String userId, String companyId) {
         try
         {
@@ -89,7 +89,6 @@ public class CompanyDetailsDB implements ICompanyDetailsPersistence {
             return -1;
         }
     }
-
     public CompanyDetails getCompanyByUserId(String userId) {
         try {
             Statement stmt = connection.createStatement();

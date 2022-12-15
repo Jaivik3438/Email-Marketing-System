@@ -1,14 +1,13 @@
 package com.ems.companyDetails.persistence;
 
 import com.ems.companyDetails.model.CompanyDetails;
+import com.ems.subscriberList.model.Subscriber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyDetailsDbMock implements ICompanyDetailsPersistence{
-    @Override
-    public List<CompanyDetails> loadcompanyDetails(CompanyDetails company) throws Exception {
-        return null;
-    }
+
 
     @Override
     public int saveCompanyDetails(CompanyDetails saveCompany) throws Exception {
@@ -37,6 +36,19 @@ public class CompanyDetailsDbMock implements ICompanyDetailsPersistence{
             return companyDetails;
         }
         else if(userId.equals("xyz")){
+            return null;
+        }
+        return null;
+    }
+    @Override
+    public List<CompanyDetails> loadcompanyDetails(CompanyDetails company) throws Exception {
+        CompanyDetails companyDetails = new CompanyDetails();
+        List<CompanyDetails> totalSubsciber= new ArrayList<>();
+        if(companyDetails != null)
+        {
+            return totalSubsciber;
+
+        } else if (companyDetails == null) {
             return null;
         }
         return null;
