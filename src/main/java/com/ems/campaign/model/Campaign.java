@@ -28,13 +28,6 @@ public abstract class Campaign {
         this.analytics = new CampaignAnalytics();
     }
 
-//    public Campaign(String campaignId, String campaignName, Date campaignStartTime) {
-//        this.campaignId = campaignId;
-//        this.campaignName = campaignName;
-//        this.campaignStatus = "upcoming";
-//        this.campaignStartTime = campaignStartTime;
-//    }
-
     public int createNewCampaign(ICampaignPersistent campaignPersistent, String templateId, String userSegmentId) {
         return campaignPersistent.save(this, templateId, userSegmentId);
     }

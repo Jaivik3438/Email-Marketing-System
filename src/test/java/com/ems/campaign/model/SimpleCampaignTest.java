@@ -102,4 +102,14 @@ public class SimpleCampaignTest {
 
         assertNotEquals("2021-12-01 07:27:00", actualDate);
     }
+
+    @Test
+    public void getAnalyticsTest() {
+        CampaignAnalytics campaignAnalytics = new CampaignAnalytics();
+        campaign.setAnalytics(campaignAnalytics);
+
+        assertEquals(0.0, campaign.getAnalytics().getConversionRate());
+        assertEquals(0.0, campaign.getAnalytics().getClickThroughRate());
+        assertEquals(0.0, campaign.getAnalytics().getUnsubscribeRate());
+    }
 }

@@ -1,18 +1,15 @@
 package com.ems.campaign.persistent;
 
-import com.ems.bulkEmail.buisness.EmailDetails;
 import com.ems.campaign.model.Campaign;
 import com.ems.campaign.model.CampaignFactory;
 import com.ems.campaign.model.ICampaignFactory;
-import com.ems.campaign.model.SimpleCampaign;
 import com.ems.email_template.model.EmailTemplateFactory;
-import com.ems.subscriberList.model.Subscriber;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -46,8 +43,6 @@ public class CampaignDbMock implements ICampaignPersistent {
     @Override
     public int save(Campaign campaign, String templateId, String userSegmentId) {
         for (Campaign c : dbMock) {
-            System.out.println(c.getUserSegmentId());
-            System.out.println(c.getEmailTemplate().getTemplateId());
             if (c.getUserSegmentId().equals(userSegmentId) && c.getEmailTemplate().getTemplateId().equals(templateId)) {
                 return 1;
             }
@@ -74,7 +69,14 @@ public class CampaignDbMock implements ICampaignPersistent {
 
     @Override
     public List<Campaign> loadCampaignByUserId(String userId) {
-        return null;
+        ListIterator<Campaign> iterator = dbMock.listIterator();
+        while (iterator.hasNext()) {
+            Campaign currentCampaign = iterator.next();
+            if (currentCampaign.getUserSegmentId().equals(userId)) {
+                return Arrays.asList(currentCampaign);
+            }
+        }
+        return new ArrayList<>();
     }
 
     @Override

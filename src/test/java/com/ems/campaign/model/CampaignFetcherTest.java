@@ -39,4 +39,10 @@ public class CampaignFetcherTest {
         Campaign campaign = campaignFetcher.fetchCampaign("4");
         assertNull(campaign);
     }
+
+    @Test
+    public void fetchAllCampaignByUserId() {
+        List<Campaign> campaigns = campaignFetcher.fetchAllCampaignByUserId("11");
+        assertEquals(1, campaigns.size());
+    }
 }
