@@ -23,8 +23,7 @@ public class ClickRateDecorator extends SimpleEmailDecorator {
         String encodedLink=new String(Base64.getEncoder().encode(link.getBytes()));
         this.clickId="cl-"+UUID.randomUUID();
         String htmlLink="http://localhost:8080/analytics/click?clickid="+this.clickId+"&link="+encodedLink;
-        String generatedLink="<a href='"+htmlLink+"'>"+htmlLink+"</a>";
-        return generatedLink;
+        return "<a href='"+htmlLink+"'>"+htmlLink+"</a>";
 
     }
 }

@@ -1,6 +1,7 @@
 package com.ems.email_template.model.template_fetcher;
 
-import com.ems.email_template.model.EmailTemplateDbMock;
+import com.ems.authentication.model.User;
+import com.ems.email_template.persistent.EmailTemplateDbMock;
 import com.ems.email_template.model.Template;
 import com.ems.email_template.model.template_state.TemplateState;
 import com.ems.email_template.persistent.ITemplatePersistent;
@@ -61,5 +62,16 @@ public class EmailTemplateFetcherTest {
 //        Template actualData = (Template) actualState.getData();
 
         assertEquals(HttpStatus.NOT_FOUND, actualState.getStatus());
+    }
+
+    @Test
+    public void fetchAllTemplateByUserIdTest() {
+        ITemplateFetcher emailTemplateFetcher = fetcherFactory.createTemplateFetcher(emailPersistent);
+
+        TemplateState state = emailTemplateFetcher.fetchAllTemplateByUserId(new User("shivampatel@gmail.com", "password"));
+
+        List<Template> templates = (List<Template>) state.getData();
+
+        assertEquals(2, templates.size());
     }
 }

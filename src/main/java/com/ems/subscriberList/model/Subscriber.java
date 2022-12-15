@@ -83,4 +83,8 @@ public class Subscriber {
     public int saveSubcriberAndUserSegmentID(ISubscriberPersistence persistence,String UserSegmentId) throws Exception{
         return persistence.saveSubcriberAndUserSegmentID(this, UserSegmentId);
     }
+
+    public Subscriber getSubscriberBySubscriberId(ISubscriberPersistence persistence, String subscriberId){
+        return persistence.getSubscriberBySubscriberId(subscriberId);
+    }
 }

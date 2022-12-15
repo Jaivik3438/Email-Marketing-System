@@ -1,9 +1,12 @@
-package com.ems.email_template.model;
+package com.ems.email_template.persistent;
 
 import com.ems.authentication.model.User;
+import com.ems.email_template.model.SimpleEmailTemplate;
+import com.ems.email_template.model.Template;
 import com.ems.email_template.persistent.ITemplatePersistent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -48,7 +51,7 @@ public class EmailTemplateDbMock implements ITemplatePersistent {
 
     @Override
     public List<Template> loadAllTemplateByUserId(User user) {
-        return null;
+        return Arrays.asList(mockDB.get(0), mockDB.get(1));
     }
 
     @Override

@@ -40,14 +40,14 @@ public class AuthenticationController {
     public void login(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session){
         ModelAndView mv = new ModelAndView();
         try {
-            Map parameters=request.getParameterMap();
-            String email=((String[])parameters.get("email"))[0];
-            String password=((String[])parameters.get("password"))[0];
+            Map<String,String[]> parameters=request.getParameterMap();
+            String email=parameters.get("email")[0];
+            String password=parameters.get("password")[0];
             Connection conn= null;
             conn = MySqlPersistenceConnection.getInstance().getConnection();
             IAuthenticate authenticate=new Authenticate();
             State loginState=authenticate.login(email,password,new UserDB(conn),MD5.getInstance());
-            mv.addObject("message",(String)loginState.message);
+            mv.addObject("message",loginState.message);
             HttpSession session1 =request.getSession();
             loginState.handleSession(session1);
             response.sendRedirect(loginState.redirectUrl);

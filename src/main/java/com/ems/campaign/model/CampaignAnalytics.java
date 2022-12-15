@@ -2,6 +2,7 @@ package com.ems.campaign.model;
 
 import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.EmailDetails;
+import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
 import com.ems.campaign.persistent.CampaignDb;
 import com.ems.campaign.persistent.ICampaignPersistent;
 import com.ems.subscriberList.model.Subscriber;
@@ -79,9 +80,9 @@ public class CampaignAnalytics {
 
     public void setEmailClicks(int emailClicks) { this.emailClicks = emailClicks; }
 
-    public CampaignAnalytics getCampaignAnalytics(ICampaignPersistent campaignPersistent ,String campaignId){
+    public CampaignAnalytics getCampaignAnalytics(IEmailDetailsPersistence emailDetailsPersistence , String campaignId){
             CampaignAnalytics campaignAnalytics = new CampaignAnalytics();
-            List<EmailDetails> emailDetailsList = campaignPersistent.getAllEmailDetailsOfCampaign(campaignId);
+            List<EmailDetails> emailDetailsList = emailDetailsPersistence.getAllEmailDetailsOfCampaign(campaignId);
             List<Subscriber> subscriberList = getSubscribersListFromEmailDetails(emailDetailsList);
 
             if(subscriberList.size() > 0){
@@ -107,7 +108,7 @@ public class CampaignAnalytics {
         int emailOpenCount = getEmailOpenCountFromEmailDetails(emailDetailsList);
         int totalSubscribers = emailDetailsList.size();
 
-        return (emailOpenCount / totalSubscribers) * 100;
+        return ((double) emailOpenCount / totalSubscribers) * 100;
     }
 
     private int getEmailOpenCountFromEmailDetails(List<EmailDetails> emailDetailsList){
@@ -128,7 +129,7 @@ public class CampaignAnalytics {
                 linkClickCount++;
             }
         }
-        return (linkClickCount / subscriberCount) * 100;
+        return ((double) linkClickCount / subscriberCount) * 100;
     }
 
     private double calculateUnsubscribeRate(List<EmailDetails> emailDetailsList){
@@ -140,6 +141,6 @@ public class CampaignAnalytics {
                 unsubscribersCount++;
             }
         }
-        return (unsubscribersCount / subscriberCount) * 100;
+        return ((double)unsubscribersCount / subscriberCount) * 100;
     }
 }

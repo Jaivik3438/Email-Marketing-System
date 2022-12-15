@@ -6,8 +6,8 @@ import com.ems.subscriberList.model.SubscriberList;
 import com.ems.subscriberList.persistence.ISubscriberPersistence;
 
 public class BulkEmailFactory implements IBulkEmailFactory{
-    public BulkEmail CreateBulkEmail(Campaign campaign, SubscriberList subscriberList, ISendEmail emailSmtp, IEmailDetailsPersistence emailDetailsPersistence, ISubscriberPersistence subscriberPersistence){
+    public BulkEmail createBulkEmail(Campaign campaign, SubscriberList subscriberList, ISendEmail emailSmtp, IEmailDetailsPersistence emailDetailsPersistence, ISubscriberPersistence subscriberPersistence){
         return new SimpleBulkEmail(campaign,subscriberList,emailSmtp,emailDetailsPersistence,subscriberPersistence);
-    };
+    }
 
 }

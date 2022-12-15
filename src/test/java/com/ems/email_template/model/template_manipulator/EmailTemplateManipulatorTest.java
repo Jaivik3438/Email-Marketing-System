@@ -1,6 +1,6 @@
 package com.ems.email_template.model.template_manipulator;
 
-import com.ems.email_template.model.EmailTemplateDbMock;
+import com.ems.email_template.persistent.EmailTemplateDbMock;
 import com.ems.email_template.model.SimpleEmailTemplate;
 import com.ems.email_template.model.Template;
 import com.ems.email_template.model.template_state.TemplateState;
@@ -24,7 +24,7 @@ public class EmailTemplateManipulatorTest {
 
     @Test
     public void updateTemplateSuccessTest() {
-        EmailTemplateManipulator emailTemplateManipulator = new EmailTemplateManipulator(emailPersistent);
+        ITemplateManipulator emailTemplateManipulator = templateManipulatorFactory.createTemplateManipulator(emailPersistent);
         Template updatedEmailTemplate = new SimpleEmailTemplate("1", "Summer Sales Template", "Wearables 50% sales", "Description will go here", "https://www.zara.com/shop/summer");
         TemplateState actualState = emailTemplateManipulator.updateTemplate("1", updatedEmailTemplate);
 
@@ -34,7 +34,7 @@ public class EmailTemplateManipulatorTest {
 
     @Test
     public void updateTemplateNotFoundTest() {
-        EmailTemplateManipulator emailTemplateManipulator = new EmailTemplateManipulator(emailPersistent);
+        ITemplateManipulator emailTemplateManipulator = templateManipulatorFactory.createTemplateManipulator(emailPersistent);
         Template updatedEmailTemplate = new SimpleEmailTemplate("1", "Summer Sales Template", "Wearables 50% sales", "Description will go here", "https://www.zara.com/shop/summer");
         TemplateState actualState = emailTemplateManipulator.updateTemplate("12", updatedEmailTemplate);
 
@@ -43,10 +43,18 @@ public class EmailTemplateManipulatorTest {
 
     @Test
     public void deleteTemplateSuccessTest() {
-        EmailTemplateManipulator emailTemplateManipulator = new EmailTemplateManipulator(emailPersistent);
+        ITemplateManipulator emailTemplateManipulator = templateManipulatorFactory.createTemplateManipulator(emailPersistent);
         TemplateState actualState = emailTemplateManipulator.deleteTemplate("1");
 
         assertEquals(HttpStatus.OK, actualState.getStatus());
         assertEquals(1, actualState.getData());
+    }
+
+    @Test
+    public void deleteTemplateNotFoundTest() {
+        ITemplateManipulator emailTemplateManipulator = templateManipulatorFactory.createTemplateManipulator(emailPersistent);
+        TemplateState actualState = emailTemplateManipulator.deleteTemplate("11");
+
+        assertEquals(HttpStatus.BAD_REQUEST, actualState.getStatus());
     }
 }

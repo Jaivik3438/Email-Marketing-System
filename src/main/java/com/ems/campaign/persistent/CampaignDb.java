@@ -1,5 +1,6 @@
 package com.ems.campaign.persistent;
 
+import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.EmailDetails;
 import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.campaign.model.Campaign;
@@ -12,6 +13,7 @@ import com.ems.email_template.model.Template;
 import com.ems.email_template.persistent.EmailTemplateDb;
 import com.ems.email_template.persistent.ITemplatePersistent;
 import com.ems.subscriberList.model.Subscriber;
+import com.ems.subscriberList.persistence.SubscriberDB;
 import com.ems.userSegment.model.UserSegment;
 
 import java.sql.*;
@@ -161,76 +163,6 @@ public class CampaignDb implements ICampaignPersistent {
             e.printStackTrace();
         }
         return -1;
-    }
-
-    @Override
-    public List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId) {
-        if (connection != null) {
-            String sql = "select * from mail where campaign_id= \"" + campaignId + "\"";
-            try {
-                List<EmailDetails> emailDetailsList = new ArrayList<>();
-                PreparedStatement stmt = connection.prepareStatement(sql);
-//                stmt.setString(1, campaignId);
-
-                ResultSet rs = stmt.executeQuery(sql);
-
-                while (rs.next()) {
-                    EmailDetails emailDetails = new SimpleEmailDetails();
-
-                    String subscriberId = rs.getString("sub_id");
-                    if(subscriberId != null){
-                        Subscriber subscriber = getSubscriberById(subscriberId);
-                        if(subscriber != null){
-                            emailDetails.subscriber = subscriber;
-                        }
-                    }
-                    emailDetails.openedTime = rs.getTimestamp("open_time");
-                    emailDetails.sentTime = rs.getTimestamp("sent_time");
-                    emailDetails.numberOfTimesClicked = rs.getInt("number_of_times_clicked");
-                    emailDetails.numberOfTimesOpened = rs.getInt("number_of_times_opened");
-
-                    emailDetailsList.add(emailDetails);
-                }
-
-                return emailDetailsList;
-
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                return null;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Subscriber getSubscriberById(String subscriberId) {
-        if (connection != null) {
-            String sql = "select * from subscriber_list where sub_id= \"" + subscriberId + "\"";
-            try {
-                Subscriber subscriber = new Subscriber();
-                PreparedStatement stmt = connection.prepareStatement(sql);
-//                stmt.setString(1, subscriberId);
-
-                ResultSet rs = stmt.executeQuery(sql);
-
-                while (rs.next()) {
-                    subscriber.sub_id = rs.getString("sub_id");
-                    subscriber.sub_first_name = rs.getString("sub_first_name");
-                    subscriber.sub_last_name = rs.getString("sub_last_name");
-                    subscriber.sub_location = rs.getString("sub_location");
-                    subscriber.sub_email = rs.getString("sub_email");
-                    subscriber.subscription_date = rs.getString("subscription_date");
-                    subscriber.sub_status = rs.getString("sub_status");
-                }
-
-                return subscriber;
-
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                return null;
-            }
-        }
-        return null;
     }
 
     @Override

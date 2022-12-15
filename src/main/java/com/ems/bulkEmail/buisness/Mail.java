@@ -8,7 +8,7 @@ public abstract class Mail {
     public String subject;
     public String body;
 
-    public Mail(){
+    protected Mail(){
         body="";
     }
     public abstract void generateSubject(Template template);

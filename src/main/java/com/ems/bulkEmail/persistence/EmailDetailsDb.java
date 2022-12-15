@@ -1,14 +1,18 @@
 package com.ems.bulkEmail.persistence;
 
+import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.EmailDetails;
 import com.ems.bulkEmail.buisness.Mail;
 import com.ems.bulkEmail.buisness.SimpleEmail;
 import com.ems.bulkEmail.buisness.SimpleEmailDetails;
 import com.ems.subscriberList.model.Subscriber;
+import com.ems.subscriberList.persistence.SubscriberDB;
 
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmailDetailsDb implements IEmailDetailsPersistence{
     public Connection connection;
@@ -144,5 +148,43 @@ public class EmailDetailsDb implements IEmailDetailsPersistence{
             emailDetails.openedTime=simpleDateFormat.parse(openedTime);
         }
         return emailDetails;
+    }
+
+    @Override
+    public List<EmailDetails> getAllEmailDetailsOfCampaign(String campaignId) {
+        if (connection != null) {
+            String sql = "select * from mail where campaign_id= \"" + campaignId + "\"";
+            try {
+                List<EmailDetails> emailDetailsList = new ArrayList<>();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    EmailDetails emailDetails = new SimpleEmailDetails();
+
+                    String subscriberId = rs.getString("sub_id");
+                    if(subscriberId != null){
+                        Subscriber subscriber =  new Subscriber().getSubscriberBySubscriberId(new SubscriberDB(MySqlPersistenceConnection.getInstance().getConnection()), subscriberId);
+                        if(subscriber != null){
+                            emailDetails.subscriber = subscriber;
+                        }
+                    }
+                    emailDetails.openedTime = rs.getTimestamp("open_time");
+                    emailDetails.sentTime = rs.getTimestamp("sent_time");
+                    emailDetails.numberOfTimesClicked = rs.getInt("number_of_times_clicked");
+                    emailDetails.numberOfTimesOpened = rs.getInt("number_of_times_opened");
+
+                    emailDetailsList.add(emailDetails);
+                }
+
+                return emailDetailsList;
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                return null;
+            }
+        }
+        return null;
     }
 }
