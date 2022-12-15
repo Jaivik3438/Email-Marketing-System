@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CampaignFetcherTest {
     private static CampaignFetcher campaignFetcher;
@@ -25,6 +26,23 @@ public class CampaignFetcherTest {
         assertEquals("Black Friday Campaign", actualData.get(0).getCampaignName());
         assertEquals("Summer Sale Campaign", actualData.get(1).getCampaignName());
         assertEquals("Spring Boot Course Campaign", actualData.get(2).getCampaignName());
+    }
 
+    @Test
+    public void fetchCampaignValidCampaignIdTest() {
+        Campaign campaign = campaignFetcher.fetchCampaign("1");
+        assertEquals("1", campaign.getCampaignId());
+    }
+
+    @Test
+    public void fetchCampaignCampaignNotFoundTest() {
+        Campaign campaign = campaignFetcher.fetchCampaign("4");
+        assertNull(campaign);
+    }
+
+    @Test
+    public void fetchAllCampaignByUserId() {
+        List<Campaign> campaigns = campaignFetcher.fetchAllCampaignByUserId("11");
+        assertEquals(1, campaigns.size());
     }
 }
