@@ -5,6 +5,8 @@ import com.ems.authentication.model.User;
 import javax.servlet.http.HttpSession;
 
 public class HttpSessionManager implements ISessionManager{
+
+    //function validates whether the user is logged in or not by checking the value stored in the session
     @Override
     public boolean validateSession(HttpSession session) {
         if(null==session.getAttribute("isLoggedIn")){

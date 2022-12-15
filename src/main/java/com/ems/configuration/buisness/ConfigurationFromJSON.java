@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class ConfigurationFromJSON extends Configuration {
 
     private ConfigurationFromJSON(){
@@ -17,11 +18,13 @@ public class ConfigurationFromJSON extends Configuration {
     }
     private static Configuration instance;
 
+    //function gets environment from the configuration  file
     @Override
     public String getEnvironmentFromConfiguration() {
         return env;
     }
 
+    //function returns the value of the key based on the environment requested
     @Override
     public String getConfigurationByKey(String env,String key) {
         return (String)configs.get(env).get(key);

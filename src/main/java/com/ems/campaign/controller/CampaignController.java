@@ -4,6 +4,7 @@ import com.ems.DbConnection.MySqlPersistenceConnection;
 import com.ems.bulkEmail.buisness.*;
 import com.ems.bulkEmail.persistence.EmailDetailsDb;
 import com.ems.bulkEmail.persistence.IEmailDetailsPersistence;
+import com.ems.bulkEmail.smtp.Gmail;
 import com.ems.campaign.model.*;
 import com.ems.campaign.persistent.CampaignDb;
 import com.ems.campaign.persistent.ICampaignPersistent;

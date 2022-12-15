@@ -1,4 +1,7 @@
-package com.ems.bulkEmail.buisness;
+package com.ems.bulkEmail.smtp;
+
+import com.ems.bulkEmail.buisness.EmailDetails;
+import com.ems.bulkEmail.buisness.ISendEmail;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -8,7 +11,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Date;
 import java.util.Properties;
 
-public class Gmail implements ISendEmail{
+public class Gmail implements ISendEmail {
     Properties props;
     String fromEmail;
     String password;
@@ -48,13 +51,11 @@ public class Gmail implements ISendEmail{
             msg=setMessage(msg,emailDetails);
             Transport.send(msg);
 
-        }catch (MessagingException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         }
 
-        return false;
+        return true ;
     }
     private MimeMessage setMessage(MimeMessage msg,EmailDetails emailDetails) throws Exception{
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");

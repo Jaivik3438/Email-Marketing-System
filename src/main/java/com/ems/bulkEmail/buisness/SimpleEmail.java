@@ -3,6 +3,7 @@ package com.ems.bulkEmail.buisness;
 import com.ems.email_template.model.EmailTemplate;
 import com.ems.email_template.model.Template;
 
+//the class represent a simple email without any analytics
 public class SimpleEmail extends Mail{
 
     @Override

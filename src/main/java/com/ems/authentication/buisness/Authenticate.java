@@ -17,9 +17,11 @@ public class Authenticate implements IAuthenticate{
                 user.password = hashingAlgorithm.hash(password);
                 User returnedUser = user.loadUser(userPersistence);
                 if (returnedUser==null){
+                    //returns unsuccessful login state if password does not match
                   return new UnSuccessfulLoginState().handle();
                 }
                 if (returnedUser.password.equalsIgnoreCase(user.password)){
+                    //returns successful login state if password matches
                     return new SuccessfulLoggedInState(returnedUser).handle();
                 }
                 }
@@ -29,6 +31,7 @@ public class Authenticate implements IAuthenticate{
          return new UnSuccessfulLoginState().handle();
     }
 
+    //the function removes the set values from session when called to log out the user
     @Override
     public HttpSession logout(HttpSession session) {
         session.removeAttribute("isLoggedIn");
